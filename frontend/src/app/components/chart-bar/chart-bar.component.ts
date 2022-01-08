@@ -38,7 +38,7 @@ export class ChartBarComponent implements OnInit {
         type: "bar"
       },
       title: {
-        text: "My First Angular Chart"
+        text: "Diferenca entre investir em XXX e Poupança"
       },
       xaxis: {
         categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]

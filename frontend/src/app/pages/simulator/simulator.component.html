@@ -1,50 +1,32 @@
-<h1>simulator works!</h1>
-
-<mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput>
-</mat-form-field>
-
-<mat-form-field>
-    <mat-label></mat-label>
-    <input placeholder="Just a placeholder">
-  </mat-form-field>
-  
-
 <div class="container">
+    <h1>Simulator</h1>
 
+    <mat-form-field appearance="fill">
+        <mat-label>Papel de Renda Fixa</mat-label>
+        <mat-select>
+            <mat-option value="LCA">LCA</mat-option>
+            <mat-option value="LCI">LCI</mat-option>
+            <mat-option value="Selic">Selic</mat-option>
+        </mat-select>
+    </mat-form-field>
 
+    <mat-form-field appearance="fill">
+        <mat-label>Depósito inicial</mat-label>
+        <input matInput>
+    </mat-form-field>
 
-    <div class="">
-        <label for="initialDeposit " class="form-label">Papel de Renda Fixa</label>
-        <select class="form-select" aria-label="Default select example" name="cars" id="cars">
-            <option value="LCA">LCA</option>
-            <option value="LCI">LCI</option>
-            <option value="Selic">Selic</option>
-        </select>
-    </div>
+    <mat-form-field appearance="fill">
+        <mat-label>Depósito final</mat-label>
+        <input matInput>
+    </mat-form-field>
 
+    <mat-slider aria-label="unit(s)"></mat-slider>
 
+    <mat-form-field appearance="fill">
+        <mat-label>Total de meses</mat-label>
+        <input matInput>
+    </mat-form-field>
 
-
-    <div class="mb-3">
-        <label for="initialDeposit " class="form-label">Depósito inicial</label>
-        <input type="number" class="form-control" id="initialDeposit " placeholder="">
-    </div>
-
-    <div class="mb-3">
-        <label for="monthlyDeposit" class="form-label">Depósito mensal</label>
-        <input type="number" class="form-control" id="monthlyDeposit" placeholder="" />
-    </div>
-
-
-    <div>
-        <label for="totalMonths " class="form-label">Total de meses</label>
-        <input type="range" class="form-range" id="totalMonths">
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="" />
-    </div>
-
-
+    <app-chart-bar></app-chart-bar>
 </div>
 
-<app-chart-bar></app-chart-bar>
