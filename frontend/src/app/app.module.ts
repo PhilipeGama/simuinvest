@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { NgApexchartsModule } from 'ng-apexcharts';
 
@@ -37,6 +39,7 @@ import { SimulationReportComponent } from './components/simulation-report/simula
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgApexchartsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -44,7 +47,8 @@ import { SimulationReportComponent } from './components/simulation-report/simula
     MatSliderModule,
     MatSelectModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
