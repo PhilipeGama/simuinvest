@@ -1,13 +1,26 @@
+
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
     width: 70%;
     padding-left: 15%;
-}
+     
+    .form {
 
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+
+    .div {
+
+    }
+
+    .amounts {
+        padding-left: 30px;
+        mat-form-field {
+            padding-right: 20px;
+        }
+    }
 }

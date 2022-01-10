@@ -1,43 +1,53 @@
 <div class="container">
-    <h1>Simulador de Renda Fixa</h1>
+    <div class="form">
 
+        <h1>Simulador de Renda Fixa</h1>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Opções de Renda Fixa</mat-label>
+            <mat-select [(ngModel)]="fixedInvest.name">
+                <mat-option value="LCA">LCA</mat-option>
+                <mat-option value="LCI">LCI</mat-option>
+                <mat-option value="Selic">Selic</mat-option>
+            </mat-select>
+        </mat-form-field>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Depósito inicial</mat-label>
+            <input type="number" [(ngModel)]="fixedInvest.initialDeposit" matInput>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Opções de Renda Fixa</mat-label>
-        <mat-select [(ngModel)]="fixedInvest.name">
-            <mat-option value="LCA">LCA</mat-option>
-            <mat-option value="LCI">LCI</mat-option>
-            <mat-option value="Selic">Selic</mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Depósito Mensal</mat-label>
+            <input type="number" [(ngModel)]="fixedInvest.monthlyDeposit" matInput>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Depósito inicial</mat-label>
-        <input type="number" [(ngModel)]="fixedInvest.initialDeposit" matInput>
-    </mat-form-field>
+        <mat-slider [(ngModel)]="fixedInvest.months" aria-label="unit(s)"></mat-slider>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Depósito Mensal</mat-label>
-        <input type="number" [(ngModel)]="fixedInvest.monthlyDeposit" matInput>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Total de meses</mat-label>
+            <input type="number" [(ngModel)]="fixedInvest.months" matInput>
+        </mat-form-field>
 
-    <mat-slider [(ngModel)]="fixedInvest.months" aria-label="unit(s)"></mat-slider>
+        <button mat-raised-button color="primary" (click)="showCalc()">Calcular</button>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Total de meses</mat-label>
-        <input type="number" [(ngModel)]="fixedInvest.months" matInput>
-    </mat-form-field>
+ 
+    </div>
 
-    <button mat-raised-button color="primary" (click)="showCalc()">Calcular</button>
+    <div>
+        <app-chart-bar></app-chart-bar>
+        <div class="amounts">
+            <mat-form-field appearance="fill">
+                <mat-label>Valor total poupança</mat-label>
+                <input [(ngModel)]="fixedInvest.amount" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Valor total renda fixa</mat-label>
+                <input [(ngModel)]="fixedInvest.amount" matInput>
+            </mat-form-field>
+            <button mat-raised-button color="primary" >Salvar</button>
+        </div>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Valor total</mat-label>
-        <input [(ngModel)]="fixedInvest.amount" matInput>
-    </mat-form-field>
-
-    <!-- <app-chart-bar></app-chart-bar> -->
-
+    </div>
     <!-- <app-simulation-report></app-simulation-report> -->
 </div>
