@@ -1,7 +1,8 @@
 export default interface FixedIncome {
-    id: number
+    id?: number
     sigla: string
     name: string
     date: Date
     rate: number
 }
+

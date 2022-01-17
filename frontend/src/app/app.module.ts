@@ -32,6 +32,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { LoginComponent } from './pages/login/login.component';
 import { SimulationReportComponent } from './components/simulation-report/simulation-report.component';
 import { HeaderComponent } from './components/templates/header/header.component';
+import { LoggedComponent } from './pages/logged/logged.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { HeaderComponent } from './components/templates/header/header.component'
     ChartBarComponent,
     LoginComponent,
     SimulationReportComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoggedComponent
   ],
   imports: [
     BrowserModule,

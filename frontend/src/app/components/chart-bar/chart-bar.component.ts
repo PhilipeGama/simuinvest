@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges } from '@angular/core';
 
 import {
   ChartComponent,
@@ -10,6 +10,8 @@ import {
   ApexStroke,
   ApexGrid
 } from "ng-apexcharts";
+import FixedIncome from 'src/app/models/FixedIncome';
+import FixedInvest from 'src/app/models/FixedInvest';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -24,22 +26,43 @@ export type ChartOptions = {
 @Component({
   selector: 'app-chart-bar',
   templateUrl: './chart-bar.component.html',
-  styleUrls: ['./chart-bar.component.scss']
+  styleUrls: ['./chart-bar.component.scss'],
 })
 export class ChartBarComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions> | any;
 
+  @Input() chartDataMockup: any;
+ 
+
+
+  categories = [
+    "Inicio",
+    "Fim",
+  ]
+
+  poupanca: number[] = [];
+
   constructor() {
+  }
+
+
+  ngOnInit(): void {
+    
+    this.createChartLineBar()
+  }
+  
+  createChartLineBar(){
+
     this.chartOptions = {
       series: [
         {
-          name: "Poupança",
-          data: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+          name: this.chartDataMockup[0].fixedIncome,
+          data: [this.chartDataMockup[0].initialValue, this.chartDataMockup[0].amount]
         },
         {
-          name: "X",
-          data: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+          name: this.chartDataMockup[1].fixedIncome,
+          data: [this.chartDataMockup[1].initialValue, this.chartDataMockup[1].amount]
         }
       ],
       chart: {
@@ -56,7 +79,7 @@ export class ChartBarComponent implements OnInit {
         curve: "straight"
       },
       title: {
-        text: "Redimento de X em relação a poupança",
+        text: `Redimento de ${this.chartDataMockup.fixedIncome} em relação a poupança`,
         align: "left"
       },
       grid: {
@@ -66,23 +89,39 @@ export class ChartBarComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep"
-        ]
+        categories: this.categories
       }
     };
   }
 
 
-  ngOnInit(): void {
+  loadChart(){
+    console.log("this.chartDataMockup[0]")
+    console.log(this.chartDataMockup[0])
+    console.log("this.chartDataMockup[1]")
+    console.log(this.chartDataMockup[1])
+    let initialValue = this.chartDataMockup.initialValue - (this.chartDataMockup.initialValue * 0.20);
+    let amount = this.chartDataMockup.amount - (this.chartDataMockup.amount * 0.20);
+    
+    initialValue = parseFloat(initialValue.toFixed(2));
+    amount = parseFloat(amount.toFixed(2));
+
+    console.log(initialValue)
+
+    let valuesMockup = [initialValue, amount]
+
+    valuesMockup.map((value: number) => {
+      // console.log(value);
+      this.poupanca.push(value)
+    })
+
+    // console.log(this.chartOptions.series[0]);
+    // this.chartOptions.series[0].data = this.poupanca;
+    this.createChartLineBar();
   }
+
+
+
+
 
 }

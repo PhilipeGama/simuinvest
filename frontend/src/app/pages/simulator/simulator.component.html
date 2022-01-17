@@ -5,10 +5,11 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Opções de Renda Fixa</mat-label>
-            <mat-select [(ngModel)]="fixedInvest.name">
-                <mat-option value="LCA">LCA</mat-option>
-                <mat-option value="LCI">LCI</mat-option>
-                <mat-option value="Selic">Selic</mat-option>
+            <mat-select [(ngModel)]="selectedFixedIncome">
+                <mat-option *ngFor="let fixedIncome of fixedIncomes" [value]="fixedIncome">
+                    {{fixedIncome.sigla}}
+                </mat-option>
+
             </mat-select>
         </mat-form-field>
 
@@ -29,17 +30,18 @@
             <input type="number" [(ngModel)]="fixedInvest.months" matInput>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="showCalc()">Calcular</button>
+        <button mat-raised-button color="primary" (click)="fixedIncomeCalculation()">Calcular</button>
 
  
     </div>
 
     <div>
-        <app-chart-bar></app-chart-bar>
+        <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="fixedIncomeCalculation"></app-chart-bar>
+
         <div class="amounts">
             <mat-form-field appearance="fill">
                 <mat-label>Valor total poupança</mat-label>
-                <input [(ngModel)]="fixedInvest.amount" matInput>
+                <input [(ngModel)]="fixedIncomesSavings.amount" matInput>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Valor total renda fixa</mat-label>
