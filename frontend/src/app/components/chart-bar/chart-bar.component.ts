@@ -79,7 +79,7 @@ export class ChartBarComponent implements OnInit {
         curve: "straight"
       },
       title: {
-        text: `Redimento de ${this.chartDataMockup.fixedIncome} em relação a poupança`,
+        text: `Redimento de ${this.chartDataMockup[1].fixedIncome} em relação a  ${this.chartDataMockup[0].fixedIncome} `,
         align: "left"
       },
       grid: {

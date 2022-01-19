@@ -68,13 +68,13 @@ export class SimulatorComponent implements OnInit {
 
   chartDataMockup: any[] = [
     {
-      fixedIncome: '',
+      fixedIncome: 'Poupança',
       initialValue: 0,
       amount: 0,
       mounts: 0,
     },
     {
-      fixedIncome: '',
+      fixedIncome: 'Poupança',
       initialValue: 0,
       amount: 0,
       mounts: 0,
