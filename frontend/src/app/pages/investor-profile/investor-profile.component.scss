@@ -1,0 +1,64 @@
+li {
+    list-style: none;
+}
+
+.quest {
+    width: 70%;
+
+    background-color: #3f51b5;
+    height: 180px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    align-items: center;
+    min-height: 50px;
+    display: flex;
+
+
+    padding-top: 12px;
+}
+
+.quest-container {
+    display: flex;
+    margin-left: 10%;
+    input {
+        margin-right: 10px;
+    }
+}
+
+.questionTitle {
+    text-align: center;
+}
+.questionCount {
+    align-self: flex-end;
+    margin-right: 10%;
+}
+
+.quests-container {
+  
+
+    width: 100%;
+    border-color: #3f51b5;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .btn-container {
+        justify-content: center;
+    }
+}
+
+.btn-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    padding-left: 10%;
+    margin-top: 10vh;
+}

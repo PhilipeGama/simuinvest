@@ -22,6 +22,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu'; 
+import {MatRadioModule} from '@angular/material/radio'; 
 
 import {
   MatSidenavModule
@@ -33,6 +35,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SimulationReportComponent } from './components/simulation-report/simulation-report.component';
 import { HeaderComponent } from './components/templates/header/header.component';
 import { LoggedComponent } from './pages/logged/logged.component';
+import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { LoggedComponent } from './pages/logged/logged.component';
     LoginComponent,
     SimulationReportComponent,
     HeaderComponent,
-    LoggedComponent
+    LoggedComponent,
+    InvestorProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,9 @@ import { LoggedComponent } from './pages/logged/logged.component';
     MatTableModule,
     MatIconModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatMenuModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
