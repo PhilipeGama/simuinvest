@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+interface User {
+  email: string
+  password: string
+}
 
 @Component({
   selector: 'app-root',
@@ -9,8 +13,17 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
 
+  user: User = {
+    email: 'teste@gmail.com',
+    password: 'senha123'
+  }
+
+
+  logged: boolean = true;
 
   constructor() {
 
   }
+
+  
 }

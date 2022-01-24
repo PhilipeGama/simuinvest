@@ -4,7 +4,6 @@ li {
 
 .quest {
     width: 70%;
-
     background-color: #3f51b5;
     height: 180px;
     border-radius: 30px;
@@ -12,14 +11,12 @@ li {
     align-items: center;
     min-height: 50px;
     display: flex;
-
-
     padding-top: 12px;
 }
 
 .quest-container {
     display: flex;
-    margin-left: 10%;
+    margin-left: 15%;
     input {
         margin-right: 10px;
     }
@@ -60,5 +57,4 @@ li {
     gap: 10px;
     width: 80%;
     padding-left: 10%;
-    margin-top: 10vh;
 }

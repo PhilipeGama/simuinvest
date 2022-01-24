@@ -36,6 +36,7 @@ import { SimulationReportComponent } from './components/simulation-report/simula
 import { HeaderComponent } from './components/templates/header/header.component';
 import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { InvestorProfileComponent } from './pages/investor-profile/investor-prof
     SimulationReportComponent,
     HeaderComponent,
     LoggedComponent,
-    InvestorProfileComponent
+    InvestorProfileComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
