@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -37,6 +37,7 @@ import { HeaderComponent } from './components/templates/header/header.component'
 import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
 
 @NgModule({
   declarations: [
@@ -48,12 +49,14 @@ import { HomeComponent } from './pages/home/home.component';
     HeaderComponent,
     LoggedComponent,
     InvestorProfileComponent,
-    HomeComponent
+    HomeComponent,
+    LoadingSpinner
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     NgApexchartsModule,

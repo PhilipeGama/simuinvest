@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, NgForm, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AuthResponseData, AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,13 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
-  
-  hide = true;
 
-  constructor() { }
+  hide = true;
+  isLoginMode = false;
+  isLoading = false;
+  error?: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -25,4 +30,40 @@ export class LoginComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
+
+  changeMode(){
+    this.isLoginMode = !this.isLoginMode;
+  }
+
+
+
+  onSubmit(form: NgForm) {
+    if (!form.valid) {
+      return
+    }
+
+    let authObs: Observable<AuthResponseData>;
+
+    const email = form.value.email;
+    const password = form.value.password;
+    this.isLoading = true;
+    if(this.isLoginMode){
+      console.log('login')
+      authObs = this.authService.login(email, password);
+    } else {
+      console.log('singup')
+      authObs = this.authService.signUp(email, password);
+    }
+  
+    authObs.subscribe(resData => {
+      console.log(resData)
+      this.isLoading = false;
+    },
+    errorMessage => {
+      this.error = errorMessage;
+      this.isLoading = false;
+    });
+
+    form.reset();
+  }
 }

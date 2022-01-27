@@ -1,26 +1,35 @@
+
 <div class="container">
+    <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+
+<form class="container" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+
+    <div>
+        <p>{{ error }}</p>
+    </div>
     <h1>Login</h1>
     <h2>Efetuer seu login</h2>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" ngModel name="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" [formControl]="email" required>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" ngModel name="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Senha</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-
-    <a mat-stroked-button href="https://www.google.com/" target="_blank">Criar conta</a>
-    <button mat-raised-button color="primary">Entrar</button>
-    <button mat-raised-button color="primary">Sair</button>
-
-
+        <a mat-stroked-button (click)="changeMode()" >{{isLoginMode ? 'Cadastrar Conta' : 'Fazer Login'}}</a>
+        <button mat-raised-button color="primary" type="submit">{{isLoginMode ? 'Login' : 'Cadastrar'}}</button>
+        <button mat-raised-button color="primary">Sair</button>
+</form>
 </div>
+

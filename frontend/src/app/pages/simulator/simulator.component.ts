@@ -33,6 +33,7 @@ export class SimulatorComponent implements OnInit {
     rate: 0,
     date: new Date(),
   };
+
   fixedIncomes: FixedIncome[] = [{
     id: 1,
     sigla: 'LCA',
