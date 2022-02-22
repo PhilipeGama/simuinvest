@@ -33,9 +33,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { LoginComponent } from './pages/login/login.component';
 import { SimulationReportComponent } from './components/simulation-report/simulation-report.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { HeaderComponent } from './components/templates/header/header.component';
 import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
+
 import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
 
@@ -50,7 +52,8 @@ import { LoadingSpinner } from './components/templates/loading-spinner/loading-s
     LoggedComponent,
     InvestorProfileComponent,
     HomeComponent,
-    LoadingSpinner
+    LoadingSpinner,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

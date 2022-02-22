@@ -29,7 +29,7 @@
 
         <a mat-stroked-button (click)="changeMode()" >{{isLoginMode ? 'Cadastrar Conta' : 'Fazer Login'}}</a>
         <button mat-raised-button color="primary" type="submit">{{isLoginMode ? 'Login' : 'Cadastrar'}}</button>
-        <button mat-raised-button color="primary">Sair</button>
+        <button mat-raised-button color="primary" (click)="show()">Sair</button>
 </form>
 </div>
 

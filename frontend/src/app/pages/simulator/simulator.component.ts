@@ -52,7 +52,7 @@ export class SimulatorComponent implements OnInit {
   fixedInvest: FixedInvest = {
     name: '',
     rate: 1.5,
-    initialDeposit: 0,
+    initialDeposit: null,
     monthlyDeposit: 0,
     months: 0,
     amount: 0,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import questionsJSON from '../../_files/questions.json';
 
 
 interface Questions {
@@ -20,23 +20,8 @@ export class InvestorProfileComponent implements OnInit {
 
 
 
-  questions: Questions[] = [
-    {
-      question01: 'Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.',
-      question02: 'pergunta 1 2',
-      question03: 'pergunta 1 3',
-    },
-    {
-      question01: 'pergunta 2 1',
-      question02: 'pergunta 2 2',
-      question03: 'pergunta 2 3',
-    },
-    {
-      question01: 'pergunta 3 1',
-      question02: 'pergunta 3 2',
-      question03: 'pergunta 3 3',
-    }
-  ]
+public questions: Questions[] = questionsJSON
+ 
 
 
   questionNumber: number = 0;
@@ -47,6 +32,8 @@ export class InvestorProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // this.questions = ;
+    console.log(this.questions)
   }
 
 

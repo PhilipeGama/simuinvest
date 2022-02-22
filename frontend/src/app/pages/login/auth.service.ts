@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core";
-import { of, throwError } from "rxjs";
-import { catchError } from 'rxjs/operators'
+import { of, throwError, Subject, BehaviorSubject } from "rxjs";
+import { catchError, tap } from 'rxjs/operators'
+import { User } from "./user.model";
 
 
 export interface AuthResponseData {
@@ -18,6 +19,9 @@ export interface AuthResponseData {
     providedIn: 'root'
 })
 export class AuthService {
+
+    user = new BehaviorSubject<User>(null);
+
     API_key = "AIzaSyBBleMGlwxTJgj9TKSUYmcjrUCcZYDu4jc";
 
     register_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.API_key;
@@ -43,7 +47,7 @@ export class AuthService {
                 }
                 return throwError(errorMessage);
             })
-        );
+            );
     }
 
     login(email: string, password: string) {
@@ -51,10 +55,43 @@ export class AuthService {
             email: email,
             password: password,
             returnSecureToken: true
-        }).pipe(catchError(this.handlerError))
+        }).pipe(catchError(this.handlerError), tap(resData => {
+            localStorage.setItem('userData', JSON.stringify(resData));
+            this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn)
+        }))
     }
 
-    private handlerError(errorRes: HttpErrorResponse){
+    autoLogin() {
+        const userData: {
+            email: string;
+            id: string;
+            _token: string;
+            _tokenExpirationDate: string;
+        } = JSON.parse(localStorage.getItem('userData'));
+
+        if (!userData) {
+            return;
+        }
+
+        const loadedUser = new User(userData.id, 
+            userData.email, 
+            userData._token,
+            new Date(userData._tokenExpirationDate))
+    }
+
+    logout(){
+        
+    }
+
+    private handleAuthenticaton(id: string, email: string, token: string, expiresIn: number) {
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
+        const user = new User(id, email, token, expirationDate);
+
+        this.user.next(user);
+        console.log('handleAuth')
+    }
+
+    private handlerError(errorRes: HttpErrorResponse) {
         let errorMessage = 'An unknown error ocurred!'
         if (!errorRes.error || !errorRes.error.error) {
             return throwError(errorMessage);
@@ -62,9 +99,9 @@ export class AuthService {
         switch (errorRes.error.error.message) {
             case 'EMAIL_EXISTS':
                 errorMessage = 'This email exist already';
-            break;
+                break;
             case 'EMAIL_NOT_FOUND':
-                errorMessage ='This email not found'
+                errorMessage = 'This email not found'
                 break;
             case 'INVALID_PASSWORD':
                 errorMessage = 'This password is not correct'

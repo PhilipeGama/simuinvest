@@ -1,26 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   email = new FormControl('', [Validators.required, Validators.email]);
 
+  private userSub: Subscription;
+
+  private user1: User;
+
+  user : User;
   hide = true;
   isLoginMode = false;
   isLoading = false;
   error?: string;
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) { }
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
   }
 
+
+  ngOnInit(): void {
+    this.userSub = this.authService.user.subscribe(user => {
+    });
+  }
+
+  show(){
+    console.log(this.user1)
+  }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -48,16 +64,14 @@ export class LoginComponent implements OnInit {
     const password = form.value.password;
     this.isLoading = true;
     if(this.isLoginMode){
-      console.log('login')
       authObs = this.authService.login(email, password);
     } else {
-      console.log('singup')
       authObs = this.authService.signUp(email, password);
     }
   
     authObs.subscribe(resData => {
-      console.log(resData)
       this.isLoading = false;
+      this.router.navigate(['/'])
     },
     errorMessage => {
       this.error = errorMessage;
