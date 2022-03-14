@@ -1,18 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import FixedIncome from 'src/app/models/FixedIncome';
 import FixedInvest from 'src/app/models/FixedInvest';
 
-// interface FixedInvest {
-//   name: string,
-//   rate: number,
-//   initialDeposit: number,
-//   monthlyDeposit: number,
-//   months: number,
-//   amount: number
-// }
-
-
+interface Hero {
+  name: string
+}
 
 
 @Component({
@@ -22,10 +16,16 @@ import FixedInvest from 'src/app/models/FixedInvest';
 })
 
 export class SimulatorComponent implements OnInit {
+  selectFixedIncomeControl = new FormControl('', Validators.required)
+  mounthsControl = new FormControl('', Validators.required)
 
+  hero: Hero;
+
+  mounth = [0, 3 ,6, 12, 24, 48]
   @ViewChild(ChartBarComponent)
   child: ChartBarComponent = new ChartBarComponent;
 
+  value: any;
   selectedFixedIncome: FixedIncome = {
     id: 0,
     sigla: '',
@@ -42,7 +42,7 @@ export class SimulatorComponent implements OnInit {
     date: new Date('2022-01-01'),
   },
   {
-    id: 1,
+    id: 2,
     sigla: 'LCI',
     name: 'LCI',
     rate: 1.5,
@@ -52,9 +52,9 @@ export class SimulatorComponent implements OnInit {
   fixedInvest: FixedInvest = {
     name: '',
     rate: 1.5,
-    initialDeposit: null,
+    initialDeposit: 0,
     monthlyDeposit: 0,
-    months: 0,
+    months: null,
     amount: 0,
   }
 
@@ -75,7 +75,7 @@ export class SimulatorComponent implements OnInit {
       mounts: 0,
     },
     {
-      fixedIncome: 'Poupança',
+      fixedIncome: 'X',
       initialValue: 0,
       amount: 0,
       mounts: 0,
@@ -87,7 +87,8 @@ export class SimulatorComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
+  //TODO: move to service
   savingsCalculation() {
     const { initialDeposit, monthlyDeposit, months } = this.fixedInvest;
 
@@ -108,6 +109,9 @@ export class SimulatorComponent implements OnInit {
   //TODO: choose a better name, move to service
   fixedIncomeCalculation() {
     this.savingsCalculation();
+
+    console.log("fixedcontrol value" )
+    console.log(this.selectFixedIncomeControl.value.sigla)
     const { rate, initialDeposit, monthlyDeposit, months } = this.fixedInvest;
 
     let amount = initialDeposit + monthlyDeposit;
@@ -119,6 +123,7 @@ export class SimulatorComponent implements OnInit {
     amount = parseFloat(amount.toFixed(2));
     this.fixedInvest.amount = amount;
 
+    console.log(this.selectedFixedIncome)
     this.chartDataMockup[1].fixedIncome = this.selectedFixedIncome.sigla;
     this.chartDataMockup[1].mounts = months;
     this.chartDataMockup[1].initialValue = initialDeposit + monthlyDeposit;

@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatRadioModule} from '@angular/material/radio'; 
+import {MatCardModule} from '@angular/material/card'; 
 
 import {
   MatSidenavModule
@@ -40,6 +43,7 @@ import { InvestorProfileComponent } from './pages/investor-profile/investor-prof
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +58,7 @@ import { LoadingSpinner } from './components/templates/loading-spinner/loading-s
     HomeComponent,
     LoadingSpinner,
     EditProfileComponent,
+    TutorialComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import { LoadingSpinner } from './components/templates/loading-spinner/loading-s
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
     FlexLayoutModule,
     NgApexchartsModule,
     BrowserAnimationsModule,
@@ -74,7 +80,8 @@ import { LoadingSpinner } from './components/templates/loading-spinner/loading-s
     MatToolbarModule,
     MatSidenavModule,
     MatMenuModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
