@@ -19,8 +19,6 @@ export class SimulatorComponent implements OnInit {
   selectFixedIncomeControl = new FormControl('', Validators.required)
   mounthsControl = new FormControl('', Validators.required)
 
-  hero: Hero;
-
   mounth = [0, 3 ,6, 12, 24, 48]
   @ViewChild(ChartBarComponent)
   child: ChartBarComponent = new ChartBarComponent;

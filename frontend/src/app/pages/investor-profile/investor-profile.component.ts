@@ -38,7 +38,7 @@ public questions: Questions[] = questionsJSON
 
 
   nextQuest(){
-    if(this.questionNumber < 1 && this.questions[this.questionNumber].answer != undefined){
+    if(this.questionNumber < 4 && this.questions[this.questionNumber].answer != undefined){
       this.questionNumber++;
     }
 

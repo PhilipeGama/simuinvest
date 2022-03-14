@@ -1,46 +1,42 @@
-
 <div class="container">
+    <h2 class="question-title">Teste Perfil de Investidor</h2>
+    <div class="questions-container">
+        <span class="question-count">{{questionNumber + 1}}/05</span>
+        <ul>
+            <li>
+                <div class="question-container">
+                    <input type="radio" name="answer" [value]="1" [(ngModel)]="questions[questionNumber].answer">
+                    <div class="question-item">
 
-<div class="quests-container">
-    <h2 class="questionTitle">Teste Perfil de Investidor</h2>
-
-    <span class="questionCount">{{questionNumber + 1}}/05</span>
-    <ul>
-        <li>
-            <div class="quest-container">
-                <input type="radio" name="answer" [value]="1" [(ngModel)]="questions[questionNumber].answer">
-                <div class="quest">
-
-                    <p>{{questions[questionNumber].question01}}</p>
+                        <p>{{questions[questionNumber].question01}}</p>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <li>
-            <div class="quest-container">
-                <input type="radio" name="answer" [value]="2" [(ngModel)]="questions[questionNumber].answer">
-                <div class="quest">
-                    <p>{{questions[questionNumber].question01}}</p>
+            <li>
+                <div class="question-container">
+                    <input type="radio" name="answer" [value]="2" [(ngModel)]="questions[questionNumber].answer">
+                    <div class="question-item">
+                        <p>{{questions[questionNumber].question01}}</p>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <li>
-            <div class="quest-container">
-                <input type="radio" name="answer" [value]="3" [(ngModel)]="questions[questionNumber].answer">
-
-                <div class="quest">
-                    <p>{{questions[questionNumber].question01}}</p>
-
+            <li>
+                <div class="question-container">
+                    <input type="radio" name="answer" [value]="3" [(ngModel)]="questions[questionNumber].answer">
+                    <div class="question-item">
+                        <p>{{questions[questionNumber].question01}}</p>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-    </ul>
-    <div class="btn-container">
+        </ul>
+
+    </div>
+
+    <div class="btn-group">
         <button (click)="previousQuestion()" mat-raised-button color="primary">Anterior</button>
         <button (click)="nextQuest()" mat-raised-button color="primary">Proximo</button>
     </div>
-</div>
-
 </div>

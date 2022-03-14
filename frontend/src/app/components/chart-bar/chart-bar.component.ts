@@ -96,27 +96,19 @@ export class ChartBarComponent implements OnInit {
 
 
   loadChart(){
-    console.log("this.chartDataMockup[0]")
-    console.log(this.chartDataMockup[0])
-    console.log("this.chartDataMockup[1]")
-    console.log(this.chartDataMockup[1])
     let initialValue = this.chartDataMockup.initialValue - (this.chartDataMockup.initialValue * 0.20);
     let amount = this.chartDataMockup.amount - (this.chartDataMockup.amount * 0.20);
     
     initialValue = parseFloat(initialValue.toFixed(2));
     amount = parseFloat(amount.toFixed(2));
 
-    console.log(initialValue)
 
     let valuesMockup = [initialValue, amount]
 
     valuesMockup.map((value: number) => {
-      // console.log(value);
       this.poupanca.push(value)
     })
 
-    // console.log(this.chartOptions.series[0]);
-    // this.chartOptions.series[0].data = this.poupanca;
     this.createChartLineBar();
   }
 
