@@ -1,67 +1,72 @@
 <div class="container">
-    <div #myForm class="form">
+    <h1>Simulador de Renda Fixa</h1>
 
-        <h1>Simulador de Renda Fixa</h1>
-   
-        <mat-form-field appearance="fill">
-            
-            <mat-label>Opções de Renda Fixa</mat-label>
-            <mat-select [formControl]="selectFixedIncomeControl" required>
-                <mat-option *ngFor="let fixedIncome of fixedIncomes" [value]="fixedIncome" >
-                    {{fixedIncome.sigla}}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="selectFixedIncomeControl.hasError('required')">Por favor selecione uma renda fixa</mat-error>
-            <mat-hint>{{selectFixedIncomeControl.value?.sound}}</mat-hint>
-        </mat-form-field>
-  
-        
-        <mat-form-field appearance="fill">
-            <mat-label>Depósito inicial</mat-label>
-            <input currencyMask [(ngModel)]="fixedInvest.initialDeposit" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput>
-        </mat-form-field>
-
-       
-
-        <mat-form-field appearance="fill">
-            <mat-label>Depósito Mensal</mat-label>
-            <input currencyMask [(ngModel)]="fixedInvest.monthlyDeposit" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"  matInput/>
-            <!-- <input type="number" [(ngModel)]="fixedInvest.monthlyDeposit" matInput> -->
-        </mat-form-field>
-
-        <mat-slider [(ngModel)]="fixedInvest.months" aria-label="unit(s)"></mat-slider>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Total de meses</mat-label>
-            <input type="number" [(ngModel)]="fixedInvest.months" [formControl]="mounthsControl" required matInput>
-            <mat-error *ngIf="mounthsControl.hasError('required')">Por favor selecione uma renda fixa</mat-error>
-            <mat-hint>{{mounthsControl.value?.sound}}</mat-hint>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)="fixedIncomeCalculation()" [disabled]="selectFixedIncomeControl.hasError('required') || mounthsControl.hasError('required')">Calcular</button>
-
- 
-    </div>
-
-    <div>
-        <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="fixedIncomeCalculation"></app-chart-bar>
-
-        <div class="amounts">
+    <div class="simulator-container">
+        <div #myForm class="form">
             <mat-form-field appearance="fill">
-                <mat-label>Valor total poupança</mat-label>
-                <input currencyMask [(ngModel)]="fixedIncomesSavings.amount"  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput/>
+
+                <mat-label>Opções de Renda Fixa</mat-label>
+                <mat-select [formControl]="selectFixedIncomeControl" required>
+                    <mat-option *ngFor="let fixedIncome of fixedIncomes" [value]="fixedIncome">
+                        {{fixedIncome.sigla}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="selectFixedIncomeControl.hasError('required')">Por favor selecione uma renda fixa
+                </mat-error>
+                <mat-hint>{{selectFixedIncomeControl.value?.sound}}</mat-hint>
             </mat-form-field>
+
+
             <mat-form-field appearance="fill">
-                <mat-label>Valor total renda fixa</mat-label>
-                <input currencyMask [(ngModel)]="fixedInvest.amount" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"  disabled matInput>
+                <mat-label>Depósito inicial</mat-label>
+                <input currencyMask [(ngModel)]="fixedInvest.initialDeposit"
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput>
             </mat-form-field>
-            <button mat-raised-button color="primary" >Salvar</button>
+
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Depósito Mensal</mat-label>
+                <input currencyMask [(ngModel)]="fixedInvest.monthlyDeposit"
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput />
+                <!-- <input type="number" [(ngModel)]="fixedInvest.monthlyDeposit" matInput> -->
+            </mat-form-field>
+
+            <mat-slider [(ngModel)]="fixedInvest.months" aria-label="unit(s)"></mat-slider>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Total de meses</mat-label>
+                <input type="number" [(ngModel)]="fixedInvest.months" [formControl]="mounthsControl" required matInput>
+                <mat-error *ngIf="mounthsControl.hasError('required')">Por favor selecione uma renda fixa</mat-error>
+                <mat-hint>{{mounthsControl.value?.sound}}</mat-hint>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="fixedIncomeCalculation()"
+                [disabled]="selectFixedIncomeControl.hasError('required') || mounthsControl.hasError('required')">Calcular</button>
+
+
         </div>
 
+        <div class="simulator-chart">
+            <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="fixedIncomeCalculation"></app-chart-bar>
+
+            <div class="amounts">
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor total poupança</mat-label>
+                    <input currencyMask [(ngModel)]="fixedIncomesSavings.amount"
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor total renda fixa</mat-label>
+                    <input currencyMask [(ngModel)]="fixedInvest.amount"
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Salvar</button>
+            </div>
+
+        </div>
+        <!-- <app-simulation-report></app-simulation-report> -->
     </div>
-    <!-- <app-simulation-report></app-simulation-report> -->
 
 
- 
 </div>
-

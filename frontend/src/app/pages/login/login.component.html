@@ -27,8 +27,8 @@
             </button>
         </mat-form-field>
 
-        <a mat-stroked-button (click)="changeMode()" >{{isLoginMode ? 'Cadastrar Conta' : 'Fazer Login'}}</a>
-        <button mat-raised-button color="primary" type="submit">{{isLoginMode ? 'Login' : 'Cadastrar'}}</button>
+        <a mat-stroked-button (click)="onLogin(authForm)">Fazer Login</a>
+        <button mat-raised-button color="primary" routerLink="/register">Cadastrar</button>
         <button mat-raised-button color="primary" (click)="show()">Sair</button>
 </form>
 </div>

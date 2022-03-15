@@ -53,6 +53,34 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
 
+  onLogin(form: NgForm){
+    console.log(form.value)
+    if (!form.valid) {
+      return
+    }
+
+    let authObs: Observable<AuthResponseData>;
+
+    const email = form.value.email;
+    const password = form.value.password;
+    this.isLoading = true;
+ 
+    authObs = this.authService.login(email, password);
+
+    authObs.subscribe(resData => {
+      this.isLoading = false;
+      this.router.navigate(['/'])
+    },
+    errorMessage => {
+      this.error = errorMessage;
+      this.isLoading = false;
+    });
+
+    form.reset();
+  }
+
+
+
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return
@@ -80,4 +108,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     form.reset();
   }
+
+
+
 }

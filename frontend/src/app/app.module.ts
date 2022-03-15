@@ -24,9 +24,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu'; 
-import {MatRadioModule} from '@angular/material/radio'; 
-import {MatCardModule} from '@angular/material/card'; 
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import {
   MatSidenavModule
@@ -44,6 +46,7 @@ import { InvestorProfileComponent } from './pages/investor-profile/investor-prof
 import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     LoadingSpinner,
     EditProfileComponent,
     TutorialComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,8 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     MatSidenavModule,
     MatMenuModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

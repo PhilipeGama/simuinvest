@@ -6,6 +6,7 @@ import { InvestorProfileComponent } from './pages/investor-profile/investor-prof
 import { LoggedComponent } from './pages/logged/logged.component';
 import { AuthGuard } from './pages/login/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: '',

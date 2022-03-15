@@ -1,0 +1,62 @@
+<form class="container">
+    <h1>Registre-se</h1>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput [formControl]="nameFormControl">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+            Nome é obrigatório
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. joao@example.com">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Por favor insira um endereço de e-mail válido
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email é <strong>obrigatório</strong>
+        </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input type="password" [formControl]="passwordFormControl" matInput>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Senha é obrigatório
+        </mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Confirma Senha</mat-label>
+        <input type="password" [formControl]="confirmPasswordFormControl"  matInput>
+        <mat-error *ngIf="confirmPasswordFormControl.hasError('required')">
+            Confirmar senha é obrigatório
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Celular</mat-label>
+        <input placeholder="(55) 55555-5555" [formControl]="phoneFormControl" matInput>
+        <mat-error *ngIf="phoneFormControl.hasError('required')">
+            Telefone é obrigatório
+        </mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Celular</mat-label>
+        <span matPrefix>+55 &nbsp;</span>
+        <input type="tel" matInput placeholder="(55) 55555-5555">
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field> -->
+
+
+    <div class="btn-group">
+        <button mat-raised-button color="primary" style="margin-right: 10px" >Cadastra-se</button>
+        <button mat-raised-button color="primary" routerLink="/login">Voltar para Login</button>
+    </div>
+
+</form>

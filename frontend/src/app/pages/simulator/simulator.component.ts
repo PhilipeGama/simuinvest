@@ -4,11 +4,6 @@ import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.compon
 import FixedIncome from 'src/app/models/FixedIncome';
 import FixedInvest from 'src/app/models/FixedInvest';
 
-interface Hero {
-  name: string
-}
-
-
 @Component({
   selector: 'app-simulator',
   templateUrl: './simulator.component.html',
@@ -122,7 +117,7 @@ export class SimulatorComponent implements OnInit {
     this.fixedInvest.amount = amount;
 
     console.log(this.selectedFixedIncome)
-    this.chartDataMockup[1].fixedIncome = this.selectedFixedIncome.sigla;
+    this.chartDataMockup[1].fixedIncome = this.selectFixedIncomeControl.value.sigla;
     this.chartDataMockup[1].mounts = months;
     this.chartDataMockup[1].initialValue = initialDeposit + monthlyDeposit;
     this.chartDataMockup[1].amount = amount;

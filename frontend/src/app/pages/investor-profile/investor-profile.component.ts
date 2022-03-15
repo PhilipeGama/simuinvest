@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import questionsJSON from '../../_files/questions.json';
 
 
@@ -29,7 +30,7 @@ public questions: Questions[] = questionsJSON
   investorProfile: string = '';
 
 
-  constructor() { }
+  constructor(private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // this.questions = ;
@@ -40,6 +41,12 @@ public questions: Questions[] = questionsJSON
   nextQuest(){
     if(this.questionNumber < 4 && this.questions[this.questionNumber].answer != undefined){
       this.questionNumber++;
+    } else {
+      this._snackBar.open("Escolha uma resposta", "Fechar",{
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 3 * 1000,
+      });
     }
 
   }
