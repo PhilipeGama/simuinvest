@@ -1,29 +1,27 @@
-<form class="container">
+<form class="container" [formGroup]="formRegister" (ngSubmit)="onSubmit()">
     <h1>Registre-se</h1>
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nome</mat-label>
-        <input matInput [formControl]="nameFormControl">
-        <mat-error *ngIf="nameFormControl.hasError('required')">
+        <input matInput formControlName="name">
+        <mat-error *ngIf="!formRegister.get('name').valid">
             Nome é obrigatório
         </mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Email</mat-label>
-        <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. joao@example.com">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <input type="email" matInput formControlName="email" placeholder="Ex. joao@example.com">
+        <mat-error *ngIf="!formRegister.get('email').valid">
             Por favor insira um endereço de e-mail válido
         </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-            Email é <strong>obrigatório</strong>
-        </mat-error>
+
     </mat-form-field>
 
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Senha</mat-label>
-        <input type="password" [formControl]="passwordFormControl" matInput>
-        <mat-error *ngIf="passwordFormControl.hasError('required')">
+        <input type="password" formControlName="password" minlength="7" matInput>
+        <mat-error *ngIf="!formRegister.get('password').valid">
             Senha é obrigatório
         </mat-error>
     </mat-form-field>
@@ -32,16 +30,16 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Confirma Senha</mat-label>
-        <input type="password" [formControl]="confirmPasswordFormControl"  matInput>
-        <mat-error *ngIf="confirmPasswordFormControl.hasError('required')">
-            Confirmar senha é obrigatório
+        <input type="password" formControlName="confirmPassword" minlength="7" matInput>
+        <mat-error *ngIf="formRegister.get('confirmPassword').invalid">
+                Confirmar senha é obrigatório
         </mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Celular</mat-label>
-        <input placeholder="(55) 55555-5555" [formControl]="phoneFormControl" matInput>
-        <mat-error *ngIf="phoneFormControl.hasError('required')">
+        <input placeholder="(55) 55555-5555" formControlName="phone" matInput>
+        <mat-error *ngIf="!formRegister.get('phone').valid">
             Telefone é obrigatório
         </mat-error>
     </mat-form-field>
@@ -55,8 +53,12 @@
 
 
     <div class="btn-group">
-        <button mat-raised-button color="primary" style="margin-right: 10px" >Cadastra-se</button>
-        <button mat-raised-button color="primary" routerLink="/login">Voltar para Login</button>
+        <button mat-raised-button color="primary" type="submit" style="margin-right: 10px" [disabled]="!formRegister.valid">Cadastra-se</button>
+        <button mat-raised-button color="primary" type="button" routerLink="/login">Voltar para Login</button>
+        <!-- <button mat-raised-button color="primary" type="button" (click)="onGetInvestorByEmail()">Buscar email</button> -->
     </div>
 
 </form>
+
+
+

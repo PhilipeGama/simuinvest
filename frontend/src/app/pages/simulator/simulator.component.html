@@ -41,14 +41,14 @@
                 <mat-hint>{{mounthsControl.value?.sound}}</mat-hint>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" (click)="fixedIncomeCalculation()"
+            <button mat-raised-button color="primary" (click)="onSavingsCalculation()"
                 [disabled]="selectFixedIncomeControl.hasError('required') || mounthsControl.hasError('required')">Calcular</button>
 
 
         </div>
 
         <div class="simulator-chart">
-            <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="fixedIncomeCalculation"></app-chart-bar>
+            <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
 
             <div class="amounts">
                 <mat-form-field appearance="fill">
@@ -61,7 +61,7 @@
                     <input currencyMask [(ngModel)]="fixedInvest.amount"
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput>
                 </mat-form-field>
-                <button mat-raised-button color="primary">Salvar</button>
+                <button mat-raised-button color="primary" style="margin-bottom: 20px">Salvar</button>
             </div>
 
         </div>

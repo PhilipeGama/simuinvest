@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
 import { ChartBarComponent } from './components/chart-bar/chart-bar.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 //material 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,6 +49,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import { RegisterComponent } from './pages/register/register.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+
     CurrencyMaskModule,
     FlexLayoutModule,
     NgApexchartsModule,

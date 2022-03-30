@@ -37,6 +37,7 @@ public questions: Questions[] = questionsJSON
     console.log(this.questions)
   }
 
+  
 
   nextQuest(){
     if(this.questionNumber < 4 && this.questions[this.questionNumber].answer != undefined){

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, Subscriber, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
@@ -11,7 +12,12 @@ import { User } from './user.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  email = new FormControl('', [Validators.required, Validators.email]);
+
+  formLogin : FormGroup = new FormGroup({
+    'email' : new FormControl(null, [Validators.required, Validators.email]),
+    'password' : new FormControl(null, [Validators.required]),
+  })
+
 
   private userSub: Subscription;
 
@@ -23,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   error?: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
@@ -39,11 +45,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
+ 
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+
+
+    return '';
+
+    // return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
 
@@ -53,16 +61,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
 
-  onLogin(form: NgForm){
-    console.log(form.value)
-    if (!form.valid) {
+  onLogin(){
+    console.log(this.formLogin)
+    if (!this.formLogin.valid) {
       return
     }
 
     let authObs: Observable<AuthResponseData>;
 
-    const email = form.value.email;
-    const password = form.value.password;
+    const email = this.formLogin.value.email;
+    const password = this.formLogin.value.password;
     this.isLoading = true;
  
     authObs = this.authService.login(email, password);
@@ -72,11 +80,17 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigate(['/'])
     },
     errorMessage => {
+      this._snackBar.open("Email ou senha inválida", "Fechar",{
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 3 * 1000,
+      });
+
       this.error = errorMessage;
       this.isLoading = false;
     });
 
-    form.reset();
+    // form.reset();
   }
 
 

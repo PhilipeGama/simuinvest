@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './pages/login/auth.service';
 
 interface User {
   email: string
@@ -11,18 +12,12 @@ interface User {
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
 
-  user: User = {
-    email: 'teste@gmail.com',
-    password: 'senha123'
-  }
+  constructor(private authService: AuthService) {}
 
-
-  logged: boolean = true;
-
-  constructor() {
-
+  ngOnInit(){
+    this.authService.autoLogin()
   }
 
   

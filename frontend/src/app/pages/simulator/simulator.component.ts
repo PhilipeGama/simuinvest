@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import FixedIncome from 'src/app/models/FixedIncome';
 import FixedInvest from 'src/app/models/FixedInvest';
+import { SimulatorService } from './simulator.service';
 
 @Component({
   selector: 'app-simulator',
@@ -14,116 +15,70 @@ export class SimulatorComponent implements OnInit {
   selectFixedIncomeControl = new FormControl('', Validators.required)
   mounthsControl = new FormControl('', Validators.required)
 
+  fixedInvest;
+  fixedIncomesSavings;
+  fixedIncomes;
+
   mounth = [0, 3 ,6, 12, 24, 48]
   @ViewChild(ChartBarComponent)
   child: ChartBarComponent = new ChartBarComponent;
+  
+  chartDataMockup: any[];
 
-  value: any;
-  selectedFixedIncome: FixedIncome = {
-    id: 0,
-    sigla: '',
-    name: '',
-    rate: 0,
-    date: new Date(),
-  };
-
-  fixedIncomes: FixedIncome[] = [{
-    id: 1,
-    sigla: 'LCA',
-    name: 'LCA',
-    rate: 1.5,
-    date: new Date('2022-01-01'),
-  },
-  {
-    id: 2,
-    sigla: 'LCI',
-    name: 'LCI',
-    rate: 1.5,
-    date: new Date('2022-01-01'),
-  }]
-
-  fixedInvest: FixedInvest = {
-    name: '',
-    rate: 1.5,
-    initialDeposit: 0,
-    monthlyDeposit: 0,
-    months: null,
-    amount: 0,
-  }
-
-  fixedIncomesSavings: FixedInvest = {
-    name: 'Poupança',
-    rate: 0.5,
-    initialDeposit: 0,
-    monthlyDeposit: 0,
-    amount: 0,
-    months: 0,
-  }
-
-  chartDataMockup: any[] = [
-    {
-      fixedIncome: 'Poupança',
-      initialValue: 0,
-      amount: 0,
-      mounts: 0,
-    },
-    {
-      fixedIncome: 'X',
-      initialValue: 0,
-      amount: 0,
-      mounts: 0,
-    }
-  ]
-
-
-  constructor() { }
+  constructor(private simulatorService: SimulatorService) { }
 
   ngOnInit(): void {
+    
+    this.chartDataMockup = [
+      {
+        fixedIncome: 'Poupança',
+        initialValue: 0,
+        amount: 0,
+        mounts: 0,
+      },
+      {
+        fixedIncome: 'X',
+        initialValue: 0,
+        amount: 0,
+        mounts: 0,
+      }
+    ]
+
+
+    this.fixedInvest = this.simulatorService.fixedInvest;
+    this.fixedIncomesSavings = this.simulatorService.fixedIncomesSavings;
+    this.fixedIncomes = this.simulatorService.fixedIncomes;
+
   }
   
   //TODO: move to service
-  savingsCalculation() {
-    const { initialDeposit, monthlyDeposit, months } = this.fixedInvest;
+  onSavingsCalculation() {
+    this.simulatorService.fixedInvest.rate = this.selectFixedIncomeControl.value.rate;
+    this.simulatorService.fixedIncomeCalculation();
+    this.simulatorService.savingsCalculation();
 
-    let amount = initialDeposit + monthlyDeposit;
+    this.fixedInvest.name = this.selectFixedIncomeControl.value.sigla;
 
-    for (let i = 1; i < months; i++) {
-      amount += monthlyDeposit + (amount * (this.fixedIncomesSavings.rate / 100));
-    }
-    amount = parseFloat(amount.toFixed(2));
-    this.fixedIncomesSavings.amount = amount;
+    this.fixedInvest = this.simulatorService.fixedInvest;
+    this.fixedIncomesSavings = this.simulatorService.fixedIncomesSavings;
 
+    console.log(this.fixedInvest)
+    console.log(this.fixedIncomesSavings)
+    console.log(this.selectFixedIncomeControl.value)
     this.chartDataMockup[0].fixedIncome = this.fixedIncomesSavings.name;
-    this.chartDataMockup[0].mounts = months;
-    this.chartDataMockup[0].initialValue = initialDeposit + monthlyDeposit;
-    this.chartDataMockup[0].amount = amount;
-  }
+    this.chartDataMockup[0].mounts = this.fixedIncomesSavings.mounth;
+    this.chartDataMockup[0].initialValue = this.fixedIncomesSavings.initialDeposit;
+    this.chartDataMockup[0].amount = this.fixedIncomesSavings.amount;
 
-  //TODO: choose a better name, move to service
-  fixedIncomeCalculation() {
-    this.savingsCalculation();
-
-    console.log("fixedcontrol value" )
-    console.log(this.selectFixedIncomeControl.value.sigla)
-    const { rate, initialDeposit, monthlyDeposit, months } = this.fixedInvest;
-
-    let amount = initialDeposit + monthlyDeposit;
-
-    for (let i = 1; i < months; i++) {
-      amount += monthlyDeposit + (amount * (rate / 100));
-    }
-
-    amount = parseFloat(amount.toFixed(2));
-    this.fixedInvest.amount = amount;
-
-    console.log(this.selectedFixedIncome)
     this.chartDataMockup[1].fixedIncome = this.selectFixedIncomeControl.value.sigla;
-    this.chartDataMockup[1].mounts = months;
-    this.chartDataMockup[1].initialValue = initialDeposit + monthlyDeposit;
-    this.chartDataMockup[1].amount = amount;
+    this.chartDataMockup[1].mounts = this.simulatorService.fixedInvest;
+    this.chartDataMockup[1].initialValue = this.simulatorService.fixedInvest.initialDeposit;
+    this.chartDataMockup[1].amount = this.simulatorService.fixedInvest.amount;
 
-    this.child.loadChart();
+    this.child.createChartLineBar()
+
   }
+
 
 
 

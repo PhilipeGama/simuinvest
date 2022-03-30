@@ -1,31 +1,36 @@
 
-<form class="container example-form">
-    <h1>Editar perfil</h1>
+<form class="container example-form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
+    <h1>Meu perfil</h1>
+    <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" (click)="showData()">Editar</button>
     <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput>
+        <mat-label>Perfil do Investidor</mat-label>
+        <input value="{{investor.type}}" name="type" disabled matInput>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Idade</mat-label>
-        <input matInput>
+        <mat-label>Email</mat-label>
+        <input value="{{investor.email}}" name="type" disabled matInput>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput>
-    </mat-form-field>
 
 
 
     <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>CPF</mat-label>
-        <input matInput>
+        <mat-label>Nome</mat-label>
+        <input formControlName="name" name="name" matInput>
     </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Telefone</mat-label>
+        <input formControlName="phone" name="phone" matInput>
+    </mat-form-field>
+
+
 
     <div class="btn-group">
-        <button mat-raised-button color="primary" style="margin-right: 10px">Atualizar</button>
-        <button mat-raised-button color="primary">Cancelar</button>    
+        <button mat-raised-button color="primary" style="margin-right: 10px" type="submit" (click)="onSubmit()">Atualizar Dados</button>
+        <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="showData()">Modificar senha</button>  
     </div>
 
+ 
 </form>

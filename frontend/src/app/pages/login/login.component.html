@@ -1,35 +1,46 @@
-
 <div class="container">
     <div *ngIf="isLoading" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
 
-<form class="container" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+    <form class="container" #authForm="ngForm" [formGroup]="formLogin" (ngSubmit)="onLogin()" *ngIf="!isLoading">
 
-    <div>
-        <p>{{ error }}</p>
-    </div>
-    <h1>Login</h1>
-    <h2>Efetuer seu login</h2>
+
+        <h1>Login</h1>
+        <h2>Efetuer seu login</h2>
 
         <mat-form-field appearance="fill">
             <mat-label>Enter your email</mat-label>
-            <input matInput placeholder="pat@example.com" ngModel name="email" required>
-            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            <input matInput formControlName="email" placeholder="joao@teste.com">
+            <mat-error *ngIf="!formLogin.get('email').valid">
+                <mat-error *ngIf="formLogin.controls.email.errors['required']">
+                    Email é um campo obrigatório!
+                </mat-error>
+                <mat-error *ngIf="formLogin.controls.email.errors['email']">
+                    Email inválido!
+                </mat-error>
+            </mat-error>
+
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Senha</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" ngModel name="password">
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
             </button>
+            <mat-error *ngIf="!formLogin.get('password').valid">
+                <mat-error *ngIf="formLogin.controls.password.errors['required']">
+                    Email é um campo obrigatório!
+                </mat-error>
+            </mat-error>
+
         </mat-form-field>
 
-        <a mat-stroked-button (click)="onLogin(authForm)">Fazer Login</a>
+        <button mat-stroked-button type="submit" (click)="onLogin()">Fazer Login</button>
         <button mat-raised-button color="primary" routerLink="/register">Cadastrar</button>
-        <button mat-raised-button color="primary" (click)="show()">Sair</button>
-</form>
+        <!-- <button mat-raised-button color="primary" (click)="show()">Sair</button> -->
+    </form>
 </div>
-
