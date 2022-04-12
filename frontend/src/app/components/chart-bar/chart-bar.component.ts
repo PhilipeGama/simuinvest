@@ -10,8 +10,8 @@ import {
   ApexStroke,
   ApexGrid
 } from "ng-apexcharts";
-import FixedIncome from 'src/app/models/FixedIncome';
-import FixedInvest from 'src/app/models/FixedInvest';
+import FixedIncome from 'src/app/models/IFixedIncome';
+import FixedInvest from 'src/app/models/IFixedInvest';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

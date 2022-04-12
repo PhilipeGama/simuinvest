@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
-import FixedIncome from 'src/app/models/FixedIncome';
-import FixedInvest from 'src/app/models/FixedInvest';
+import FixedIncome from 'src/app/models/IFixedIncome';
+import FixedInvest from 'src/app/models/IFixedInvest';
 import { SimulatorService } from './simulator.service';
 
 @Component({
@@ -62,9 +62,6 @@ export class SimulatorComponent implements OnInit {
     this.fixedInvest = this.simulatorService.fixedInvest;
     this.fixedIncomesSavings = this.simulatorService.fixedIncomesSavings;
 
-    console.log(this.fixedInvest)
-    console.log(this.fixedIncomesSavings)
-    console.log(this.selectFixedIncomeControl.value)
     this.chartDataMockup[0].fixedIncome = this.fixedIncomesSavings.name;
     this.chartDataMockup[0].mounts = this.fixedIncomesSavings.mounth;
     this.chartDataMockup[0].initialValue = this.fixedIncomesSavings.initialDeposit;

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs/operators';
+import { IInvestor } from 'src/app/models/IInvestor';
+import { InvestorService } from 'src/app/shared/investor.service';
 import questionsJSON from '../../_files/questions.json';
 
 
@@ -19,42 +22,132 @@ interface Questions {
 
 export class InvestorProfileComponent implements OnInit {
 
-
-
-public questions: Questions[] = questionsJSON
- 
-
+  public questions: Questions[] = questionsJSON
 
   questionNumber: number = 0;
 
   investorProfile: string = '';
 
+  investor_key: any; 
 
-  constructor(private _snackBar: MatSnackBar) { }
+  investor: IInvestor = {
+    name: '',
+    email: '',
+    phone: '',
+    type: 'Sem perfil de investidor',
+  };
 
-  ngOnInit(): void {
-    // this.questions = ;
-    console.log(this.questions)
+
+  constructor(private _snackBar: MatSnackBar, private investorService: InvestorService) { 
+    this.getInvestor()
   }
 
-  
+  ngOnInit(): void { }
 
-  nextQuest(){
-    if(this.questionNumber < 4 && this.questions[this.questionNumber].answer != undefined){
-      this.questionNumber++;
+  getInvestor(){
+    const userData: {
+        email: string;
+        id: string;
+        _token: string;
+        _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+        return;
+    }
+
+    this.investorService.getInvestorByEmail(userData.email).snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
+        )
+      ).subscribe(data => {
+        if (data.length === 0) {
+
+        } else {
+     
+          this.investor_key = data[0].key;
+          this.investor.email = data[0].email;
+          this.investor.password = data[0].password;
+          this.investor.name = data[0].name;
+          this.investor.type = data[0].type;
+          this.investor.phone = data[0].phone;
+
+          this.investorService.update(this.investor_key, this.investor);
+        }
+  
+      });
+}
+
+
+
+  nextQuest() {
+    if (this.questionNumber <= 4 && this.questions[this.questionNumber].answer != undefined) {
+
+      if (this.questionNumber == 4) {
+        this.investorProfileCalc()
+      } else {
+        this.questionNumber++;
+      }
+
     } else {
-      this._snackBar.open("Escolha uma resposta", "Fechar",{
+      this._snackBar.open("Escolha uma resposta", "Fechar", {
         horizontalPosition: 'center',
         verticalPosition: 'top',
         duration: 3 * 1000,
       });
     }
-
   }
 
-  previousQuestion(){
-    if(this.questionNumber > 0){ 
+  previousQuestion() {
+    if (this.questionNumber > 0) {
       this.questionNumber--
     };
+  }
+
+  investorProfileCalc(){
+    let r1=0, r2=0, r3=0;
+    for(let i; i<= this.questions.length; i++){
+      if(this.questions[i].answer === 1){
+        r1++;
+      }
+      if(this.questions[i].answer === 2){
+        r2++;
+      }
+      if(this.questions[i].answer === 3){
+        r3++;
+      }
+    }
+
+    if(r1 >= r2 && r1 >= r3){
+      this.investor.type = "Conservador";
+      this._snackBar.open("Você tem o perfil de investidor Conservador!", "Fechar", {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 7 * 1000,
+      });
+    }
+
+    if(r2 >= r1 && r1 >= r3){
+  
+      this.investor.type = "Moderado";
+      this._snackBar.open("Você tem o perfil de investidor Moderado!", "Fechar", {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 7 * 1000,
+      });
+    }
+    if(r3 >= r1 && r3 >= r2){
+      this.investor.type = "Arrojado";
+      this._snackBar.open("Você tem o perfil de investidor Arrojado!", "Fechar", {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 7 * 1000,
+      });
+    }
+    
+    this.investorService.update(this.investor_key, this.investor)
+
   }
 }

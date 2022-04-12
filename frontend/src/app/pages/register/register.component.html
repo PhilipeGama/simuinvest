@@ -38,7 +38,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Celular</mat-label>
-        <input placeholder="(55) 55555-5555" formControlName="phone" matInput>
+        <input mask="(00) 00000-0000" placeholder="(55) 55555-5555" formControlName="phone" matInput>
         <mat-error *ngIf="!formRegister.get('phone').valid">
             Telefone é obrigatório
         </mat-error>

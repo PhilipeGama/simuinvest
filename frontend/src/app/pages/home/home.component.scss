@@ -1,9 +1,18 @@
-.example-card {
+.card {
+    min-width: 300px;
     max-width: 400px;
 }
 
-.cards-1-container{
+.cards{
     display: flex;
     gap: 20px;
-    
+    flex-wrap: wrap;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    margin: auto;
 }

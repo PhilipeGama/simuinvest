@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 
-
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -74,6 +75,7 @@ import { environment } from 'src/environments/environment.prod';
     HttpClientModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    NgxMaskModule.forRoot(),
     AngularFireDatabaseModule,
 
     CurrencyMaskModule,

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Subscription } from "rxjs";
-import FixedIncome from "src/app/models/FixedIncome";
-import FixedInvest from "src/app/models/FixedInvest";
+import FixedIncome from "src/app/models/IFixedIncome";
+import FixedInvest from "src/app/models/IFixedInvest";
 
 @Injectable({
     providedIn: 'root'
@@ -49,8 +48,6 @@ export class SimulatorService {
   
     //TODO: choose a better name, move to service
     fixedIncomeCalculation() {
-    //   this.savingsCalculation();
-  
       const { rate, initialDeposit, monthlyDeposit, months } = this.fixedInvest;
   
       let amount = initialDeposit + monthlyDeposit;

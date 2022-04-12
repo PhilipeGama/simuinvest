@@ -31,10 +31,11 @@ export class EditProfileComponent implements OnInit{
             'password': new FormControl(null),
             'confirmpassword': new FormControl(null)
         })
+        this.getInvestor()
     }
 
     ngOnInit(): void {
-        this.getInvestor()
+ 
 
     }
 
@@ -82,6 +83,7 @@ export class EditProfileComponent implements OnInit{
         console.log(this.investor)
     }
 
+  
     onSubmit(){
         this.investor.name = this.formEdit.value.name;
         this.investor.phone = this.formEdit.value.phone;

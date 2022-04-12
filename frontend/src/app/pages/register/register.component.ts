@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         this.investor.name = this.formRegister.value.name;
         this.investor.email = this.formRegister.value.email;
         this.investor.password = this.formRegister.value.password;
-        this.investor.type = 'no profile';
+        this.investor.type = 'Sem perfil de investor';
         this.investor.phone = this.formRegister.value.phone;
         this.investorService.create(this.investor)
      

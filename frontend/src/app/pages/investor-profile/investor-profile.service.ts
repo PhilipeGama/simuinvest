@@ -4,11 +4,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class InvestorprofileService {
+export class InvestorProfileService {
 
   constructor() { 
     
   }
-
   
 }

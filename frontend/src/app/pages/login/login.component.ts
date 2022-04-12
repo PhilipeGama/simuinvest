@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable, Subscriber, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
 import { User } from './user.model';
 
@@ -18,10 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     'password' : new FormControl(null, [Validators.required]),
   })
 
-
   private userSub: Subscription;
-
-  private user1: User;
 
   user : User;
   hide = true;
@@ -40,26 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  show(){
-    console.log(this.user1)
-  }
-
-  getErrorMessage() {
- 
-
-
-
-    return '';
-
-    // return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-
   changeMode(){
     this.isLoginMode = !this.isLoginMode;
   }
-
-
 
   onLogin(){
     console.log(this.formLogin)
@@ -90,39 +70,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     });
 
-    // form.reset();
   }
-
-
-
-  onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return
-    }
-
-    let authObs: Observable<AuthResponseData>;
-
-    const email = form.value.email;
-    const password = form.value.password;
-    this.isLoading = true;
-    if(this.isLoginMode){
-      authObs = this.authService.login(email, password);
-    } else {
-      authObs = this.authService.signUp(email, password);
-    }
-  
-    authObs.subscribe(resData => {
-      this.isLoading = false;
-      this.router.navigate(['/'])
-    },
-    errorMessage => {
-      this.error = errorMessage;
-      this.isLoading = false;
-    });
-
-    form.reset();
-  }
-
-
 
 }

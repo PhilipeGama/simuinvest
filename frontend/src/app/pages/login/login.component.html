@@ -33,14 +33,13 @@
             </button>
             <mat-error *ngIf="!formLogin.get('password').valid">
                 <mat-error *ngIf="formLogin.controls.password.errors['required']">
-                    Email é um campo obrigatório!
+                    Senha é um campo obrigatório!
                 </mat-error>
             </mat-error>
 
         </mat-form-field>
 
         <button mat-stroked-button type="submit" (click)="onLogin()">Fazer Login</button>
-        <button mat-raised-button color="primary" routerLink="/register">Cadastrar</button>
-        <!-- <button mat-raised-button color="primary" (click)="show()">Sair</button> -->
+        <button mat-raised-button color="primary" routerLink="/register">Cadastrar-se</button>
     </form>
 </div>
