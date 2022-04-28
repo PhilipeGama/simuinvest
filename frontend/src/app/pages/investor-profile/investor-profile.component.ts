@@ -108,17 +108,24 @@ export class InvestorProfileComponent implements OnInit {
 
   investorProfileCalc(){
     let r1=0, r2=0, r3=0;
-    for(let i; i<= this.questions.length; i++){
-      if(this.questions[i].answer === 1){
+    console.log(this.questions)
+    for(let i=0; i< this.questions.length; i++){
+      console.log(this.questions[i])
+      if(this.questions[i].answer == 1){
+        console.log("a")
         r1++;
       }
-      if(this.questions[i].answer === 2){
+      if(this.questions[i].answer == 2){
+        console.log("b")
         r2++;
       }
-      if(this.questions[i].answer === 3){
+      if(this.questions[i].answer == 3){
         r3++;
+        console.log("c")
       }
     }
+
+    console.log(r1, r2, r3);
 
     if(r1 >= r2 && r1 >= r3){
       this.investor.type = "Conservador";
@@ -139,8 +146,8 @@ export class InvestorProfileComponent implements OnInit {
       });
     }
     if(r3 >= r1 && r3 >= r2){
-      this.investor.type = "Arrojado";
-      this._snackBar.open("Você tem o perfil de investidor Arrojado!", "Fechar", {
+      this.investor.type = "Agressivo";
+      this._snackBar.open("Você tem o perfil de investidor Agressivo!", "Fechar", {
         horizontalPosition: 'center',
         verticalPosition: 'top',
         duration: 7 * 1000,

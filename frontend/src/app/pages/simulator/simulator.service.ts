@@ -11,7 +11,7 @@ export class SimulatorService {
   
     fixedInvest: FixedInvest = {
       name: '',
-      rate: 1.5,
+      rate: 0,
       initialDeposit: 0,
       monthlyDeposit: 0,
       months: null,
@@ -20,7 +20,7 @@ export class SimulatorService {
   
     fixedIncomesSavings: FixedInvest = {
       name: 'Poupança',
-      rate: 0.5,
+      rate: 6.17,
       initialDeposit: 0,
       monthlyDeposit: 0,
       amount: 0,
@@ -31,8 +31,7 @@ export class SimulatorService {
       this.getFixedIncomes();
     }
   
-    
-    //TODO: move to service
+
     savingsCalculation() {
       const { initialDeposit, monthlyDeposit, months } = this.fixedInvest;
   
@@ -46,7 +45,7 @@ export class SimulatorService {
       this.fixedIncomesSavings.amount = amount;
     }
   
-    //TODO: choose a better name, move to service
+    //TODO: choose a better name
     fixedIncomeCalculation() {
       const { rate, initialDeposit, monthlyDeposit, months } = this.fixedInvest;
   
@@ -64,16 +63,30 @@ export class SimulatorService {
     getFixedIncomes(){
       this.fixedIncomes = [{
         id: 1,
-        sigla: 'LCA',
-        name: 'LCA',
-        rate: 1.6,
+        sigla: 'LCA e LCI',
+        name: 'LCA e LCI',
+        rate: 11.417,
         date: new Date('2022-01-01'),
       },
       {
         id: 2,
-        sigla: 'LCI',
-        name: 'LCI',
-        rate: 1.7,
+        sigla: 'Tesouro Selic',
+        name: 'Tesouro Selic',
+        rate: 11.25,
+        date: new Date('2022-01-01'),
+      },
+      {
+        id: 3,
+        sigla: 'CDB e LC ',
+        name: 'CDB e LC ',
+        rate: 14.7955,
+        date: new Date('2022-01-01'),
+      },
+      {
+        id: 4,
+        sigla: 'Tesouro Prefixado',
+        name: 'Tesouro Prefixado',
+        rate:  11.55,
         date: new Date('2022-01-01'),
       }]
     }

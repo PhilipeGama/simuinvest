@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
-import FixedIncome from 'src/app/models/IFixedIncome';
-import FixedInvest from 'src/app/models/IFixedInvest';
 import { SimulatorService } from './simulator.service';
 
 @Component({

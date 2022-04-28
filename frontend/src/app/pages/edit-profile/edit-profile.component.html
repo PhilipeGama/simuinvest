@@ -1,7 +1,7 @@
 
 <form class="container example-form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
     <h1>Meu perfil</h1>
-    <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" type="button" (click)="showData()">Editar</button>
+    <!-- <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" type="button" (click)="showData()">Editar</button> -->
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Perfil do Investidor</mat-label>
         <input value="{{investor.type}}" name="type" disabled matInput>
@@ -11,9 +11,6 @@
         <mat-label>Email</mat-label>
         <input value="{{investor.email}}" name="type" disabled matInput>
     </mat-form-field>
-
-
-
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nome</mat-label>
@@ -25,11 +22,9 @@
         <input  mask="(00) 00000-0000" formControlName="phone" name="phone" matInput>
     </mat-form-field>
 
-
-
     <div class="btn-group">
-        <button mat-raised-button color="primary" style="margin-right: 10px" type="submit" (click)="onSubmit()" [disabled]="!formEdit.get('phone').dirty || !formEdit.get('name').dirty">Atualizar Dados</button>
-        <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="showData()">Alterar senha</button>  
+        <button mat-raised-button color="primary" style="margin-right: 10px" type="submit" (click)="onSubmit()" [disabled]="!(formEdit.get('name').dirty || formEdit.get('phone').dirty)">Atualizar Dados</button>
+        <!-- <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="showData()">Alterar senha</button>   -->
     </div>
 
  

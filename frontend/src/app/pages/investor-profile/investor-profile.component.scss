@@ -1,3 +1,5 @@
+$ifam-color: green;
+
 ul {
     padding: 0px;
     display: flex;
@@ -14,9 +16,7 @@ li {
 }
 
 .question-item {
-    // width: 70%;
-    background-color: #3f51b5;
-    // height: 180px;
+    background-color: $ifam-color;
     border-radius: 30px;
     margin-bottom: 20px;
     align-items: center;

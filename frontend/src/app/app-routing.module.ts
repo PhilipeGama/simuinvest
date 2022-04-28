@@ -45,6 +45,10 @@ const routes: Routes = [
         component: InvestorProfileComponent
       }
     ]
+  }, 
+  {
+    path: '**', 
+    redirectTo: 'login', 
   }
 ];
 
