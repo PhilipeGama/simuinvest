@@ -6,6 +6,7 @@ import { IInvestor } from "../models/IInvestor";
     providedIn: 'root'
 })
 export class InvestorService {
+  
     private dbPath = '/investor';
 
     tutorialsRef: AngularFireList<IInvestor>;
@@ -37,5 +38,22 @@ export class InvestorService {
     deleteAll(): Promise<void> {
       return this.tutorialsRef.remove();
     }
+
+    investorProfileType(answerSum: number): number{
+      if(answerSum >= 5 && answerSum <= 8){
+        return 1;
+      }
+  
+      if(answerSum >= 9 && answerSum <= 12){
+        return 2;
+      }
+  
+      if(answerSum >= 13 && answerSum <= 15){
+        return 3;
+      }
+  
+      return 0;
+    }
+    
 
 }

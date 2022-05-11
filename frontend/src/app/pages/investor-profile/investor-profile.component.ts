@@ -76,7 +76,6 @@ export class InvestorProfileComponent implements OnInit {
 
           this.investorService.update(this.investor_key, this.investor);
         }
-  
       });
 }
 
@@ -86,7 +85,7 @@ export class InvestorProfileComponent implements OnInit {
     if (this.questionNumber <= 4 && this.questions[this.questionNumber].answer != undefined) {
 
       if (this.questionNumber == 4) {
-        this.investorProfileCalc()
+        this.investorProfileCalculation()
       } else {
         this.questionNumber++;
       }
@@ -105,56 +104,39 @@ export class InvestorProfileComponent implements OnInit {
       this.questionNumber--
     };
   }
-
-  investorProfileCalc(){
-    let r1=0, r2=0, r3=0;
-    console.log(this.questions)
-    for(let i=0; i< this.questions.length; i++){
-      console.log(this.questions[i])
-      if(this.questions[i].answer == 1){
-        console.log("a")
-        r1++;
-      }
-      if(this.questions[i].answer == 2){
-        console.log("b")
-        r2++;
-      }
-      if(this.questions[i].answer == 3){
-        r3++;
-        console.log("c")
-      }
-    }
-
-    console.log(r1, r2, r3);
-
-    if(r1 >= r2 && r1 >= r3){
-      this.investor.type = "Conservador";
-      this._snackBar.open("Você tem o perfil de investidor Conservador!", "Fechar", {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 7 * 1000,
-      });
-    }
-
-    if(r2 >= r1 && r1 >= r3){
   
-      this.investor.type = "Moderado";
-      this._snackBar.open("Você tem o perfil de investidor Moderado!", "Fechar", {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 7 * 1000,
-      });
-    }
-    if(r3 >= r1 && r3 >= r2){
-      this.investor.type = "Agressivo";
-      this._snackBar.open("Você tem o perfil de investidor Agressivo!", "Fechar", {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 7 * 1000,
-      });
-    }
-    
-    this.investorService.update(this.investor_key, this.investor)
+  answersSum: number;
+  investorType: number;
+  investorProfileCalculation(){
+    this.answersSum = 0; 
 
+    this.questions.forEach(question => {this.answersSum = this.answersSum + question.answer})
+    
+    console.log("Soma das resposta: "+this.answersSum);
+
+    this.investorType = this.investorService.investorProfileType(this.answersSum);
+
+    console.log("Tipo de investidor: " + this.investorType)
+
+    if(this.investorType == 1){
+      this.createSnackBar("Conservador")
+    }
+
+    if(this.investorType == 2){
+      this.createSnackBar("Moderado")
+    }
+    if(this.investorType == 3){
+      this.createSnackBar("Agressivo")
+    }
+    this.investorService.update(this.investor_key, this.investor)
+  }
+
+  createSnackBar(investorType: string){
+    this.investor.type = investorType;
+    this._snackBar.open("Você tem o perfil de investidor "+ investorType+ "!", "Fechar", {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 7 * 1000,
+    });
   }
 }

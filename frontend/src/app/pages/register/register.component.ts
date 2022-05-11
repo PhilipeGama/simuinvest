@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
     }, {
       validators: [this.matchPassword.bind(this)]
     })
+
+    this.formRegister.reset();
   }
 
   onSubmit() {
