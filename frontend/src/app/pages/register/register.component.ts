@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { MustMatch } from 'src/app/custom-validators/must-match.validator';
 import { IInvestor } from 'src/app/models/IInvestor';
 import { InvestorService } from 'src/app/shared/investor.service';
 import { AuthService } from '../login/auth.service';
@@ -26,14 +27,14 @@ export class RegisterComponent implements OnInit {
     this.formRegister = new FormGroup({
       'name': new FormControl(null, [Validators.required]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
-      'password': new FormControl(null, [Validators.required]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(7)]),
       'confirmPassword': new FormControl(null, [Validators.required]),
       'phone': new FormControl(null, [Validators.required]),
     }, {
-      validators: [this.matchPassword.bind(this)]
-    })
+      validators: MustMatch
+    });
 
-    this.formRegister.reset();
+  
   }
 
   onSubmit() {
@@ -85,6 +86,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onShowForm(){
+    console.log(this.formRegister.errors?.mustMatch)
+  }
 
   matchPassword(control: FormGroup): { [s: string]: boolean } {
 
