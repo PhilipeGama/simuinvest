@@ -1,5 +1,8 @@
 <div class="container">
     <h2 class="question-title">Teste Perfil de Investidor</h2>
+    <p class="question">
+       {{questions[questionNumber].question}}
+    </p>
     <div class="questions-container">
         <span class="question-count">0{{questionNumber + 1}}/05</span>
         <ul>
@@ -8,7 +11,7 @@
                     <input type="radio" name="answer" [value]="1" [(ngModel)]="questions[questionNumber].answer">
                     <div class="question-item">
 
-                        <p>{{questions[questionNumber].question01}}</p>
+                        <p>{{questions[questionNumber].answer01}}</p>
                     </div>
                 </div>
             </li>
@@ -17,7 +20,7 @@
                 <div class="question-container">
                     <input type="radio" name="answer" [value]="2" [(ngModel)]="questions[questionNumber].answer">
                     <div class="question-item">
-                        <p>{{questions[questionNumber].question01}}</p>
+                        <p>{{questions[questionNumber].answer02}}</p>
                     </div>
                 </div>
             </li>
@@ -26,7 +29,7 @@
                 <div class="question-container">
                     <input type="radio" name="answer" [value]="3" [(ngModel)]="questions[questionNumber].answer">
                     <div class="question-item">
-                        <p>{{questions[questionNumber].question01}}</p>
+                        <p>{{questions[questionNumber].answer03}}</p>
                     </div>
                 </div>
             </li>
@@ -40,3 +43,5 @@
         <button class="btn" (click)="nextQuest()" mat-raised-button color="primary">Proximo</button>
     </div>
 </div>
+
+<div style="padding-bottom: 100px;"></div>

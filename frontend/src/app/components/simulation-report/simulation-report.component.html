@@ -2,26 +2,31 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
     <!-- Position Column -->
     <ng-container matColumnDef="fixedIcomeName">
-      <th mat-header-cell *matHeaderCellDef>Nome da Aplicação </th>
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
       <td mat-cell *matCellDef="let element">{{element.fixedIcomeName}}</td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="initialDate">
-      <th mat-header-cell *matHeaderCellDef>Valor</th>
-      <td mat-cell *matCellDef="let element">{{element.initialDate}}</td>
+      <th mat-header-cell *matHeaderCellDef>Valor Investido</th>
+      <td mat-cell *matCellDef="let element">{{element.totInvest}}</td>
     </ng-container>
   
     <!-- Weight Column -->
     <ng-container matColumnDef="totalMonthsInvest">
-      <th mat-header-cell *matHeaderCellDef>Periodo Aplicado</th>
+      <th mat-header-cell *matHeaderCellDef>Periodo Aplicado em Mês</th>
       <td mat-cell *matCellDef="let element">{{element.totalMonthsInvest}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="totSavings">
+      <th mat-header-cell *matHeaderCellDef>Redimento na Poupança</th>
+      <td mat-cell *matCellDef="let element">{{element.savingsAmount}}</td>
     </ng-container>
   
     <!-- Symbol Column -->
     <ng-container matColumnDef="totInvest">
-      <th mat-header-cell *matHeaderCellDef>Montante Final / Renda Fixa</th>
-      <td mat-cell *matCellDef="let element">{{element.totInvest}}</td>
+      <th mat-header-cell *matHeaderCellDef>Redimento na Renda Fixa</th>
+      <td mat-cell *matCellDef="let element">{{element.fixedIcomeAmount}}</td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

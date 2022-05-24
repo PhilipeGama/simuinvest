@@ -31,6 +31,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 import {
@@ -51,6 +53,7 @@ import { LoadingSpinner } from './components/templates/loading-spinner/loading-s
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment.prod';
+import { DialogMaterialComponent } from './components/dialog-material/dialog-material.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ import { environment } from 'src/environments/environment.prod';
     EditProfileComponent,
     TutorialComponent,
     RegisterComponent,
+    DialogMaterialComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +98,8 @@ import { environment } from 'src/environments/environment.prod';
     MatMenuModule,
     MatRadioModule,
     MatCardModule,
-    MatSnackBarModule 
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,32 +1,32 @@
 [
     {
-        "question01": "1.1 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question02": "1.2 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question03": "1.3 Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna."
- 
+        "question": "Qual a principal finalidade de investir seu patrimônio?",
+        "answer01": "Preservar meu patrimônio assumindo um risco menor.",
+        "answer02": "Uma combinação entre preservação do meu patrimônio e sua valorização.",
+        "answer03": "Maximizar o potencial de ganho assumindo um risco maior."
     },
     {
-        "question01": "2.1 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question02": "2.2 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question03": "2.3 Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna."
-
+        "question": "Por quanto tempo pretende deixar seus recursos investidos?",
+        "answer01": "Até 1 ano.",
+        "answer02": "1 a 5 anos",
+        "answer03": "3 Mais de 5 anos."
     },
     {
-        "question01": "3.1 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question02": "3.2 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question03": "3.3 Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna."
-      
+        "question": "Em relação aos seus investimentos qual é a necessidade futura dos recursos aplicados?",
+        "answer01": "1 Preciso desse dinheiro como complemento de renda .",
+        "answer02": "2 Eventualmente posso precisar utilizar uma parte dele.",
+        "answer03": "3 Não tenho necessidade imediata desse dinheiro."
     },
     {
-        "question01": "4.1 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question02": "4.2 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question03": "4.3 Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna."
-       
+        "question": "Qual a sua renda mensal?",
+        "answer01": "Até R$ 3.000,00",
+        "answer02": "Entre R$ 3.000,00 e R$ 5.000,00.",
+        "answer03": "Mais de R$ 10.000,00"
     },
     {
-        "question01": "5.1 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question02": "5.2 - Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna.",
-        "question03": "5.3 Mussum Ipsum, cacilds vidis litro abertis. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Suco de cevadiss deixa as pessoas mais interessantis.Copo furadis é disculpa de bebadis, arcu quam euismod magna."
-        
+        "question": "Qual das respostas abaixo mais se assemelha à sua personalidade como investidor?",
+        "answer01": "Não admito perder nada do capital investido. Procuro um retorno seguro e sem oscilações. Segurança é mais importante do que rentabilidade.",
+        "answer02": "Não admito perder nada do capital investido, no entanto posso arriscar uma parte do capital para alcançar resultados melhores que a renda fixa tradicional. Valorizo mais a segurança do que a rentabilidade",
+        "answer03": "Minha prioridade é maximizar a rentabilidade, com a segurança em segundo plano. Posso correr grande riscos para obter elevados retornos, admitindo perder mais de 20% do meu capital investido"
     }
 ]

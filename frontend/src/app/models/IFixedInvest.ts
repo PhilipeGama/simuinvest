@@ -5,5 +5,5 @@ export default interface FixedInvest {
     initialDeposit: number,
     monthlyDeposit: number,
     months: number,
-    amount: number
+    amount: number,
 }
