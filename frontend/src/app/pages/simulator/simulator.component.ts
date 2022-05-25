@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
+import { IInvestReport } from 'src/app/models/IInvestReport';
 import { SimulatorService } from './simulator.service';
 
 @Component({
@@ -17,17 +18,26 @@ export class SimulatorComponent implements OnInit {
   fixedIncomesSavings;
   fixedIncomes;
 
+  investReport: IInvestReport = {
+    fixedIcomeName: '',
+    fixedIcomeAmount: 0,
+    initialDate: '0',
+    savingsAmount: 0,
+    totInvest: 0,
+    totalMonthsInvest:0
+  };
+
   mounth = [0, 3 ,6, 12, 24, 48]
   @ViewChild(ChartBarComponent)
   child: ChartBarComponent = new ChartBarComponent;
   
-  chartDataMockup: any[];
+  chartData: any[];
 
   constructor(private simulatorService: SimulatorService) { }
 
   ngOnInit(): void {
     
-    this.chartDataMockup = [
+    this.chartData = [
       {
         fixedIncome: 'Poupança',
         initialValue: 0,
@@ -48,7 +58,7 @@ export class SimulatorComponent implements OnInit {
     this.fixedIncomes = this.simulatorService.fixedIncomes;
 
   }
-  
+
   //TODO: move to service
   onSavingsCalculation() {
     this.simulatorService.fixedInvest.rate = this.selectFixedIncomeControl.value.rate;
@@ -59,18 +69,34 @@ export class SimulatorComponent implements OnInit {
 
     this.fixedInvest = this.simulatorService.fixedInvest;
     this.fixedIncomesSavings = this.simulatorService.fixedIncomesSavings;
+   
 
-    this.chartDataMockup[0].fixedIncome = this.fixedIncomesSavings.name;
-    this.chartDataMockup[0].mounts = this.fixedIncomesSavings.mounth;
-    this.chartDataMockup[0].initialValue = this.fixedIncomesSavings.initialDeposit;
-    this.chartDataMockup[0].amount = this.fixedIncomesSavings.amount;
+    this.chartData[0].fixedIncome = this.fixedIncomesSavings.name;
+    this.chartData[0].mounts = this.fixedIncomesSavings.mounth;
+    this.chartData[0].initialValue = this.fixedIncomesSavings.initialDeposit;
+    this.chartData[0].amount = this.fixedIncomesSavings.amount;
 
-    this.chartDataMockup[1].fixedIncome = this.selectFixedIncomeControl.value.sigla;
-    this.chartDataMockup[1].mounts = this.simulatorService.fixedInvest;
-    this.chartDataMockup[1].initialValue = this.simulatorService.fixedInvest.initialDeposit;
-    this.chartDataMockup[1].amount = this.simulatorService.fixedInvest.amount;
+    this.chartData[1].fixedIncome = this.selectFixedIncomeControl.value.sigla;
+    this.chartData[1].mounts = this.simulatorService.fixedInvest;
+    this.chartData[1].initialValue = this.simulatorService.fixedInvest.initialDeposit;
+    this.chartData[1].amount = this.simulatorService.fixedInvest.amount;
 
     this.child.createChartLineBar()
+
+  }
+
+  onSaveInvestReport(){
+  
+    this.investReport.totInvest = this.simulatorService.totalInvest;
+    this.investReport.fixedIcomeName = this.simulatorService.fixedInvest.name;
+    this.investReport.fixedIcomeAmount = this.fixedIncomesSavings.amount;
+    this.investReport.totalMonthsInvest = this.simulatorService.fixedInvest.months;
+    this.investReport.savingsAmount =  this.fixedIncomesSavings.amount;
+
+    console.log("onSaveInvestReport")
+    console.log(Date.now())
+    console.log(this.investReport)
+    this.simulatorService.create(this.investReport)
 
   }
 

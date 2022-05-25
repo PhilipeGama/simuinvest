@@ -1,4 +1,5 @@
-export interface InvestReport {
+export interface IInvestReport {
+    _uid?: string,
     fixedIcomeName: string;
     initialDate: string;
     totalMonthsInvest: number;

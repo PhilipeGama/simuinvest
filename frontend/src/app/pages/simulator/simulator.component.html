@@ -46,7 +46,7 @@
         </div>
 
         <div class="simulator-chart">
-            <app-chart-bar [chartDataMockup]="chartDataMockup" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
+            <app-chart-bar [chartDataMockup]="chartData" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
 
             <div class="amounts">
                 <mat-form-field appearance="fill">
@@ -59,7 +59,8 @@
                     <input currencyMask [(ngModel)]="fixedInvest.amount"
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput>
                 </mat-form-field>
-                <button mat-raised-button color="primary" style="margin-bottom: 20px">Salvar</button>
+
+                <button mat-raised-button color="primary" style="margin-bottom: 20px" (click)="onSaveInvestReport()">Salvar</button>
             </div>
 
         </div>
