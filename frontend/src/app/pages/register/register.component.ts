@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { MustMatch } from 'src/app/custom-validators/must-match.validator';
 import { IInvestor } from 'src/app/models/IInvestor';
-import { InvestorService } from 'src/app/shared/investor.service';
-import { AuthService } from '../login/auth.service';
+import { InvestorService } from 'src/app/services/investor.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -33,8 +33,6 @@ export class RegisterComponent implements OnInit {
     }, {
       validators: MustMatch
     });
-
-  
   }
 
   onSubmit() {
@@ -48,7 +46,6 @@ export class RegisterComponent implements OnInit {
       )
     ).subscribe(data => {
       if (data.length === 0) {
-  
         this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password).subscribe(data => console.log(data))
         this.investor.name = this.formRegister.value.name;
         this.investor.email = this.formRegister.value.email;
@@ -63,9 +60,7 @@ export class RegisterComponent implements OnInit {
       } else {
         console.log(data)
       }
-
     });
-
   }
 
   onGetInvestorByEmail() {
@@ -88,14 +83,6 @@ export class RegisterComponent implements OnInit {
 
   onShowForm(){
     console.log(this.formRegister.errors?.mustMatch)
-  }
-
-  matchPassword(control: FormGroup): { [s: string]: boolean } {
-
-    if (control.value.password !== control.value.confirmPassword) {
-      return { 'notMatchPassword': true }
-    }
-    return null
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import { IInvestReport } from 'src/app/models/IInvestReport';
-import { SimulatorService } from './simulator.service';
+import { SimulatorService } from '../../services/simulator.service';
 
 @Component({
   selector: 'app-simulator',
@@ -94,7 +94,6 @@ export class SimulatorComponent implements OnInit {
     this.investReport.savingsAmount =  this.fixedIncomesSavings.amount;
 
     console.log("onSaveInvestReport")
-    console.log(Date.now())
     console.log(this.investReport)
     this.simulatorService.create(this.investReport)
 

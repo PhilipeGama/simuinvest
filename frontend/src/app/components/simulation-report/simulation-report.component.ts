@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { IInvestor } from 'src/app/models/IInvestor';
 import { IInvestReport } from 'src/app/models/IInvestReport';
-import { SimulatorService } from 'src/app/pages/simulator/simulator.service';
+import { SimulatorService } from 'src/app/services/simulator.service';
 
 export interface InvestReport {
   fixedIcomeName: string;
@@ -13,10 +12,7 @@ export interface InvestReport {
   savingsAmount: number;
 }
 
-const ELEMENT_DATA: InvestReport[] = [
-    {fixedIcomeName: 'LCA', initialDate: '02-02-2022',  totalMonthsInvest: 20, totInvest: 3000, fixedIcomeAmount: 4000, savingsAmount: 3500},
-    {fixedIcomeName: 'LCA', initialDate: '02-02-2022',  totalMonthsInvest: 20, totInvest: 3000, fixedIcomeAmount: 4000, savingsAmount: 3500},
-];
+const ELEMENT_DATA: InvestReport[] = [];
 @Component({
   selector: 'app-simulation-report',
   templateUrl: './simulation-report.component.html',
@@ -28,9 +24,9 @@ export class SimulationReportComponent implements OnInit {
   clickedRows = new Set<InvestReport>();
 
   investReport: IInvestReport;
-
+  investReports: IInvestReport[] = [];
   constructor(private simulatorService: SimulatorService) { 
-
+    this.loadInvestorReport();
   }
 
   ngOnInit(): void {
@@ -48,15 +44,26 @@ export class SimulationReportComponent implements OnInit {
 
       } else {
 
-        // this.investReport._uid = data[0].key;
-        // this.investReport.fixedIcomeName = data[0].fixedIcomeName;
-        // this.investReport.fixedIcomeAmount = data[0].password;
-        // this.investReport.name = data[0].name;
-        // this.investReport.type = data[0].type;
-        // this.investReport.phone = data[0].phone;
+        console.log(data)
+        for(let d of data){
+          this.investReport = {
+            uid : d.key,
+            fixedIcomeName : d.fixedIcomeName,
+            fixedIcomeAmount : d.fixedIcomeAmount,
+            totInvest : d.totInvest,
+            savingsAmount : d.savingsAmount,
+            totalMonthsInvest : d.totalMonthsInvest,
+            initialDate: '2018'
+          }
+          console.log(this.investReport)
+          this.investReports.push(this.investReport)
+          this.dataSource = this.investReports;
+        }
 
+        console.log(this.investReports)
 
       }
+      console.log(this.investReport)
     });
   }
 

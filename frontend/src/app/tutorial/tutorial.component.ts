@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { IInvestor } from '../models/IInvestor';
-import { InvestorService } from '../shared/investor.service';
+import { InvestorService } from '../services/investor.service';
 
 interface Hero {
   name: string

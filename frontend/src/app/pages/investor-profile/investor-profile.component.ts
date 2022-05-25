@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
 import { DialogMaterialComponent } from 'src/app/components/dialog-material/dialog-material.component';
 import { IInvestor } from 'src/app/models/IInvestor';
-import { InvestorService } from 'src/app/shared/investor.service';
+import { InvestorService } from 'src/app/services/investor.service';
 import questionsJSON from '../../_files/questions.json';
 
 
