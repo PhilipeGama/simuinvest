@@ -52,8 +52,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { environment } from 'src/environments/environment.prod';
-import { DialogMaterialComponent } from './components/dialog-material/dialog-material.component';
+import { environment } from 'src/environments/environment';
+import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 
 @NgModule({
   declarations: [

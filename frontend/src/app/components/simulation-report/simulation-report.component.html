@@ -1,34 +1,38 @@
 <h1>Relatório</h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-    <!-- Position Column -->
-    <ng-container matColumnDef="fixedIcomeName">
+
+    <ng-container matColumnDef="fixedIncomeName">
       <th mat-header-cell *matHeaderCellDef>Nome</th>
-      <td mat-cell *matCellDef="let element">{{element.fixedIcomeName}}</td>
+      <td mat-cell *matCellDef="let element">{{element.fixedIncomeName}}</td>
     </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="initialDate">
+
+
+    <ng-container matColumnDef="totInvest">
       <th mat-header-cell *matHeaderCellDef>Valor Investido</th>
       <td mat-cell *matCellDef="let element">{{element.totInvest}}</td>
     </ng-container>
   
-    <!-- Weight Column -->
+
     <ng-container matColumnDef="totalMonthsInvest">
-      <th mat-header-cell *matHeaderCellDef>Periodo Aplicado em Mês</th>
+      <th mat-header-cell *matHeaderCellDef>Mêses Aplicados</th>
       <td mat-cell *matCellDef="let element">{{element.totalMonthsInvest}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="totSavings">
+    <ng-container matColumnDef="savingsAmount">
       <th mat-header-cell *matHeaderCellDef>Redimento na Poupança</th>
       <td mat-cell *matCellDef="let element">{{element.savingsAmount}}</td>
     </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="totInvest">
+
+    <ng-container matColumnDef="fixedIncomeAmount">
       <th mat-header-cell *matHeaderCellDef>Redimento na Renda Fixa</th>
-      <td mat-cell *matCellDef="let element">{{element.fixedIcomeAmount}}</td>
+      <td mat-cell *matCellDef="let element">{{element.fixedIncomeAmount}}</td>
     </ng-container>
-  
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let element">Deletar {{element.uid}}</td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
         mat-row

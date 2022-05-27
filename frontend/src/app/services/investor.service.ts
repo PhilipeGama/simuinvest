@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { IInvestor } from "../models/IInvestor";
+import { IInvestor } from "../interfaces/IInvestor";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,7 @@ export class InvestorService {
     private dbPath = '/investor';
 
     tutorialsRef: AngularFireList<IInvestor>;
-  
+ 
     constructor(private db: AngularFireDatabase) {
       this.tutorialsRef = db.list(this.dbPath);
     }

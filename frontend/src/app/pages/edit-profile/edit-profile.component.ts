@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { map } from "rxjs/operators";
-import { IInvestor } from "src/app/models/IInvestor";
+import { IInvestor } from "src/app/interfaces/IInvestor";
 import { InvestorService } from "src/app/services/investor.service";
 
 

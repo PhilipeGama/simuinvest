@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { MustMatch } from 'src/app/custom-validators/must-match.validator';
-import { IInvestor } from 'src/app/models/IInvestor';
+import { IInvestor } from 'src/app/interfaces/IInvestor';
 import { InvestorService } from 'src/app/services/investor.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -36,8 +36,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-
-
     this.investorService.getInvestorByEmail(this.formRegister.value.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -46,17 +44,20 @@ export class RegisterComponent implements OnInit {
       )
     ).subscribe(data => {
       if (data.length === 0) {
-        this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password).subscribe(data => console.log(data))
-        this.investor.name = this.formRegister.value.name;
-        this.investor.email = this.formRegister.value.email;
-        this.investor.password = this.formRegister.value.password;
-        this.investor.type = 'Sem perfil de investor';
-        this.investor.phone = this.formRegister.value.phone;
-        this.investorService.create(this.investor)
-     
-        this.investor = null;
-        this.formRegister.reset();
-        this.router.navigate(['/login'])
+        this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password).subscribe(data => {
+  
+          this.investor.uidAuth = data.localId;
+          this.investor.name = this.formRegister.value.name;
+          this.investor.email = this.formRegister.value.email;
+          this.investor.password = this.formRegister.value.password;
+          this.investor.type = 'Sem perfil de investor';
+          this.investor.phone = this.formRegister.value.phone;
+          this.investorService.create(this.investor)
+       
+          this.investor = null;
+          this.formRegister.reset();
+          this.router.navigate(['/login'])
+        })
       } else {
         console.log(data)
       }

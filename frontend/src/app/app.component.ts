@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 
-interface User {
-  email: string
-  password: string
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

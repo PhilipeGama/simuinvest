@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthResponseData, AuthService } from '../../auth/auth.service';
-import { User } from '../../models/user.model';
+import { User } from '../../interfaces/user.model';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin(){
-    console.log(this.formLogin)
+
     if (!this.formLogin.valid) {
       return
     }

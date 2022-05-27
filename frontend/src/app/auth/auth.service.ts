@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { throwError, BehaviorSubject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators'
-import { User } from "src/app/models/user.model";
+import { User } from "src/app/interfaces/user.model";
 
 
 export interface AuthResponseData {
@@ -25,6 +25,7 @@ export class AuthService {
 
     private tokenExpirationTimer: any; 
 
+    //Todo move to enviromment
     API_key = "AIzaSyBBleMGlwxTJgj9TKSUYmcjrUCcZYDu4jc";
 
     register_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.API_key;
@@ -59,6 +60,7 @@ export class AuthService {
             password: password,
             returnSecureToken: true
         }).pipe(catchError(this.handlerError), tap(resData => {
+            console.log(resData)
             localStorage.setItem('userData', JSON.stringify(resData));
             this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn)
         }))

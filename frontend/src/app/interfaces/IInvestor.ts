@@ -1,8 +1,9 @@
 export class IInvestor {
-    id?: number;
+    _uid?: string;
     name: string;
     email: string;
     password?: string;
     type?: string;
     phone: string;
+    uidAuth?: string
 }

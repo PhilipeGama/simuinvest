@@ -1,9 +1,10 @@
 export interface IInvestReport {
     uid?: string,
-    fixedIcomeName: string;
+    fixedIncomeName: string;
     initialDate: string;
     totalMonthsInvest: number;
     totInvest: number;
-    fixedIcomeAmount: number;
+    fixedIncomeAmount: number;
     savingsAmount: number;
+    email?: string;
 }

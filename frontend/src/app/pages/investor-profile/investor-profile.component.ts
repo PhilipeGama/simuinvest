@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
-import { DialogMaterialComponent } from 'src/app/components/dialog-material/dialog-material.component';
-import { IInvestor } from 'src/app/models/IInvestor';
+import { DialogMaterialComponent } from 'src/app/components/dialog-investor-profile/dialog-investor-profile.component';
+import { IInvestor } from 'src/app/interfaces/IInvestor';
 import { InvestorService } from 'src/app/services/investor.service';
 import questionsJSON from '../../_files/questions.json';
 
@@ -137,16 +137,16 @@ export class InvestorProfileComponent implements OnInit {
 
     if (this.investorType == 1) {
       this.openDialog('Conservador', this.investorText[0])
-      //this.createSnackBar("Conservador")
+      this.investor.type = 'Conservador';
     }
 
     if (this.investorType == 2) {
       this.openDialog('Moderado', this.investorText[1])
-      //this.createSnackBar("Moderado")
+      this.investor.type = 'Moderado';
     }
     if (this.investorType == 3) {
       this.openDialog('Agressivo', this.investorText[2])
-      // this.createSnackBar("Agressivo")
+      this.investor.type = 'Agressivo';
     }
     this.investorService.update(this.investor_key, this.investor)
   }

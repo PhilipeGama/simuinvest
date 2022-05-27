@@ -3,8 +3,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-material',
-  templateUrl: './dialog-material.component.html',
-  styleUrls: ['./dialog-material.component.scss']
+  templateUrl: './dialog-investor-profile.component.html',
+  styleUrls: ['./dialog-investor-profile.component.scss']
 })
 export class DialogMaterialComponent implements OnInit {
 

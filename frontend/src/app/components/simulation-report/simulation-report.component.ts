@@ -1,27 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { IInvestReport } from 'src/app/models/IInvestReport';
+import { IInvestReport } from 'src/app/interfaces/IInvestReport';
 import { SimulatorService } from 'src/app/services/simulator.service';
 
-export interface InvestReport {
-  fixedIcomeName: string;
-  initialDate: string;
-  totalMonthsInvest: number;
-  totInvest: number;
-  fixedIcomeAmount: number;
-  savingsAmount: number;
-}
 
-const ELEMENT_DATA: InvestReport[] = [];
+
+const ELEMENT_DATA: IInvestReport[] = [];
 @Component({
   selector: 'app-simulation-report',
   templateUrl: './simulation-report.component.html',
   styleUrls: ['./simulation-report.component.scss']
 })
 export class SimulationReportComponent implements OnInit {
-  displayedColumns: string[] = ['fixedIcomeName', 'initialDate', 'totalMonthsInvest', 'totInvest', 'totSavings'];
+  displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totInvest','fixedIncomeAmount', 'savingsAmount', 'actions'];
   dataSource = ELEMENT_DATA;
-  clickedRows = new Set<InvestReport>();
+  clickedRows = new Set<IInvestReport>();
 
   investReport: IInvestReport;
   investReports: IInvestReport[] = [];
@@ -33,7 +26,17 @@ export class SimulationReportComponent implements OnInit {
   }
 
   loadInvestorReport(){
-    this.simulatorService.getAll().snapshotChanges().pipe(
+
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    
+
+    this.simulatorService.getInvestReportByUser(userData.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -43,28 +46,26 @@ export class SimulationReportComponent implements OnInit {
       if (data.length === 0) {
 
       } else {
-
-        console.log(data)
         for(let d of data){
           this.investReport = {
             uid : d.key,
-            fixedIcomeName : d.fixedIcomeName,
-            fixedIcomeAmount : d.fixedIcomeAmount,
+            fixedIncomeName : d.fixedIncomeName,
+            fixedIncomeAmount : d.fixedIncomeAmount,
             totInvest : d.totInvest,
             savingsAmount : d.savingsAmount,
             totalMonthsInvest : d.totalMonthsInvest,
             initialDate: '2018'
           }
-          console.log(this.investReport)
           this.investReports.push(this.investReport)
           this.dataSource = this.investReports;
         }
-
-        console.log(this.investReports)
-
       }
-      console.log(this.investReport)
+
     });
+  }
+
+  addInvestReport(investReport: IInvestReport){
+    this.investReports.push(investReport);
   }
 
 }
