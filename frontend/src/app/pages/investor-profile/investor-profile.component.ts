@@ -3,8 +3,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
 import { DialogMaterialComponent } from 'src/app/components/dialog-investor-profile/dialog-investor-profile.component';
-import { IInvestor } from 'src/app/interfaces/IInvestor';
-import { InvestorService } from 'src/app/services/investor.service';
+import { IUser } from 'src/app/interfaces/user.interface';
+
+import { UserService } from 'src/app/services/user.service';
 import questionsJSON from '../../_files/questions.json';
 
 
@@ -30,20 +31,21 @@ export class InvestorProfileComponent implements OnInit {
 
   questionNumber: number = 0;
 
-  investorProfile: string = '';
+  userProfile: string = '';
 
-  investor_key: any;
+  user_key: any;
 
-  investor: IInvestor = {
+  user: IUser = {
     name: '',
     email: '',
     phone: '',
-    type: 'Sem perfil de investidor',
+    profile: 'Sem perfil de investidor',
+    createdAt: new Date,
   };
 
 
-  constructor(private _snackBar: MatSnackBar, private investorService: InvestorService, public dialog: MatDialog) {
-    this.getInvestor()
+  constructor(private _snackBar: MatSnackBar, private userService: UserService, public dialog: MatDialog) {
+    this.getUser()
   }
 
   ngOnInit(): void { }
@@ -54,7 +56,7 @@ export class InvestorProfileComponent implements OnInit {
     this.dialog.open(DialogMaterialComponent, {data: {title: title, content: content}, maxWidth: 600});
   }
 
-  investorText = [
+  userText = [
     "Como o próprio nome sugere, o investidor de perfil conservador tem maior aversão ao risco – isto é, prefere investir seu dinheiro em produtos que apresentem nenhum ou baixo risco. No geral, podemos dizer que o investidor conservador busca receber ganhos reais com o menor risco possível, mesmo que para isso tenha que abrir mão de certa rentabilidade. ",
     "Podemos dizer que o investidor de perfil moderado corre um risco médio em suas aplicações – ele está disposto a assumir riscos um pouco maiores para ter uma rentabilidade também maior; mas, ao mesmo tempo, não abre mão de certa segurança. Por isso, ele investe tanto em renda fixa, mais segura, quanto em outras opções, como fundos multimercados (de médio risco) e até ações. ",
     " Investidores agressivos ou arrojados estão dispostos a correr riscos para ter maior rentabilidade – e até perder parte de seu patrimônio em nome disso. Em uma carteira de investimentos, a maior parte de suas aplicações está em produtos de renda variável – ações, fundos de ações, opções, entre outros. "
@@ -64,7 +66,7 @@ export class InvestorProfileComponent implements OnInit {
 
 
 
-  getInvestor() {
+  getUser() {
     const userData: {
       email: string;
       id: string;
@@ -76,7 +78,7 @@ export class InvestorProfileComponent implements OnInit {
       return;
     }
 
-    this.investorService.getInvestorByEmail(userData.email).snapshotChanges().pipe(
+    this.userService.getUserByEmail(userData.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -87,14 +89,13 @@ export class InvestorProfileComponent implements OnInit {
 
       } else {
 
-        this.investor_key = data[0].key;
-        this.investor.email = data[0].email;
-        this.investor.password = data[0].password;
-        this.investor.name = data[0].name;
-        this.investor.type = data[0].type;
-        this.investor.phone = data[0].phone;
+        this.user_key = data[0].key;
+        this.user.email = data[0].email;
+        this.user.name = data[0].name;
+        this.user.profile = data[0].profile;
+        this.user.phone = data[0].phone;
 
-        this.investorService.update(this.investor_key, this.investor);
+        this.userService.update(this.user_key, this.user);
       }
     });
   }
@@ -105,7 +106,7 @@ export class InvestorProfileComponent implements OnInit {
     if (this.questionNumber <= 4 && this.questions[this.questionNumber].answer != undefined) {
 
       if (this.questionNumber == 4) {
-        this.investorProfileCalculation()
+        this.userProfileCalculation()
       } else {
         this.questionNumber++;
       }
@@ -126,34 +127,34 @@ export class InvestorProfileComponent implements OnInit {
   }
 
   answersSum: number;
-  investorType: number;
-  investorProfileCalculation() {
+  userType: number;
+  userProfileCalculation() {
     this.answersSum = 0;
 
     this.questions.forEach(question => { this.answersSum = this.answersSum + question.answer })
 
-    this.investorType = this.investorService.investorProfileType(this.answersSum);
+    this.userType = this.userService.investorProfileType(this.answersSum);
 
 
-    if (this.investorType == 1) {
-      this.openDialog('Conservador', this.investorText[0])
-      this.investor.type = 'Conservador';
+    if (this.userType == 1) {
+      this.openDialog('Conservador', this.userText[0])
+      this.user.profile = 'Conservador';
     }
 
-    if (this.investorType == 2) {
-      this.openDialog('Moderado', this.investorText[1])
-      this.investor.type = 'Moderado';
+    if (this.userType == 2) {
+      this.openDialog('Moderado', this.userText[1])
+      this.user.profile = 'Moderado';
     }
-    if (this.investorType == 3) {
-      this.openDialog('Agressivo', this.investorText[2])
-      this.investor.type = 'Agressivo';
+    if (this.userType == 3) {
+      this.openDialog('Agressivo', this.userText[2])
+      this.user.profile = 'Agressivo';
     }
-    this.investorService.update(this.investor_key, this.investor)
+    this.userService.update(this.user_key, this.user)
   }
 
-  createSnackBar(investorType: string) {
-    this.investor.type = investorType;
-    this._snackBar.open("Você tem o perfil de investidor " + investorType + "!", "Fechar", {
+  createSnackBar(userType: string) {
+    this.user.profile = userType;
+    this._snackBar.open("Você tem o perfil de investidor " + userType + "!", "Fechar", {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 7 * 1000,

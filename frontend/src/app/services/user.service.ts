@@ -1,32 +1,33 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { IInvestor } from "../interfaces/IInvestor";
+import { AuthService } from "../auth/auth.service";
+import { IUser } from "../interfaces/user.interface";
 
 @Injectable({
     providedIn: 'root'
 })
-export class InvestorService {
+export class UserService {
   
-    private dbPath = '/investor';
+    private dbPath = '/users';
 
-    tutorialsRef: AngularFireList<IInvestor>;
+    tutorialsRef: AngularFireList<IUser>;
  
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase, private authService: AuthService) {
       this.tutorialsRef = db.list(this.dbPath);
     }
   
-    getInvestorByEmail(email: string): AngularFireList<IInvestor> {
+    getUserByEmail(email: string): AngularFireList<IUser> {
         return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
-    getAll(): AngularFireList<IInvestor> {
+    getAll(): AngularFireList<IUser> {
         return this.tutorialsRef;
     }
   
-    create(investor: IInvestor): any {
-      return this.tutorialsRef.push(investor);
+    create(id: string, user: IUser): any {
+      this.db.object('users/' + id).update(user);
     }
-  
+
     update(key: string, value: any): Promise<void> {
       return this.tutorialsRef.update(key, value);
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { IInvestor } from '../interfaces/IInvestor';
-import { InvestorService } from '../services/investor.service';
+import { IUser } from '../interfaces/user.interface';
+import { UserService } from '../services/user.service';
 
 interface Hero {
   name: string
@@ -15,20 +15,15 @@ interface Hero {
 export class TutorialComponent implements OnInit {
 
   email: string; 
-  investor: IInvestor = {
-    name: '',
-    email: '',
-    phone: '',
+  user: IUser ;
 
-  };
-
-  constructor(private investorService: InvestorService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
   }
 
   getByEmail(){
-    this.investorService.getInvestorByEmail(this.email).snapshotChanges().pipe(
+    this.userService.getUserByEmail(this.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -36,13 +31,13 @@ export class TutorialComponent implements OnInit {
       )
     ).subscribe(data => {
       console.log(data)
-      this.investor.email = data[0].email;
+      this.user.email = data[0].email;
     });
   }
 
 
   getAll(): void {
-    this.investorService.getAll().snapshotChanges().pipe(
+    this.userService.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -54,6 +49,6 @@ export class TutorialComponent implements OnInit {
   }
   
   showInvestor(){
-    console.log(this.investor)
+    console.log(this.user)
   }
 }
