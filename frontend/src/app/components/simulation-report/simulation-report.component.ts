@@ -68,7 +68,7 @@ export class SimulationReportComponent implements OnInit {
   onDeleteInvestmentReport(uid: string){
       let data = {
         title : "Confirmar Exclusão",
-        content: "Deseja Excluir o Relatório: " + uid,
+        content: "Tem certeza que deseja excluir este relatório?",
         uid: uid
       }
       this.dialog.open(DialogConfirmComponent, {data: {title: data.title, content: data.content, uid: data.uid}, maxWidth: 800});

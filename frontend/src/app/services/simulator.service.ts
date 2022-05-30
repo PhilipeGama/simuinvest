@@ -3,6 +3,7 @@ import FixedIncome from "src/app/interfaces/IFixedIncome";
 import FixedInvest from "src/app/interfaces/IFixedInvest";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { IInvestReport } from "src/app/interfaces/invest-report.interface";
+import { Observable } from "rxjs";
 
 
 @Injectable({
@@ -31,6 +32,11 @@ export class SimulatorService {
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));
     return this.investReportRef;
   }
+
+  // getInvestReportByUserId(id: string): Observable<any> {
+  //   this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id)).snapshotChanges();
+    
+  // }
 
   getInvestReportByUserId(id: string): AngularFireList<IInvestReport> {
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));

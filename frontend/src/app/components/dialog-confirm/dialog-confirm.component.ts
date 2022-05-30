@@ -15,7 +15,6 @@ export class DialogConfirmComponent implements OnInit {
   }
 
   onDeleteInvestReport(){
-    console.log(this.data.uid)
     this.simulatorService.deleteInvestReport(this.data.uid)
   }
 }
