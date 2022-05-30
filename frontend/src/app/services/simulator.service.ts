@@ -14,6 +14,7 @@ export class SimulatorService {
   private dbPath = '/investment-reports';
 
   investReportRef: AngularFireList<IInvestReport>;
+  investReportObs: Observable<any>
 
   constructor(private db: AngularFireDatabase) {
     // this.investReportRef = db.list(this.dbPath);
@@ -21,7 +22,7 @@ export class SimulatorService {
   }
 
   create(investReport: IInvestReport): any {
-    return this.investReportRef.push(investReport);
+    return this.db.list('investment-reports').push(investReport);
   }
 
   getAll(): AngularFireList<IInvestReport> {
@@ -33,10 +34,10 @@ export class SimulatorService {
     return this.investReportRef;
   }
 
-  // getInvestReportByUserId(id: string): Observable<any> {
-  //   this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id)).snapshotChanges();
-    
-  // }
+  getInvestReportByUserId1(id: string): Observable<any> {
+    this.investReportObs = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id)).snapshotChanges(); 
+    return this.investReportObs;
+  }
 
   getInvestReportByUserId(id: string): AngularFireList<IInvestReport> {
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));

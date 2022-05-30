@@ -40,8 +40,9 @@ export class SimulationReportComponent implements OnInit {
       )
     ).subscribe(data => {
       if (data.length === 0) {
-
+        
       } else {
+        this.investReports = []
         for(let d of data){
           this.investReport = {
             _id : d.key,
