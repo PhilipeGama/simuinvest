@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { IInvestReport } from 'src/app/interfaces/IInvestReport';
 import { SimulatorService } from 'src/app/services/simulator.service';
+import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 
 
 
@@ -18,7 +20,7 @@ export class SimulationReportComponent implements OnInit {
 
   investReport: IInvestReport;
   investReports: IInvestReport[] = [];
-  constructor(private simulatorService: SimulatorService) { 
+  constructor(private simulatorService: SimulatorService, public dialog: MatDialog) { 
     this.loadInvestorReport();
   }
 
@@ -66,6 +68,15 @@ export class SimulationReportComponent implements OnInit {
 
   addInvestReport(investReport: IInvestReport){
     this.investReports.push(investReport);
+  }
+
+  onDeleteInvestmentReport(uid: string){
+      let data = {
+        title : "Confirmar Exclusão",
+        content: "Deseja Excluir o Relatório: " + uid,
+        uid: uid
+      }
+      this.dialog.open(DialogConfirmComponent, {data: {title: data.title, content: data.content, uid: data.uid}, maxWidth: 600});
   }
 
 }

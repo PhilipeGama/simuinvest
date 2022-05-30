@@ -54,6 +54,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DialogMaterialComponent } from './components/dialog-investor-profile/di
     TutorialComponent,
     RegisterComponent,
     DialogMaterialComponent,
+    DialogConfirmComponent,
   ],
   imports: [
     BrowserModule,

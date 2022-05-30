@@ -30,7 +30,9 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
-      <td mat-cell *matCellDef="let element">Deletar {{element.uid}}</td>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="onDeleteInvestmentReport(element.uid)">Deletar {{element.uid}}</button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

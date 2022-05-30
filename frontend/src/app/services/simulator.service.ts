@@ -32,6 +32,10 @@ export class SimulatorService {
     return this.investReportRef;
   }
 
+  deleteInvestReport(uid: string){
+    return this.investReportRef.remove(uid)
+  }
+
   fixedIncomes: FixedIncome[];
 
   totalInvest: number;
