@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import FixedIncome from "src/app/interfaces/IFixedIncome";
 import FixedInvest from "src/app/interfaces/IFixedInvest";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { IInvestReport } from "src/app/interfaces/IInvestReport";
+import { IInvestReport } from "src/app/interfaces/invest-report.interface";
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { IInvestReport } from "src/app/interfaces/IInvestReport";
 })
 export class SimulatorService {
 
-  private dbPath = '/investment-report';
+  private dbPath = '/investment-reports';
 
   investReportRef: AngularFireList<IInvestReport>;
 
@@ -27,8 +27,13 @@ export class SimulatorService {
     return this.investReportRef;
   }
 
-  getInvestReportByUser(email: string): AngularFireList<IInvestReport> {
-    this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
+  getInvestReportByUserEmail(id: string): AngularFireList<IInvestReport> {
+    this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));
+    return this.investReportRef;
+  }
+
+  getInvestReportByUserId(id: string): AngularFireList<IInvestReport> {
+    this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));
     return this.investReportRef;
   }
 

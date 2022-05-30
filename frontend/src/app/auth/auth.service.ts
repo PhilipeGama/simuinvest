@@ -56,7 +56,7 @@ export class AuthService {
         }).pipe(catchError(this.handlerError), tap(resData => {
             console.log(resData)
             localStorage.setItem('userData', JSON.stringify(resData));
-            this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn)
+            this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn, resData.localId)
         }))
     }
 
@@ -64,6 +64,7 @@ export class AuthService {
         const userData: {
             email: string;
             id: string;
+            localId: string;
             _token: string;
             _tokenExpirationDate: string;
         } = JSON.parse(localStorage.getItem('userData'));
@@ -75,7 +76,8 @@ export class AuthService {
         const loadedUser = new User(userData.id, 
             userData.email, 
             userData._token,
-            new Date(userData._tokenExpirationDate))
+            new Date(userData._tokenExpirationDate),
+            userData.localId)
         
         if(loadedUser.token){
             this.user.next(loadedUser)
@@ -103,9 +105,9 @@ export class AuthService {
         }, expirationDuration)
     }
 
-    private handleAuthenticaton(id: string, email: string, token: string, expiresIn: number) {
+    private handleAuthenticaton(id: string, email: string, token: string, expiresIn: number, userId) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-        const user = new User(id, email, token, expirationDate);
+        const user = new User(id, email, token, expirationDate, userId);
 
         this.user.next(user);
         this.autoLogout(expiresIn * 1000);

@@ -20,6 +20,10 @@ export class UserService {
         return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
+    getUserById(email: string): AngularFireList<IUser> {
+      return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
+  }
+
     getAll(): AngularFireList<IUser> {
         return this.tutorialsRef;
     }

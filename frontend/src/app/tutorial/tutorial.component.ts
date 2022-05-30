@@ -49,6 +49,8 @@ export class TutorialComponent implements OnInit {
   }
   
   showInvestor(){
-    console.log(this.user)
+    const userId = JSON.parse(localStorage.getItem('userData')).userId;
+
+    console.log(userId)
   }
 }

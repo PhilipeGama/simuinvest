@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
-import { IInvestReport } from 'src/app/interfaces/IInvestReport';
+import { AuthService } from 'src/app/auth/auth.service';
+import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
 import { SimulatorService } from 'src/app/services/simulator.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 
@@ -29,16 +30,9 @@ export class SimulationReportComponent implements OnInit {
 
   loadInvestorReport(){
 
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData'));
+    const userId = JSON.parse(localStorage.getItem('userData')).userId; 
 
-    
-
-    this.simulatorService.getInvestReportByUser(userData.email).snapshotChanges().pipe(
+    this.simulatorService.getInvestReportByUserId(userId).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -50,13 +44,14 @@ export class SimulationReportComponent implements OnInit {
       } else {
         for(let d of data){
           this.investReport = {
-            uid : d.key,
+            _id : d.key,
             fixedIncomeName : d.fixedIncomeName,
             fixedIncomeAmount : d.fixedIncomeAmount,
-            totInvest : d.totInvest,
+            totalInvest : d.totalInvest,
             savingsAmount : d.savingsAmount,
             totalMonthsInvest : d.totalMonthsInvest,
-            initialDate: '2018'
+            initialDate: new Date(),
+            userId: d.userId
           }
           this.investReports.push(this.investReport)
           this.dataSource = this.investReports;
@@ -76,7 +71,7 @@ export class SimulationReportComponent implements OnInit {
         content: "Deseja Excluir o Relatório: " + uid,
         uid: uid
       }
-      this.dialog.open(DialogConfirmComponent, {data: {title: data.title, content: data.content, uid: data.uid}, maxWidth: 600});
+      this.dialog.open(DialogConfirmComponent, {data: {title: data.title, content: data.content, uid: data.uid}, maxWidth: 800});
   }
 
 }

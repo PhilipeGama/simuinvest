@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
-import { IInvestReport } from 'src/app/interfaces/IInvestReport';
+import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
 import { SimulatorService } from '../../services/simulator.service';
 
 @Component({
@@ -21,10 +21,11 @@ export class SimulatorComponent implements OnInit {
   investReport: IInvestReport = {
     fixedIncomeName: '',
     fixedIncomeAmount: 0,
-    initialDate: '0',
+    initialDate: new Date(),
     savingsAmount: 0,
-    totInvest: 0,
-    totalMonthsInvest:0
+    totalInvest: 0,
+    totalMonthsInvest:0,
+    userId: ''
   };
 
   mounth = [0, 3 ,6, 12, 24, 48]
@@ -86,23 +87,15 @@ export class SimulatorComponent implements OnInit {
   }
 
   onSaveInvestReport(){
-  
-    this.investReport.totInvest = this.simulatorService.totalInvest;
+
+    this.investReport.totalInvest = this.simulatorService.totalInvest;
     this.investReport.fixedIncomeName = this.simulatorService.fixedInvest.name;
     this.investReport.fixedIncomeAmount = this.simulatorService.fixedInvest.amount;
     this.investReport.totalMonthsInvest = this.simulatorService.fixedInvest.months;
     this.investReport.savingsAmount =  this.fixedIncomesSavings.amount;
+    this.investReport.userId = JSON.parse(localStorage.getItem('userData')).userId;;
 
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData'));
-
-    this.investReport.email =  userData.email;
     this.simulatorService.create(this.investReport)
-
   }
 
 
