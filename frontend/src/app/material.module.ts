@@ -28,7 +28,7 @@ const MaterialComponents = [
     MatRadioModule,
     MatCardModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
 ]
 
 @NgModule({

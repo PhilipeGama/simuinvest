@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   error?: string;
 
   constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
+  
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const password = this.formLogin.value.password;
     this.isLoading = true;
  
-    authObs = this.authService.login(email, password);
+    this.authService.login(email, password);
 
     authObs.subscribe(resData => {
       this.isLoading = false;

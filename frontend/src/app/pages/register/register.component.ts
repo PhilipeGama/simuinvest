@@ -44,23 +44,8 @@ export class RegisterComponent implements OnInit {
       )
     ).subscribe(data => {
       if (data.length === 0) {
-        this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password).subscribe(data => {
-  
-          // this.investor.uidAuth = data.localId;
-          this.user.name = this.formRegister.value.name;
-          this.user.email = this.formRegister.value.email;
-          this.user.profile = 'Sem perfil de investor';
-          this.user.phone = this.formRegister.value.phone;
-          this.userService.create(data.localId, this.user)
-       
-          this.user = null;
-          this.formRegister.reset();
-          this.router.navigate(['/login'])
-        })
-      } else {
-        console.log(data)
-      }
-    });
+        this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password)
+      }});
   }
 
   onGetInvestorByEmail() {

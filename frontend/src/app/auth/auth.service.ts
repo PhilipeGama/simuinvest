@@ -5,6 +5,8 @@ import { throwError, BehaviorSubject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators'
 import { User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 
 export interface AuthResponseData {
@@ -23,41 +25,36 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    userData: any;
 
-    private tokenExpirationTimer: any; 
+    private tokenExpirationTimer: any;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private afAuth: AngularFireAuth) {
+        this.afAuth.authState.subscribe((user) => {
+            if (user) {
+                this.userData = user;
+                localStorage.setItem('user', JSON.stringify(this.userData));
+                JSON.parse(localStorage.getItem('user')!)
+            } else {
+                localStorage.setItem('user', 'null');
+                JSON.parse(localStorage.getItem('user')!);
+            }
+        })
+    }
 
     signUp(email: string, password: string) {
-        return this.http.post<AuthResponseData>(environment.firebase.registerURL, {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }).pipe
-            (catchError(errorRes => {
-                let errorMessage = 'An unknown error ocurred!'
-                if (!errorRes.error || !errorRes.error.error) {
-                    return throwError(errorMessage);
-                }
-                switch (errorRes.error.error.message) {
-                    case 'EMAIL_EXISTS':
-                        errorMessage = 'This email exist already'
-                }
-                return throwError(errorMessage);
-            })
-            );
+        return this.afAuth
+        .createUserWithEmailAndPassword
     }
 
     login(email: string, password: string) {
-        return this.http.post<AuthResponseData>(environment.firebase.loginURL, {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }).pipe(catchError(this.handlerError), tap(resData => {
-            console.log(resData)
-            localStorage.setItem('userData', JSON.stringify(resData));
-            this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn, resData.localId)
-        }))
+        return this.afAuth.signInWithEmailAndPassword(email, password)
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     autoLogin() {
@@ -73,13 +70,13 @@ export class AuthService {
             return;
         }
 
-        const loadedUser = new User(userData.id, 
-            userData.email, 
+        const loadedUser = new User(userData.id,
+            userData.email,
             userData._token,
             new Date(userData._tokenExpirationDate),
             userData.localId)
-        
-        if(loadedUser.token){
+
+        if (loadedUser.token) {
             this.user.next(loadedUser)
 
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
@@ -87,19 +84,19 @@ export class AuthService {
         }
     }
 
-    
-    logout(){
+
+    logout() {
         this.user.next(null);
         this.router.navigate(['/login'])
         localStorage.removeItem('userData');
-        if(this.tokenExpirationTimer){
+        if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer)
-        } 
+        }
         this.tokenExpirationTimer = null;
         this.router.navigate(['/login'])
     }
 
-    autoLogout(expirationDuration: number){
+    autoLogout(expirationDuration: number) {
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout()
         }, expirationDuration)
