@@ -1,31 +1,35 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
+import { map } from "rxjs/operators";
 import { AuthService } from "../auth/auth.service";
 import { IUser } from "../interfaces/user.interface";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'any'
 })
 export class UserService {
   
     private dbPath = '/users';
 
-    tutorialsRef: AngularFireList<IUser>;
+    usersRef: AngularFireList<IUser>;
  
-    constructor(private db: AngularFireDatabase, private authService: AuthService) {
-      this.tutorialsRef = db.list(this.dbPath);
+    constructor(private db: AngularFireDatabase) {
+      this.usersRef = db.list(this.dbPath);
     }
   
     getUserByEmail(email: string): AngularFireList<IUser> {
         return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
-    getUserById(email: string): AngularFireList<IUser> {
-      return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
-  }
+    getUserById(id: string):  AngularFireList<IUser> {
+      this.usersRef = this.db.list('users', ref => ref.orderByKey().equalTo(id));
+      return this.usersRef;
+    };
+      
+    
 
     getAll(): AngularFireList<IUser> {
-        return this.tutorialsRef;
+        return this.usersRef;
     }
   
     create(id: string, user: IUser): any {
@@ -33,15 +37,15 @@ export class UserService {
     }
 
     update(key: string, value: any): Promise<void> {
-      return this.tutorialsRef.update(key, value);
+      return this.usersRef.update(key, value);
     }
   
     delete(key: string): Promise<void> {
-      return this.tutorialsRef.remove(key);
+      return this.usersRef.remove(key);
     }
   
     deleteAll(): Promise<void> {
-      return this.tutorialsRef.remove();
+      return this.usersRef.remove();
     }
 
     investorProfileType(answerSum: number): number{

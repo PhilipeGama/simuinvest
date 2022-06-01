@@ -1,11 +1,14 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 import { Router } from "@angular/router";
 import { throwError, BehaviorSubject } from "rxjs";
-import { catchError, tap } from 'rxjs/operators'
+import { catchError, map, tap } from 'rxjs/operators'
 import { User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AngularFireAuth } from '@angular/fire/auth';
+import { IUser } from "../interfaces/user.interface";
+import { UserService } from "../services/user.service";
+import { AngularFireList } from "@angular/fire/database";
 
 
 
@@ -25,11 +28,19 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    userLogged = new BehaviorSubject<IUser>(null);
     userData: any;
+    
 
     private tokenExpirationTimer: any;
 
-    constructor(private http: HttpClient, private router: Router, private afAuth: AngularFireAuth) {
+
+    constructor(
+        private router: Router,
+        private afAuth: AngularFireAuth,
+        private ngZone: NgZone,
+        private userService: UserService
+    ) {
         this.afAuth.authState.subscribe((user) => {
             if (user) {
                 this.userData = user;
@@ -44,16 +55,26 @@ export class AuthService {
 
     signUp(email: string, password: string) {
         return this.afAuth
-        .createUserWithEmailAndPassword
-    }
-
-    login(email: string, password: string) {
-        return this.afAuth.signInWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email, password)
             .then(data => {
                 console.log(data)
             })
             .catch(error => {
                 console.log(error)
+            })
+    }
+
+    login(email: string, password: string) {
+        return this.afAuth.signInWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log(result.user.uid)
+                this.ngZone.run(() => {
+                    this.router.navigate([''])
+                })
+                this.SetUserData(result.user)
+            })
+            .catch(error => {
+                window.alert(error.message)
             })
     }
 
@@ -127,5 +148,33 @@ export class AuthService {
                 errorMessage = 'This password is not correct'
         }
         return throwError(errorMessage);
+    }
+
+    SetUserData(user: any) {
+        this.userService.getUserById(user.uid)
+        .snapshotChanges().pipe(
+            map(changes =>
+                changes.map(c =>
+                    ({ key: c.payload.key, ...c.payload.val() })
+                )
+            )
+        )
+        .subscribe(data => {
+
+            const user: IUser = {
+                _id: data[0].key,
+                name: data[0].name,
+                email: data[0].email,
+                profile: data[0].profile,
+                phone: data[0].phone,
+                createdAt: data[0].createdAt,
+                updatedAt: data[0].updatedAt,
+            }
+            this.userLogged.next(user)
+            
+            
+            console.log('userB')
+            console.log(user)
+        })
     }
 }

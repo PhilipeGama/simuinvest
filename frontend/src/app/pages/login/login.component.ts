@@ -53,22 +53,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     const password = this.formLogin.value.password;
     this.isLoading = true;
  
-    this.authService.login(email, password);
+    this.authService.login(email, password).then(
+      
+    )
 
-    authObs.subscribe(resData => {
-      this.isLoading = false;
-      this.router.navigate(['/'])
-    },
-    errorMessage => {
-      this._snackBar.open("Email ou senha inválida", "Fechar",{
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 3 * 1000,
-      });
-
-      this.error = errorMessage;
-      this.isLoading = false;
-    });
+    //this.isLoading = false;
 
   }
 

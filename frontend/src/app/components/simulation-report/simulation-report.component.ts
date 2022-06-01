@@ -21,7 +21,7 @@ export class SimulationReportComponent implements OnInit {
 
   investReport: IInvestReport;
   investReports: IInvestReport[] = [];
-  constructor(private simulatorService: SimulatorService, public dialog: MatDialog) { 
+  constructor(private simulatorService: SimulatorService, public dialog: MatDialog, private authService: AuthService) { 
     this.loadInvestorReport();
   }
 
@@ -30,9 +30,10 @@ export class SimulationReportComponent implements OnInit {
 
   loadInvestorReport(){
 
+    console.log(this.authService.userLogged.value._id)
     const userId = JSON.parse(localStorage.getItem('userData')).userId; 
 
-    this.simulatorService.getInvestReportByUserId(userId).snapshotChanges().pipe(
+    this.simulatorService.getInvestReportByUserId(this.authService.userLogged.value._id).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })

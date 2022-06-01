@@ -17,7 +17,7 @@ export class SimulatorService {
   investReportObs: Observable<any>
 
   constructor(private db: AngularFireDatabase) {
-    // this.investReportRef = db.list(this.dbPath);
+    this.investReportRef = db.list(this.dbPath);
     this.getFixedIncomes();
   }
 
