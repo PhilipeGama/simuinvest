@@ -13,6 +13,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 const MaterialComponents = [
     MatFormFieldModule,
@@ -28,7 +30,8 @@ const MaterialComponents = [
     MatRadioModule,
     MatCardModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
 ]
 
 @NgModule({
