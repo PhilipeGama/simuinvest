@@ -133,7 +133,7 @@ export class InvestorProfileComponent implements OnInit {
 
     this.questions.forEach(question => { this.answersSum = this.answersSum + question.answer })
 
-    this.userType = this.userService.investorProfileType(this.answersSum);
+    this.userType = this.userService.investorProfile(this.answersSum);
 
 
     if (this.userType == 1) {

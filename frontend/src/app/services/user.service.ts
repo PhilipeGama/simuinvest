@@ -8,12 +8,12 @@ import { IUser } from "../interfaces/user.interface";
 })
 export class UserService {
   
-    private dbPath = '/users';
+    private dbPath = 'users';
 
-    tutorialsRef: AngularFireList<IUser>;
+    usersRef: AngularFireList<IUser>;
  
-    constructor(private db: AngularFireDatabase, private authService: AuthService) {
-      this.tutorialsRef = db.list(this.dbPath);
+    constructor(private db: AngularFireDatabase) {
+      this.usersRef = db.list(this.dbPath);
     }
   
     getUserByEmail(email: string): AngularFireList<IUser> {
@@ -25,7 +25,7 @@ export class UserService {
   }
 
     getAll(): AngularFireList<IUser> {
-        return this.tutorialsRef;
+        return this.usersRef;
     }
   
     create(id: string, user: IUser): any {
@@ -33,18 +33,18 @@ export class UserService {
     }
 
     update(key: string, value: any): Promise<void> {
-      return this.tutorialsRef.update(key, value);
+      return this.usersRef.update(key, value);
     }
   
     delete(key: string): Promise<void> {
-      return this.tutorialsRef.remove(key);
+      return this.usersRef.remove(key);
     }
   
     deleteAll(): Promise<void> {
-      return this.tutorialsRef.remove();
+      return this.usersRef.remove();
     }
 
-    investorProfileType(answerSum: number): number{
+    investorProfile(answerSum: number): number{
       if(answerSum >= 5 && answerSum <= 8){
         return 1;
       }

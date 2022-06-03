@@ -11,13 +11,12 @@ import { Observable } from "rxjs";
 })
 export class SimulatorService {
 
-  private dbPath = '/investment-reports';
+  private dbPath = 'investment-reports';
 
   investReportRef: AngularFireList<IInvestReport>;
   investReportObs: Observable<any>
 
   constructor(private db: AngularFireDatabase) {
-    // this.investReportRef = db.list(this.dbPath);
     this.getFixedIncomes();
   }
 

@@ -31,7 +31,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="onDeleteInvestmentReport(element._id)">Deletar</button>
+
+        <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="onDeleteInvestmentReport(element._id)">delete</mat-icon>
       </td>
     </ng-container>
 
