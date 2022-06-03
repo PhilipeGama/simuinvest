@@ -19,8 +19,8 @@ export class UserService {
       return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
-    getUserById(email: string): AngularFireList<IUser> {
-      return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
+    getUserById(id: string): AngularFireList<IUser> {
+      return this.db.list(this.dbPath, ref => ref.orderByKey().equalTo(id));
     }
 
     getAll(): AngularFireList<IUser> {
@@ -31,8 +31,8 @@ export class UserService {
       this.db.object('users/' + id).update(user);
     }
 
-    update(key: string, value: any): Promise<void> {
-      return this.usersRef.update(key, value);
+    update(id: string, user: IUser): Promise<void> {
+      return this.usersRef.update(id, user);
     }
   
     delete(key: string): Promise<void> {

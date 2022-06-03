@@ -23,7 +23,7 @@ export class TutorialComponent implements OnInit {
   }
 
   getByEmail(){
-    this.userService.getUserByEmail(this.email).snapshotChanges().pipe(
+    this.userService.getUserById(this.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })

@@ -21,39 +21,28 @@ export class EditProfileComponent implements OnInit{
         createdAt: new Date()
     };
 
-    investor_key: any;
-
     formEdit: FormGroup;
 
-    constructor(private _snackBar: MatSnackBar, private userService: UserService){
-        this.formEdit = new FormGroup({
-            'name': new FormControl(null),
-            'phone': new FormControl(null),
-            'password': new FormControl(null),
-            'confirmpassword': new FormControl(null)
-        })
-        this.getInvestor()
-    }
+    constructor(private _snackBar: MatSnackBar, private userService: UserService){ }
 
     ngOnInit(): void {
- 
-
+      this.formEdit = new FormGroup({
+        'name': new FormControl(null),
+        'phone': new FormControl(null),
+        'password': new FormControl(null),
+        'confirmpassword': new FormControl(null)
+      })
+      this.getInvestor()
     }
 
-
     getInvestor(){
-        const userData: {
-            email: string;
-            id: string;
-            _token: string;
-            _tokenExpirationDate: string;
-        } = JSON.parse(localStorage.getItem('userData'));
+        const userId = JSON.parse(localStorage.getItem('userData')).userId;
 
-        if (!userData) {
+        if (!userId) {
             return;
         }
 
-        this.userService.getUserByEmail(userData.email).snapshotChanges().pipe(
+        this.userService.getUserById(userId).snapshotChanges().pipe(
             map(changes =>
               changes.map(c =>
                 ({ key: c.payload.key, ...c.payload.val() })
@@ -63,7 +52,6 @@ export class EditProfileComponent implements OnInit{
             if (data.length === 0) {
 
             } else {
-              console.log(data)
               this.user._id = data[0].key;
               this.user.email = data[0].email;
               this.user.name = data[0].name;
@@ -75,20 +63,15 @@ export class EditProfileComponent implements OnInit{
                 'phone': data[0].phone
               })
             }
-      
           });
-    }
-
-    showData(){
-        console.log(this.user)
     }
 
   
     onSubmit(){
         this.user.name = this.formEdit.value.name;
         this.user.phone = this.formEdit.value.phone;
-
-        this.userService.update(this.investor_key, this.user)
+        
+        this.userService.update(this.user._id, this.user)
 
         this._snackBar.open("Dados alterados com sucesso!", "Fechar",{
             horizontalPosition: 'center',
