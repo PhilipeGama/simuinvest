@@ -1,4 +1,4 @@
-<div class="container-report">
+<div class="container-report" *ngIf="hasData">
 
 
   <h1>Relatório</h1>
@@ -11,7 +11,7 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="totInvest">
+    <ng-container matColumnDef="totalInvest">
       <th mat-header-cell *matHeaderCellDef>Valor Investido</th>
       <td mat-cell *matCellDef="let element">{{element.totalInvest}}</td>
     </ng-container>

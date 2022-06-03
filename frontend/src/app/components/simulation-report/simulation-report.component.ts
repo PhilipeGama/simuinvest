@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
-import { SimulatorService } from 'src/app/services/simulator.service';
+import { InvestReportService } from 'src/app/services/invert-report.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 
 
@@ -15,42 +15,38 @@ import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.compone
   styleUrls: ['./simulation-report.component.scss']
 })
 export class SimulationReportComponent implements OnInit {
-  displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totInvest','fixedIncomeAmount', 'savingsAmount', 'actions'];
+  displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totalInvest','fixedIncomeAmount', 'savingsAmount', 'actions'];
   dataSource: MatTableDataSource<IInvestReport>;
 
   clickedRows = new Set<IInvestReport>();
 
   @ViewChild('paginator') paginator: MatPaginator;
 
-  
-  investReport: IInvestReport;
-  investReports: IInvestReport[] = [];
-  constructor(private simulatorService: SimulatorService, public dialog: MatDialog) { 
-    this.loadInvestorReport();
-  }
+
+  investReports: IInvestReport[];
+  hasData = false;
+
+  constructor(private investReportService: InvestReportService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-
-    this.dataSource.paginator = this.paginator;
+    this.getInvestorReports();
   }
 
-  loadInvestorReport(){
-
-    const userId = JSON.parse(localStorage.getItem('userData')).userId; 
-
-    this.simulatorService.getInvestReportByUserId(userId).snapshotChanges().pipe(
+  getInvestorReports(){
+    this.investReportService.getInvestReportByUserId().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
         )
       )
     ).subscribe(data => {
+      this.investReports = []
       if (data.length === 0) {
-        
+        this.hasData = false;
       } else {
-        this.investReports = []
+      
         for(let d of data){
-          this.investReport = {
+          let investReport: IInvestReport = {
             _id : d.key,
             fixedIncomeName : d.fixedIncomeName,
             fixedIncomeAmount : d.fixedIncomeAmount,
@@ -60,10 +56,12 @@ export class SimulationReportComponent implements OnInit {
             initialDate: new Date(),
             userId: d.userId
           }
-          this.investReports.push(this.investReport)
+
+          this.investReports.push(investReport)
           this.dataSource = new MatTableDataSource(this.investReports);
           this.dataSource.paginator = this.paginator;
         }
+        this.hasData = true;
       }
 
     });

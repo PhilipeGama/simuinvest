@@ -14,20 +14,16 @@
                 <mat-hint>{{selectFixedIncomeControl.value?.sound}}</mat-hint>
             </mat-form-field>
 
-
             <mat-form-field appearance="fill">
                 <mat-label>Depósito inicial</mat-label>
                 <input currencyMask [(ngModel)]="fixedInvest.initialDeposit"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput>
             </mat-form-field>
 
-
-
             <mat-form-field appearance="fill">
                 <mat-label>Depósito Mensal</mat-label>
                 <input currencyMask [(ngModel)]="fixedInvest.monthlyDeposit"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput />
-                <!-- <input type="number" [(ngModel)]="fixedInvest.monthlyDeposit" matInput> -->
             </mat-form-field>
 
             <mat-slider [(ngModel)]="fixedInvest.months" aria-label="unit(s)"></mat-slider>
@@ -39,10 +35,8 @@
                 <mat-hint>{{mounthsControl.value?.sound}}</mat-hint>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" (click)="onSavingsCalculation()"
+            <button mat-raised-button color="primary" (click)="onSavingsCalculation()" 
                 [disabled]="selectFixedIncomeControl.hasError('required') || mounthsControl.hasError('required')">Calcular</button>
-
-
         </div>
 
         <div class="simulator-chart">
@@ -60,7 +54,7 @@
                         [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" disabled matInput>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" style="margin-bottom: 20px" (click)="onSaveInvestReport()">Salvar</button>
+                <button mat-raised-button color="primary" style="margin-bottom: 20px" (click)="onSaveInvestReport()" [disabled]="!canSave">Salvar</button>
             </div>
 
         </div>

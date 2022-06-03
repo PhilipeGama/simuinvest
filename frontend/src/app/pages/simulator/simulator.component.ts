@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
-import { SimulatorService } from '../../services/simulator.service';
+import { FixedIncomeService } from 'src/app/services/fixed-income.service';
+import { InvestReportService } from '../../services/invert-report.service';
 
 @Component({
   selector: 'app-simulator',
@@ -34,7 +35,9 @@ export class SimulatorComponent implements OnInit {
   
   chartData: any[];
 
-  constructor(private simulatorService: SimulatorService) { }
+  canSave = false;
+
+  constructor(private simulatorService: FixedIncomeService, private investReportService: InvestReportService) { }
 
   ngOnInit(): void {
     
@@ -46,7 +49,7 @@ export class SimulatorComponent implements OnInit {
         mounts: 0,
       },
       {
-        fixedIncome: 'X',
+        fixedIncome: 'Opção de Renda Fixa',
         initialValue: 0,
         amount: 0,
         mounts: 0,
@@ -84,6 +87,8 @@ export class SimulatorComponent implements OnInit {
 
     this.child.createChartLineBar()
 
+    this.canSave = true;
+
   }
 
   onSaveInvestReport(){
@@ -95,7 +100,9 @@ export class SimulatorComponent implements OnInit {
     this.investReport.savingsAmount =  this.fixedIncomesSavings.amount;
     this.investReport.userId = JSON.parse(localStorage.getItem('userData')).userId;;
 
-    this.simulatorService.create(this.investReport)
+    this.investReportService.create(this.investReport)
+
+    this.canSave = false;
   }
 
 

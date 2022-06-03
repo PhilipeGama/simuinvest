@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { AuthService } from "../auth/auth.service";
 import { IUser } from "../interfaces/user.interface";
 
 @Injectable({
@@ -17,12 +16,12 @@ export class UserService {
     }
   
     getUserByEmail(email: string): AngularFireList<IUser> {
-        return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
+      return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
     getUserById(email: string): AngularFireList<IUser> {
       return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
-  }
+    }
 
     getAll(): AngularFireList<IUser> {
         return this.usersRef;
@@ -45,18 +44,9 @@ export class UserService {
     }
 
     investorProfile(answerSum: number): number{
-      if(answerSum >= 5 && answerSum <= 8){
-        return 1;
-      }
-  
-      if(answerSum >= 9 && answerSum <= 12){
-        return 2;
-      }
-  
-      if(answerSum >= 13 && answerSum <= 15){
-        return 3;
-      }
-  
+      if(answerSum >= 5 && answerSum <= 8){ return 1; }
+      if(answerSum >= 9 && answerSum <= 12){ return 2; }
+      if(answerSum >= 13 && answerSum <= 15){ return 3; }
       return 0;
     }
     

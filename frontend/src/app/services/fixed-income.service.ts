@@ -1,51 +1,11 @@
-import { Injectable } from "@angular/core";
-import FixedIncome from "src/app/interfaces/IFixedIncome";
-import FixedInvest from "src/app/interfaces/IFixedInvest";
-import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { IInvestReport } from "src/app/interfaces/invest-report.interface";
-import { Observable } from "rxjs";
-
+import { Injectable } from '@angular/core';
+import FixedIncome from '../interfaces/IFixedIncome';
+import FixedInvest from '../interfaces/IFixedInvest';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SimulatorService {
-
-  private dbPath = 'investment-reports';
-
-  investReportRef: AngularFireList<IInvestReport>;
-  investReportObs: Observable<any>
-
-  constructor(private db: AngularFireDatabase) {
-    this.getFixedIncomes();
-  }
-
-  create(investReport: IInvestReport): any {
-    return this.db.list('investment-reports').push(investReport);
-  }
-
-  getAll(): AngularFireList<IInvestReport> {
-    return this.investReportRef;
-  }
-
-  getInvestReportByUserEmail(id: string): AngularFireList<IInvestReport> {
-    this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));
-    return this.investReportRef;
-  }
-
-  getInvestReportByUserId1(id: string): Observable<any> {
-    this.investReportObs = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id)).snapshotChanges(); 
-    return this.investReportObs;
-  }
-
-  getInvestReportByUserId(id: string): AngularFireList<IInvestReport> {
-    this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(id));
-    return this.investReportRef;
-  }
-
-  deleteInvestReport(uid: string){
-    return this.investReportRef.remove(uid)
-  }
+export class FixedIncomeService {
 
   fixedIncomes: FixedIncome[];
 
@@ -67,6 +27,11 @@ export class SimulatorService {
     monthlyDeposit: 0,
     amount: 0,
     months: 0,
+  }
+
+  
+  constructor() {
+    this.getFixedIncomes();
   }
 
   savingsCalculation() {
@@ -100,6 +65,11 @@ export class SimulatorService {
     this.fixedInvest.amount = amount;
   }
 
+
+  saveFixedIncomes(){
+
+  }
+  
   getFixedIncomes() {
     this.fixedIncomes = [{
       id: 1,

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SimulatorService } from 'src/app/services/simulator.service';
+import { InvestReportService } from 'src/app/services/invert-report.service';
 
 @Component({
   selector: 'app-dialog-confirm',
@@ -9,7 +9,7 @@ import { SimulatorService } from 'src/app/services/simulator.service';
 })
 export class DialogConfirmComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data: any,private simulatorService: SimulatorService) { }
+  constructor(@Inject(MAT_DIALOG_DATA)public data: any,private simulatorService: InvestReportService) { }
 
   ngOnInit(): void {
   }

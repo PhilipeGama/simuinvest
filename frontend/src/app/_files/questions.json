@@ -13,9 +13,9 @@
     },
     {
         "question": "Em relação aos seus investimentos qual é a necessidade futura dos recursos aplicados?",
-        "answer01": "1 Preciso desse dinheiro como complemento de renda .",
-        "answer02": "2 Eventualmente posso precisar utilizar uma parte dele.",
-        "answer03": "3 Não tenho necessidade imediata desse dinheiro."
+        "answer01": "Preciso desse dinheiro como complemento de renda .",
+        "answer02": "Eventualmente posso precisar utilizar uma parte dele.",
+        "answer03": "Não tenho necessidade imediata desse dinheiro."
     },
     {
         "question": "Qual a sua renda mensal?",

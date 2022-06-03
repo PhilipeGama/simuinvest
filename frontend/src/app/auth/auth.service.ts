@@ -5,6 +5,7 @@ import { throwError, BehaviorSubject } from "rxjs";
 import { catchError, tap } from 'rxjs/operators'
 import { User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 export interface AuthResponseData {
@@ -24,9 +25,11 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
 
+ 
+
     private tokenExpirationTimer: any; 
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private auth: AngularFireAuth) { }
 
     signUp(email: string, password: string) {
         return this.http.post<AuthResponseData>(environment.firebase.registerURL, {
@@ -55,6 +58,7 @@ export class AuthService {
             returnSecureToken: true
         }).pipe(catchError(this.handlerError), tap(resData => {
             console.log(resData)
+            // this.auth. = resData;
             localStorage.setItem('userData', JSON.stringify(resData));
             this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn, resData.localId)
         }))
