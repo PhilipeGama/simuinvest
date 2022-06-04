@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import FixedIncome from '../interfaces/IFixedIncome';
-import FixedInvest from '../interfaces/IFixedInvest';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import IFixedIncome from '../interfaces/fixed-income.interface';
+import FixedInvest from '../interfaces/fixed-invest.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FixedIncomeService {
 
-  fixedIncomes: FixedIncome[];
+  fixedIncomes: IFixedIncome[];
 
   totalInvest: number;
 
@@ -29,9 +30,13 @@ export class FixedIncomeService {
     months: 0,
   }
 
-  
-  constructor() {
-    this.getFixedIncomes();
+  dbPath = "fixed-income"
+
+  fixedIncomeRef: AngularFireList<IFixedIncome>;
+
+  constructor(private afd: AngularFireDatabase) {
+    this.fixedIncomeRef = afd.list(this.dbPath);
+    this.getFixedIncomes1();
   }
 
   savingsCalculation() {
@@ -66,38 +71,54 @@ export class FixedIncomeService {
   }
 
 
-  saveFixedIncomes(){
+  save() {
+    const fixed = this.afd.list(this.dbPath)
+    for (let f of this.fixedIncomes) {
+      fixed.push(f)
+    }
 
   }
-  
-  getFixedIncomes() {
-    this.fixedIncomes = [{
-      id: 1,
-      sigla: 'LCA e LCI',
-      name: 'LCA e LCI',
-      rate: 11.417 / 12,
-      date: new Date('2022-01-01'),
-    },
-    {
-      id: 2,
-      sigla: 'Tesouro Selic',
-      name: 'Tesouro Selic',
-      rate: 11.25 / 12,
-      date: new Date('2022-01-01'),
-    },
-    {
-      id: 3,
-      sigla: 'CDB e LC ',
-      name: 'CDB e LC ',
-      rate: 14.7955 / 12,
-      date: new Date('2022-01-01'),
-    },
-    {
-      id: 4,
-      sigla: 'Tesouro Prefixado',
-      name: 'Tesouro Prefixado',
-      rate: 11.55 / 12,
-      date: new Date('2022-01-01'),
-    }]
+
+  getFixedIncomes(): AngularFireList<IFixedIncome>{
+    return this.fixedIncomeRef;
   }
+
+
+  getFixedIncomes1() {
+    const currentDate = new Date();
+    console.log(currentDate)
+    this.fixedIncomes = [
+      {
+        _id: '1',
+        name: 'Poupança',
+        rate: 6.17 / 12,
+        createdAt: currentDate,
+      },
+      {
+        _id: '2',
+        name: 'LCA e LCI',
+        rate: 11.417 / 12,
+        createdAt: currentDate,
+      },
+      {
+        _id: '3',
+        name: 'Tesouro Selic',
+        rate: 11.25 / 12,
+        createdAt: currentDate,
+      },
+      {
+        _id: '4',
+        name: 'CDB e LC ',
+        rate: 14.7955 / 12,
+        createdAt: currentDate,
+      },
+      {
+        _id: '5',
+        name: 'Tesouro Prefixado',
+        rate: 11.55 / 12,
+        createdAt: currentDate,
+      }]
+  }
+
+
 }

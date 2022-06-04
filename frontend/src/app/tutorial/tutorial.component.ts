@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { IUser } from '../interfaces/user.interface';
+import { FixedIncomeService } from '../services/fixed-income.service';
 import { UserService } from '../services/user.service';
 
-interface Hero {
-  name: string
-}
 
 @Component({
   selector: 'app-tutorial',
@@ -17,9 +15,16 @@ export class TutorialComponent implements OnInit {
   email: string; 
   user: IUser ;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private fixedIncomeService: FixedIncomeService) {}
 
   ngOnInit(): void {
+  }
+
+  save(){
+    // const date = Date.now();
+    // const today = new Date(date)
+    // console.log(today.toLocaleDateString())
+    this.fixedIncomeService.save()
   }
 
   getByEmail(){

@@ -12,15 +12,12 @@ export class InvestReportService {
   investReportRef: AngularFireList<IInvestReport>;
 
   constructor(private db: AngularFireDatabase) {
-    const userId = JSON.parse(localStorage.getItem('userData')).userId; 
+    const userId = JSON.parse(localStorage.getItem('userData')).userId;
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(userId));
   }
+
   create(investReport: IInvestReport): any {
     return this.db.list('investment-reports').push(investReport);
-  }
-
-  getAll(): AngularFireList<IInvestReport> {
-    return this.investReportRef;
   }
 
   getInvestReportByUserId(): AngularFireList<IInvestReport> {

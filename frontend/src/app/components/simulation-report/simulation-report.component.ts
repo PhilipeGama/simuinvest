@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,8 +7,6 @@ import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
 import { InvestReportService } from 'src/app/services/invert-report.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 
-
-
 @Component({
   selector: 'app-simulation-report',
   templateUrl: './simulation-report.component.html',
@@ -16,6 +14,7 @@ import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.compone
 })
 export class SimulationReportComponent implements OnInit {
   displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totalInvest','fixedIncomeAmount', 'savingsAmount', 'actions'];
+  
   dataSource: MatTableDataSource<IInvestReport>;
 
   clickedRows = new Set<IInvestReport>();
@@ -23,13 +22,12 @@ export class SimulationReportComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
 
-  investReports: IInvestReport[];
+  investReports: IInvestReport[] = [];
   hasData = false;
 
-  constructor(private investReportService: InvestReportService, public dialog: MatDialog) {}
-
+  constructor(private investReportService: InvestReportService, public dialog: MatDialog) { }
   ngOnInit(): void {
-    this.getInvestorReports();
+    this.getInvestorReports()
   }
 
   getInvestorReports(){
@@ -44,7 +42,6 @@ export class SimulationReportComponent implements OnInit {
       if (data.length === 0) {
         this.hasData = false;
       } else {
-      
         for(let d of data){
           let investReport: IInvestReport = {
             _id : d.key,
@@ -56,19 +53,16 @@ export class SimulationReportComponent implements OnInit {
             initialDate: new Date(),
             userId: d.userId
           }
-
           this.investReports.push(investReport)
+        }
+        setTimeout(() => {
           this.dataSource = new MatTableDataSource(this.investReports);
           this.dataSource.paginator = this.paginator;
-        }
+        })
         this.hasData = true;
       }
 
     });
-  }
-
-  addInvestReport(investReport: IInvestReport){
-    this.investReports.push(investReport);
   }
 
   onDeleteInvestmentReport(uid: string){

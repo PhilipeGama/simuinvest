@@ -1,5 +1,5 @@
-export default interface FixedInvest {
-    id?: number,
+export default interface IFixedInvest {
+    _id?: string,
     name: string,
     rate: number,
     initialDeposit: number,

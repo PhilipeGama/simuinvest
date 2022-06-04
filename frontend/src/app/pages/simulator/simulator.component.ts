@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
+import IFixedIncome from 'src/app/interfaces/fixed-income.interface';
 import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
 import { FixedIncomeService } from 'src/app/services/fixed-income.service';
 import { InvestReportService } from '../../services/invert-report.service';
@@ -43,6 +45,7 @@ export class SimulatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.createInvestForm()
+    this.getFixedIncomens()
     // this.investForm.setValue({fixedIncomeNames : this.fixedIncomeService.fixedInvest.name});
 
     this.loadChart()
@@ -116,6 +119,32 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeAmount: [''],
       savingsAmount: [''],
     })
+  }
+
+  getFixedIncomens(){
+    this.fixedIncomeService.getFixedIncomes().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.fixedIncomes = []
+      if (data.length === 0) {
+      } else {
+        for(let d of data){
+          let fixedIncome: IFixedIncome = {
+            _id: d.key,
+            name: d.name,
+            rate: d.rate,
+            createdAt: d.createdAt,
+            updatedAt: d.updatedAt
+          }
+          this.fixedIncomes.push(fixedIncome)
+        }
+      }
+
+    });
   }
 
 
