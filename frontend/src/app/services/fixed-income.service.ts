@@ -30,13 +30,14 @@ export class FixedIncomeService {
     months: 0,
   }
 
-  dbPath = "fixed-income"
+  dbPath = "fixed-incomes"
 
   fixedIncomeRef: AngularFireList<IFixedIncome>;
 
   constructor(private afd: AngularFireDatabase) {
     this.fixedIncomeRef = afd.list(this.dbPath);
     this.getFixedIncomes1();
+    
   }
 
   savingsCalculation() {
@@ -85,39 +86,37 @@ export class FixedIncomeService {
 
 
   getFixedIncomes1() {
-    const currentDate = new Date();
-    console.log(currentDate)
+    const date = Date.now();
+    const currentDate = new Date(date)
+  
     this.fixedIncomes = [
       {
-        _id: '1',
         name: 'Poupança',
         rate: 6.17 / 12,
         createdAt: currentDate,
       },
       {
-        _id: '2',
         name: 'LCA e LCI',
         rate: 11.417 / 12,
         createdAt: currentDate,
       },
       {
-        _id: '3',
         name: 'Tesouro Selic',
         rate: 11.25 / 12,
         createdAt: currentDate,
       },
       {
-        _id: '4',
         name: 'CDB e LC ',
         rate: 14.7955 / 12,
         createdAt: currentDate,
       },
       {
-        _id: '5',
         name: 'Tesouro Prefixado',
         rate: 11.55 / 12,
         createdAt: currentDate,
       }]
+
+      console.log(this.fixedIncomes)
   }
 
 

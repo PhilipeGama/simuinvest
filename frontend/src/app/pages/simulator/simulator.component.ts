@@ -112,10 +112,11 @@ export class SimulatorComponent implements OnInit {
 
   createInvestForm(){
     this.investForm = this.fb.group({
-      fixedIncomeNames: [null],
+      fixedIncomeName: [null],
       inicialDeposit: [''],
       mounthDeposit: [''],
-      mounth: [''],
+      mounths: [''],
+      amount: [''],
       fixedIncomeAmount: [''],
       savingsAmount: [''],
     })
@@ -132,7 +133,11 @@ export class SimulatorComponent implements OnInit {
       this.fixedIncomes = []
       if (data.length === 0) {
       } else {
+        
         for(let d of data){
+          if(d.name == 'Poupança'){
+            continue;
+          }
           let fixedIncome: IFixedIncome = {
             _id: d.key,
             name: d.name,

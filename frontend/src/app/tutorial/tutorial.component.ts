@@ -12,7 +12,7 @@ import { UserService } from '../services/user.service';
 })
 export class TutorialComponent implements OnInit {
 
-  email: string; 
+  texto1: string; 
   user: IUser ;
 
   constructor(private userService: UserService, private fixedIncomeService: FixedIncomeService) {}
@@ -20,15 +20,16 @@ export class TutorialComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  save(){
-    // const date = Date.now();
-    // const today = new Date(date)
-    // console.log(today.toLocaleDateString())
+  f1(){
+    const date = Date.now();
+    const today = new Date(date)
+    console.log(today.toLocaleDateString())
+    console.log(today)
     this.fixedIncomeService.save()
   }
 
-  getByEmail(){
-    this.userService.getUserById(this.email).snapshotChanges().pipe(
+  f2(){
+    this.userService.getUserById(this.texto1).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -41,7 +42,7 @@ export class TutorialComponent implements OnInit {
   }
 
 
-  getAll(): void {
+  f3(): void {
     this.userService.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -52,10 +53,9 @@ export class TutorialComponent implements OnInit {
       console.log(data)
     });
   }
-  
-  showInvestor(){
-    const userId = JSON.parse(localStorage.getItem('userData')).userId;
 
-    console.log(userId)
+  f4(){
+
   }
+  
 }

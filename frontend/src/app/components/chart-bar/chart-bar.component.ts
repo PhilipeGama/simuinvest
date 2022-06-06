@@ -30,7 +30,7 @@ export class ChartBarComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions> | any;
 
-  @Input() chartDataMockup: any;
+  @Input() chartData: any;
  
 
 
@@ -55,12 +55,12 @@ export class ChartBarComponent implements OnInit {
     this.chartOptions = {
       series: [
         {
-          name: this.chartDataMockup[0].fixedIncome,
-          data: [this.chartDataMockup[0].initialValue, this.chartDataMockup[0].amount]
+          name: this.chartData[0].fixedIncome,
+          data: [this.chartData[0].initialValue, this.chartData[0].amount]
         },
         {
-          name: this.chartDataMockup[1].fixedIncome,
-          data: [this.chartDataMockup[1].initialValue, this.chartDataMockup[1].amount]
+          name: this.chartData[1].fixedIncome,
+          data: [this.chartData[1].initialValue, this.chartData[1].amount]
         }
       ],
       chart: {
@@ -77,7 +77,7 @@ export class ChartBarComponent implements OnInit {
         curve: "straight"
       },
       title: {
-        text: `Redimento de ${this.chartDataMockup[1].fixedIncome} em relação a  ${this.chartDataMockup[0].fixedIncome} `,
+        text: `Redimento de ${this.chartData[1].fixedIncome} em relação a  ${this.chartData[0].fixedIncome} `,
         align: "left"
       },
       grid: {
@@ -94,8 +94,8 @@ export class ChartBarComponent implements OnInit {
 
 
   loadChart(){
-    let initialValue = this.chartDataMockup.initialValue - (this.chartDataMockup.initialValue * 0.20);
-    let amount = this.chartDataMockup.amount - (this.chartDataMockup.amount * 0.20);
+    let initialValue = this.chartData.initialValue - (this.chartData.initialValue * 0.20);
+    let amount = this.chartData.amount - (this.chartData.amount * 0.20);
     
     initialValue = parseFloat(initialValue.toFixed(2));
     amount = parseFloat(amount.toFixed(2));

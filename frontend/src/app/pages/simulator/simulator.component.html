@@ -6,7 +6,7 @@
                 <mat-label>Opções de Renda Fixa</mat-label>
                 <mat-select [formControl]="selectFixedIncomeControl" required>
                     <mat-option *ngFor="let fixedIncome of fixedIncomes" [value]="fixedIncome">
-                        {{fixedIncome.sigla}}
+                        {{fixedIncome.name}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="selectFixedIncomeControl.hasError('required')">Por favor selecione uma renda fixa
@@ -40,7 +40,7 @@
         </div>
 
         <div class="simulator-chart">
-            <app-chart-bar [chartDataMockup]="chartData" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
+            <app-chart-bar [chartData]="chartData" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
 
             <div class="amounts">
                 <mat-form-field appearance="fill">

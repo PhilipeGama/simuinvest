@@ -1,16 +1,14 @@
 <div class="container">
   <mat-form-field appearance="fill">
-    <mat-label>Enter your email</mat-label>
-    <input matInput placeholder="pat@example.com" [(ngModel)]="email"required>
+    <mat-label>Entre com o texto</mat-label>
+    <input matInput [(ngModel)]="texto1" required>
   </mat-form-field>
   <div class="btn-group">
-    <button mat-raised-button color="primary" (click)="save()">Search</button>
-    <button mat-raised-button color="primary" (click)="getByEmail()">Search By Email</button>
-    <button mat-raised-button color="primary" (click)="showInvestor()">Show Investor</button>
+    <button mat-raised-button color="primary" (click)="f1()">Função 1</button>
+    <button mat-raised-button color="primary" (click)="f2()">Função 2</button>
+    <button mat-raised-button color="primary" (click)="f3()">Função 3</button>
   </div>
 
-
-  <!-- <p>{{}}</p> -->
 </div>
 
 
