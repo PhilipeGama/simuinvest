@@ -42,6 +42,7 @@ export class SimulationReportComponent implements OnInit {
       if (data.length === 0) {
         this.hasData = false;
       } else {
+        console.log(data)
         for(let d of data){
           let investReport: IInvestReport = {
             _id : d.key,
@@ -49,8 +50,8 @@ export class SimulationReportComponent implements OnInit {
             fixedIncomeAmount : d.fixedIncomeAmount,
             totalInvest : d.totalInvest,
             savingsAmount : d.savingsAmount,
-            totalMonthsInvest : d.totalMonthsInvest,
-            initialDate: new Date(),
+            months : d.months,
+            createdAt: new Date(),
             userId: d.userId
           }
           this.investReports.push(investReport)

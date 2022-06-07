@@ -25,7 +25,6 @@ export class TutorialComponent implements OnInit {
     const today = new Date(date)
     console.log(today.toLocaleDateString())
     console.log(today)
-    this.fixedIncomeService.save()
   }
 
   f2(){

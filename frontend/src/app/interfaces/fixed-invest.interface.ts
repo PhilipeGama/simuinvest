@@ -7,3 +7,4 @@ export default interface IFixedInvest {
     months: number,
     amount: number,
 }
+

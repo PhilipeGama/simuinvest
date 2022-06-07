@@ -1,122 +1,45 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import IFixedIncome from '../interfaces/fixed-income.interface';
-import FixedInvest from '../interfaces/fixed-invest.interface';
+import { IInvestData } from '../interfaces/invest-data.inteface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FixedIncomeService {
 
-  fixedIncomes: IFixedIncome[];
-
-  totalInvest: number;
-
-  fixedInvest: FixedInvest = {
-    name: '',
-    rate: 0,
-    initialDeposit: 0,
-    monthlyDeposit: 0,
-    months: null,
-    amount: 0,
-  }
-
-  fixedIncomesSavings: FixedInvest = {
-    name: 'Poupança',
-    rate: 6.17 / 12,
-    initialDeposit: 0,
-    monthlyDeposit: 0,
-    amount: 0,
-    months: 0,
-  }
-
   dbPath = "fixed-incomes"
 
   fixedIncomeRef: AngularFireList<IFixedIncome>;
+  savingsRate = 0.5141666666666667;
 
   constructor(private afd: AngularFireDatabase) {
-    this.fixedIncomeRef = afd.list(this.dbPath);
-    this.getFixedIncomes1();
-    
+    this.fixedIncomeRef = afd.list(this.dbPath); 
   }
 
-  savingsCalculation() {
-    const { initialDeposit, monthlyDeposit, months } = this.fixedInvest;
+  calculateInvestmentIncome(investData : IInvestData): IInvestData{
+    const { initialDeposit, monthlyDeposit, months, fixedIncomeRate } = investData; 
 
-    let amount = initialDeposit + monthlyDeposit;
+    let savingsAmount =  initialDeposit + monthlyDeposit, fixedIncomeAmount =  initialDeposit + monthlyDeposit;
 
-    this.totalInvest = initialDeposit + (monthlyDeposit * months);
 
     for (let i = 1; i < months; i++) {
-      amount += monthlyDeposit + (amount * (this.fixedIncomesSavings.rate / 100));
+      savingsAmount +=  monthlyDeposit + (savingsAmount  * this.savingsRate / 100) ;
+      fixedIncomeAmount += monthlyDeposit + (fixedIncomeAmount * fixedIncomeRate  / 100);
     }
 
-    amount = parseFloat(amount.toFixed(2));
+    savingsAmount = parseFloat(savingsAmount.toFixed(2));
+    fixedIncomeAmount = parseFloat(fixedIncomeAmount.toFixed(2));
 
-    this.fixedIncomesSavings.initialDeposit = initialDeposit
-    this.fixedIncomesSavings.amount = amount;
-  }
-
-  //TODO: choose a better name
-  fixedIncomeCalculation() {
-    const { rate, initialDeposit, monthlyDeposit, months } = this.fixedInvest;
-
-    let amount = initialDeposit + monthlyDeposit;
-
-    for (let i = 1; i < months; i++) {
-      amount += monthlyDeposit + (amount * (rate / 100));
-    }
-
-    amount = parseFloat(amount.toFixed(2));
-    this.fixedInvest.amount = amount;
-  }
+    investData.savingsAmount = savingsAmount;
+    investData.fixedIncomeAmount = fixedIncomeAmount;
 
 
-  save() {
-    const fixed = this.afd.list(this.dbPath)
-    for (let f of this.fixedIncomes) {
-      fixed.push(f)
-    }
-
+    return investData;
   }
 
   getFixedIncomes(): AngularFireList<IFixedIncome>{
     return this.fixedIncomeRef;
-  }
-
-
-  getFixedIncomes1() {
-    const date = Date.now();
-    const currentDate = new Date(date)
-  
-    this.fixedIncomes = [
-      {
-        name: 'Poupança',
-        rate: 6.17 / 12,
-        createdAt: currentDate,
-      },
-      {
-        name: 'LCA e LCI',
-        rate: 11.417 / 12,
-        createdAt: currentDate,
-      },
-      {
-        name: 'Tesouro Selic',
-        rate: 11.25 / 12,
-        createdAt: currentDate,
-      },
-      {
-        name: 'CDB e LC ',
-        rate: 14.7955 / 12,
-        createdAt: currentDate,
-      },
-      {
-        name: 'Tesouro Prefixado',
-        rate: 11.55 / 12,
-        createdAt: currentDate,
-      }]
-
-      console.log(this.fixedIncomes)
   }
 
 

@@ -1,8 +1,8 @@
 export interface IInvestReport {
     _id?: string,
     fixedIncomeName: string;
-    initialDate: Date;
-    totalMonthsInvest: number;
+    createdAt: Date;
+    months: number;
     totalInvest: number;
     fixedIncomeAmount: number;
     savingsAmount: number;
