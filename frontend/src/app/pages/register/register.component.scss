@@ -16,3 +16,9 @@
     margin-top: -15px;
     margin-left: 10px;
 }
+
+@media (max-width: 520px) {
+    .container {
+        width: 80%;
+    }
+}

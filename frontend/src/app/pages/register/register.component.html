@@ -31,8 +31,6 @@
         </mat-error>
     </mat-form-field>
 
-
-
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Confirma Senha</mat-label>
         <input type="password" formControlName="confirmPassword" matInput>
@@ -56,21 +54,9 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Celular</mat-label>
-        <span matPrefix>+55 &nbsp;</span>
-        <input type="tel" matInput placeholder="(55) 55555-5555">
-        <mat-icon matSuffix>mode_edit</mat-icon>
-      </mat-form-field> -->
-
-
     <div class="btn-group">
         <button mat-raised-button color="primary" type="submit" style="margin-right: 10px"
             [disabled]="!formRegister.valid">Cadastra-se</button>
         <button mat-raised-button color="primary" type="button" routerLink="/login">Voltar para Login</button>
-
-
-
-        <!-- <button mat-raised-button color="primary" type="button" (click)="onGetInvestorByEmail()">Buscar email</button> -->
-    </div>
+    </div> 
 </form>
