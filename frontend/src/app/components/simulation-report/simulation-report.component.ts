@@ -21,7 +21,6 @@ export class SimulationReportComponent implements OnInit {
 
   @ViewChild('paginator') paginator: MatPaginator;
 
-
   investReports: IInvestReport[] = [];
   hasData = false;
 
@@ -42,7 +41,6 @@ export class SimulationReportComponent implements OnInit {
       if (data.length === 0) {
         this.hasData = false;
       } else {
-        console.log(data)
         for(let d of data){
           let investReport: IInvestReport = {
             _id : d.key,

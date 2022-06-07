@@ -7,7 +7,7 @@
 
             <mat-select formControlName="fixedIncome">
                 <ng-container *ngFor="let fixedIncome of fixedIncomes">
-                    <mat-option [value]="fixedIncome" required>{{fixedIncome.name}}</mat-option>
+                    <mat-option [value]="fixedIncome">{{fixedIncome.name}}</mat-option>
                 </ng-container>
             </mat-select>
 
@@ -28,21 +28,21 @@
                 matInput />
         </mat-form-field>
 
-        <mat-slider formControlName="months" type="number" aria-label="unit(s)"></mat-slider>
+        <!-- <mat-slider  thumbLabel type="number" aria-label="unit(s)"></mat-slider> -->
 
         <mat-form-field appearance="fill">
             <mat-label>Total de meses</mat-label>
-            <input type="number" formControlName="months" required matInput>
+            <input type="number" formControlName="months" matInput>
             <mat-error >Por favor selecione uma renda fixa</mat-error>
             <mat-hint></mat-hint>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="onSubmit()"
+        <button mat-raised-button color="primary" [disabled]="investForm.invalid" (click)="onSubmit()"
             >Calcular</button>
 
 
         <div class="simulator-chart">
-            <app-chart-bar [chartData]="chartData" (reloadChart)="onSavingsCalculation()"></app-chart-bar>
+            <app-chart-bar [chartData]="chartData"></app-chart-bar>
 
             <div class="amounts">
                 <mat-form-field appearance="fill">

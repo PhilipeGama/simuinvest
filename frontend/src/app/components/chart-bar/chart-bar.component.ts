@@ -32,8 +32,6 @@ export class ChartBarComponent implements OnInit {
 
   @Input() chartData: any;
  
-
-
   categories = [
     "Inicio",
     "Fim",
@@ -44,14 +42,11 @@ export class ChartBarComponent implements OnInit {
   constructor() {
   }
 
-
   ngOnInit(): void {
-    
     this.createChartLineBar()
   }
   
   createChartLineBar(){
-
     this.chartOptions = {
       series: [
         {
@@ -94,12 +89,13 @@ export class ChartBarComponent implements OnInit {
 
 
   loadChart(){
+    console.log('ChartData')
+    console.log(this.chartData)
     let initialValue = this.chartData.initialValue - (this.chartData.initialValue * 0.20);
     let amount = this.chartData.amount - (this.chartData.amount * 0.20);
-    
+
     initialValue = parseFloat(initialValue.toFixed(2));
     amount = parseFloat(amount.toFixed(2));
-
 
     let valuesMockup = [initialValue, amount]
 
@@ -109,9 +105,5 @@ export class ChartBarComponent implements OnInit {
 
     this.createChartLineBar();
   }
-
-
-
-
 
 }

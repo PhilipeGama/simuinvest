@@ -16,12 +16,29 @@ import { InvestReportService } from '../../services/invert-report.service';
 
 export class SimulatorComponent implements OnInit {
 
+  @ViewChild(ChartBarComponent)
+  childChart: ChartBarComponent;
 
-  fixedIncomes;
+  fixedIncomes: IFixedIncome[];
 
-   investData: IInvestData;
+  investData: IInvestData = {
+    fixedIncomeName: 'Opção de Renda Fixa',
+    initialDeposit: 0,
+    monthlyDeposit: 0,
+    months: 0,
+    amount: 0,
+    fixedIncomeAmount: 0,
+    savingsAmount: 0,
+    fixedIncomeRate: 0,
+  };
 
   investForm: FormGroup;
+
+  mounth = [0, 3 ,6, 12, 24, 48]
+
+  chartData: any[];
+
+  canSave = false;
 
   createInvestForm(){
     this.investForm = this.fb.group({
@@ -29,40 +46,25 @@ export class SimulatorComponent implements OnInit {
       initialDeposit: ['', Validators.required],
       monthlyDeposit: ['', Validators.required],
       months: ['', Validators.required],
-      amount: ['', Validators.required],
       fixedIncomeAmount: [{value:'', disabled: true}],
       savingsAmount: [{value:'', disabled: true}],
     })
   }
-  
-  mounth = [0, 3 ,6, 12, 24, 48]
-  @ViewChild(ChartBarComponent)
-  child: ChartBarComponent = new ChartBarComponent;
-  
-  chartData: any[];
 
-  canSave = false;
-
-  constructor(private fixedIncomeService: FixedIncomeService, private investReportService: InvestReportService, private fb: FormBuilder) { }
+  constructor(private fixedIncomeService: FixedIncomeService,
+    private investReportService: InvestReportService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createInvestForm()
     this.getFixedIncomens()
+    this.childChart = new ChartBarComponent();
     this.loadChart()
-
-  }
-
-  //TODO: move to service
-  onSavingsCalculation() {
-
-
   }
 
   onSaveInvestReport(){
-
     const userId = JSON.parse(localStorage.getItem('userData')).userId;;
 
-    console.log(this.investForm.value)
     let investReport: IInvestReport = {
       fixedIncomeName: this.investData.fixedIncomeName,
       fixedIncomeAmount: this.investData.fixedIncomeAmount,
@@ -75,22 +77,26 @@ export class SimulatorComponent implements OnInit {
 
     this.investReportService.create(investReport)
     this.canSave = false;
+  
   }
 
   // TODO improving function
   loadChart() {
+    console.log(this.investData)
     this.chartData = [{
       fixedIncome: 'Poupança',
-      initialValue: 0,
-      amount: 0,
-      mounts: 0,
+      initialValue: this.investData.initialDeposit,
+      amount: this.investData.savingsAmount,
+      mounts: this.investData.months,
     },
     {
-      fixedIncome: 'Opção de Renda Fixa',
-      initialValue: 0,
-      amount: 0,
-      mounts: 0,
+      fixedIncome: this.investData.fixedIncomeName,
+      initialValue: this.investData.initialDeposit,
+      amount: this.investData.fixedIncomeAmount,
+      mounts: this.investData.months,
     }]
+    this.childChart.chartData = this.chartData;
+    this.childChart.loadChart()
   }
 
   onSubmit(){
@@ -103,8 +109,8 @@ export class SimulatorComponent implements OnInit {
     }
     this.investData = this.fixedIncomeService.calculateInvestmentIncome(this.investData)
     this.investForm.patchValue({fixedIncomeAmount: this.investData.fixedIncomeAmount, savingsAmount: this.investData.savingsAmount});
-  
     this.canSave = true;
+    this.loadChart()
   }
 
   getFixedIncomens(){
@@ -118,7 +124,7 @@ export class SimulatorComponent implements OnInit {
       this.fixedIncomes = []
       if (data.length === 0) {
       } else {
-        
+
         for(let d of data){
           if(d.name == 'Poupança'){
             continue;
@@ -133,7 +139,6 @@ export class SimulatorComponent implements OnInit {
           this.fixedIncomes.push(fixedIncome)
         }
       }
-
     });
   }
 
