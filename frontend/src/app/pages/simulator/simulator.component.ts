@@ -75,8 +75,6 @@ export class SimulatorComponent implements OnInit {
       months: this.investData.months,
       userId: userId
     };
-
-    console.log(investReport)
     this.investReportService.create(investReport)
     this.canSave = false;
   

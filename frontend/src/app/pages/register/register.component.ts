@@ -6,6 +6,7 @@ import { MustMatch } from 'src/app/custom-validators/must-match.validator';
 import { IUser } from 'src/app/interfaces/user.interface';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
   formRegister: FormGroup;
   user: IUser;
 
-  constructor(private userService: UserService, private router: Router, private authService: AuthService) {
+  constructor(private userService: UserService, private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {
     this.user = new IUser();
   }
 
@@ -57,7 +58,11 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login'])
         })
       } else {
-        console.log(data)
+        this._snackBar.open("Este email ja existe!", "Fechar",{
+          horizontalPosition: 'left',
+          verticalPosition: 'bottom',
+          duration: 3 * 1000,
+        });
       }
     });
   }
