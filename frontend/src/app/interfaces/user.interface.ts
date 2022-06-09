@@ -4,6 +4,6 @@ export class IUser {
     email: string;
     profile?: string;
     phone: string;
-    createdAt: Date;
-    updatedAt?: Date;
+    createdAt: string;
+    updatedAt?: string;
 }

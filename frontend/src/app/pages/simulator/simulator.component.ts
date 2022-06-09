@@ -65,16 +65,18 @@ export class SimulatorComponent implements OnInit {
   onSaveInvestReport(){
     const userId = JSON.parse(localStorage.getItem('userData')).userId;;
 
+    const today = new Date().toLocaleDateString();
     let investReport: IInvestReport = {
       fixedIncomeName: this.investData.fixedIncomeName,
       fixedIncomeAmount: this.investData.fixedIncomeAmount,
-      createdAt: new Date(),
+      createdAt: today,
       savingsAmount: this.investData.savingsAmount,
       totalInvest: this.investData.fixedIncomeAmount,
       months: this.investData.months,
       userId: userId
     };
 
+    console.log(investReport)
     this.investReportService.create(investReport)
     this.canSave = false;
   
@@ -82,7 +84,6 @@ export class SimulatorComponent implements OnInit {
 
   // TODO improving function
   loadChart() {
-    console.log(this.investData)
     this.chartData = [{
       fixedIncome: 'Poupança',
       initialValue: this.investData.initialDeposit,

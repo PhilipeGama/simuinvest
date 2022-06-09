@@ -23,8 +23,6 @@ export class TutorialComponent implements OnInit {
   f1(){
     const date = Date.now();
     const today = new Date(date)
-    console.log(today.toLocaleDateString())
-    console.log(today)
   }
 
   f2(){
@@ -35,7 +33,6 @@ export class TutorialComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data)
       this.user.email = data[0].email;
     });
   }
@@ -49,7 +46,6 @@ export class TutorialComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data)
     });
   }
 

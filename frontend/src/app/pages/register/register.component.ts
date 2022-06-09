@@ -44,15 +44,14 @@ export class RegisterComponent implements OnInit {
       )
     ).subscribe(data => {
       if (data.length === 0) {
+        const today = new Date().toLocaleDateString();
         this.authService.signUp(this.formRegister.value.email, this.formRegister.value.password).subscribe(data => {
-  
-          // this.investor.uidAuth = data.localId;
           this.user.name = this.formRegister.value.name;
           this.user.email = this.formRegister.value.email;
+          this.user.createdAt = today;
           this.user.profile = 'Sem perfil de investor';
           this.user.phone = this.formRegister.value.phone;
           this.userService.create(data.localId, this.user)
-       
           this.user = null;
           this.formRegister.reset();
           this.router.navigate(['/login'])
@@ -61,28 +60,6 @@ export class RegisterComponent implements OnInit {
         console.log(data)
       }
     });
-  }
-
-  onGetInvestorByEmail() {
-    this.userService.getUserByEmail(this.formRegister.value.email).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      if (data.length === 0) {
-        console.log('email não encontrado!')
-        console.log(data)
-      } else {
-        console.log('email encontrado!')
-        console.log(data)
-      }
-    });
-  }
-
-  onShowForm(){
-    console.log(this.formRegister.errors?.mustMatch)
   }
 
 }

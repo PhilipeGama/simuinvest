@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
 import { DialogMaterialComponent } from 'src/app/components/dialog-investor-profile/dialog-investor-profile.component';
@@ -40,7 +40,7 @@ export class InvestorProfileComponent implements OnInit {
     email: '',
     phone: '',
     profile: 'Sem perfil de investidor',
-    createdAt: new Date,
+    createdAt: '6/8/2022',
   };
 
 

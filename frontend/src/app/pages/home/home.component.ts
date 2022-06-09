@@ -17,8 +17,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   userEmail = '';
 
   constructor(private authService: AuthService) { }
-  longText = "Mussum Ipsum, cacilds vidis litro abertis. Copo furadis é disculpa de bebadis, arcu quam euismod magna.Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.Paisis, filhis, espiritis santis.Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis."
-
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
@@ -30,10 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
-  }
-
-  show() {
-    console.log(this.user)
   }
 
 

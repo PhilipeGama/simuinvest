@@ -49,7 +49,7 @@ export class SimulationReportComponent implements OnInit {
             totalInvest : d.totalInvest,
             savingsAmount : d.savingsAmount,
             months : d.months,
-            createdAt: new Date(),
+            createdAt: d.createdAt,
             userId: d.userId
           }
           this.investReports.push(investReport)

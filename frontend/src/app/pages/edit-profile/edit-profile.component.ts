@@ -13,12 +13,13 @@ import { UserService } from "src/app/services/user.service";
 })
 export class EditProfileComponent implements OnInit{
 
+    // TODO improving 
     user: IUser = {
         name: '',
         email: '',
         phone: '',
         profile: 'Sem perfil de investidor',
-        createdAt: new Date()
+        createdAt: '6/8/2022'
     };
 
     formEdit: FormGroup;
@@ -57,6 +58,8 @@ export class EditProfileComponent implements OnInit{
               this.user.name = data[0].name;
               this.user.profile = data[0].profile;
               this.user.phone = data[0].phone;
+              this.user.createdAt = data[0].createdAt;
+              this.user.updatedAt = data[0].updatedAt;
 
               this.formEdit.patchValue({
                 'name': data[0].name,

@@ -89,8 +89,6 @@ export class ChartBarComponent implements OnInit {
 
 
   loadChart(){
-    console.log('ChartData')
-    console.log(this.chartData)
     let initialValue = this.chartData.initialValue - (this.chartData.initialValue * 0.20);
     let amount = this.chartData.amount - (this.chartData.amount * 0.20);
 

@@ -55,7 +55,6 @@ export class AuthService {
             password: password,
             returnSecureToken: true
         }).pipe(catchError(this.handlerError), tap(resData => {
-            console.log(resData)
             localStorage.setItem('userData', JSON.stringify(resData));
             this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn, resData.localId)
         }))
