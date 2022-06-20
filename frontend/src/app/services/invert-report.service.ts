@@ -16,7 +16,7 @@ export class InvestReportService {
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(userId));
   }
 
-  create(investReport: IInvestReport): any {
+  create(investReport: IInvestReport) {
     return this.db.list('investment-reports').push(investReport);
   }
 
