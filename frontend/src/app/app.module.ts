@@ -21,16 +21,17 @@ import { ChartBarComponent } from './components/chart-bar/chart-bar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SimulationReportComponent } from './components/simulation-report/simulation-report.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
-import { HeaderComponent } from './components/templates/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoadingSpinner } from './components/templates/loading-spinner/loading-spinner';
+import { LoadingSpinner } from './components/loading-spinner/loading-spinner';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+
 
 @NgModule({
   declarations: [

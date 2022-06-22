@@ -7,6 +7,7 @@ import { IInvestReport } from 'src/app/interfaces/invest-report.interface';
 import { IInvestData } from 'src/app/interfaces/invest-data.inteface';
 import { FixedIncomeService } from 'src/app/services/fixed-income.service';
 import { InvestReportService } from '../../services/invert-report.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-simulator',
@@ -51,7 +52,9 @@ export class SimulatorComponent implements OnInit {
     })
   }
 
-  constructor(private fixedIncomeService: FixedIncomeService,
+  constructor(
+    private auth: AuthService,
+    private fixedIncomeService: FixedIncomeService,
     private investReportService: InvestReportService,
     private fb: FormBuilder) { }
 
@@ -63,7 +66,7 @@ export class SimulatorComponent implements OnInit {
   }
 
   onSaveInvestReport(){
-    const userId = JSON.parse(localStorage.getItem('userData')).userId;;
+    const userId = this.auth.user.value.userId;
 
     const today = new Date().toLocaleDateString();
     let investReport: IInvestReport = {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 import { IUser } from '../interfaces/user.interface';
 import { FixedIncomeService } from '../services/fixed-income.service';
 import { UserService } from '../services/user.service';
@@ -15,14 +16,16 @@ export class TutorialComponent implements OnInit {
   texto1: string; 
   user: IUser ;
 
-  constructor(private userService: UserService, private fixedIncomeService: FixedIncomeService) {}
+  constructor(
+    private auth: AuthService,
+    private userService: UserService, 
+    private fixedIncomeService: FixedIncomeService) {}
 
   ngOnInit(): void {
   }
 
   f1(){
-    const date = Date.now();
-    const today = new Date(date)
+    console.log(this.auth.user.value)
   }
 
   f2(){

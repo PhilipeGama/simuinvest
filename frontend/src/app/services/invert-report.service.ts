@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { IInvestReport } from "src/app/interfaces/invest-report.interface";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,9 @@ export class InvestReportService {
 
   investReportRef: AngularFireList<IInvestReport>;
 
-  constructor(private db: AngularFireDatabase) {
-    const userId = JSON.parse(localStorage.getItem('userData')).userId;
+  constructor(private auth: AuthService,private db: AngularFireDatabase) {
+    const userId = this.auth.user.value.userId;
+
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(userId));
   }
 

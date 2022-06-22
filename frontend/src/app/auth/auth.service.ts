@@ -27,7 +27,10 @@ export class AuthService {
 
     private tokenExpirationTimer: any; 
 
-    constructor(private http: HttpClient, private router: Router, private auth: AngularFireAuth) { }
+    constructor(
+        private http: HttpClient, 
+        private router: Router,
+        ){}
 
     signUp(email: string, password: string) {
         return this.http.post<AuthResponseData>(environment.firebase.registerURL, {
@@ -60,15 +63,15 @@ export class AuthService {
         }))
     }
 
-    autoLogin() {
+    autoLogin() {    
+      
         const userData: {
             email: string;
             id: string;
-            localId: string;
+            userId: string;
             _token: string;
             _tokenExpirationDate: string;
         } = JSON.parse(localStorage.getItem('userData'));
-
         if (!userData) {
             return;
         }
@@ -77,11 +80,10 @@ export class AuthService {
             userData.email, 
             userData._token,
             new Date(userData._tokenExpirationDate),
-            userData.localId)
+            userData.userId)
         
         if(loadedUser.token){
             this.user.next(loadedUser)
-
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration)
         }
