@@ -37,6 +37,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("onsubmit")
     this.userService.getUserByEmail(this.formRegister.value.email).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -54,16 +55,21 @@ export class RegisterComponent implements OnInit {
           this.user.phone = this.formRegister.value.phone;
           this.userService.create(data.localId, this.user)
           this.user = null;
-          this.formRegister.reset();
-          this.router.navigate(['/login'])
         })
-      } else {
+        this.formRegister.reset();
+        this.router.navigate(['/login'])
+        return;
+      }
+
+      else {
         this._snackBar.open("Este email ja existe!", "Fechar",{
           horizontalPosition: 'left',
           verticalPosition: 'bottom',
           duration: 3 * 1000,
         });
       }
+
+
     });
   }
 
