@@ -7,13 +7,8 @@ import { LoggedComponent } from './pages/logged/logged.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
-import { TutorialComponent } from './tutorial/tutorial.component';
 
 const routes: Routes = [
-  {
-    path: 'tutorial',
-    component: TutorialComponent
-  },
   {
     path: 'login',
     component: LoginComponent

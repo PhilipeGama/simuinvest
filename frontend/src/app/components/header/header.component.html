@@ -1,4 +1,4 @@
-<mat-toolbar color="mat-toolbar-color">
+<mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
         <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
@@ -26,8 +26,9 @@
             <button mat-menu-item (click)="onLogout()">Sair</button>
         </mat-menu>
     </div>
+    
+</mat-toolbar >
 
-</mat-toolbar>
 <mat-sidenav-container fxFlexFill class="example-container">
 
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
@@ -45,3 +46,4 @@
         </ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>
+

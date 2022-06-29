@@ -26,7 +26,6 @@ import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoadingSpinner } from './components/loading-spinner/loading-spinner';
-import { TutorialComponent } from './tutorial/tutorial.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
@@ -46,7 +45,6 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     HomeComponent,
     LoadingSpinner,
     EditProfileComponent,
-    TutorialComponent,
     RegisterComponent,
     DialogMaterialComponent,
     DialogConfirmComponent,

@@ -23,7 +23,8 @@ li {
 }
 
 .question-item {
-    background-color: $ifam-color;
+    
+    background-color: #43a047;
     border-radius: 30px;
     margin-bottom: 20px;
     align-items: center;
@@ -49,7 +50,7 @@ li {
 
 .question-container {
     display: flex;
-    
+
     input {
         margin-top: auto;
         margin-bottom: auto;
@@ -70,8 +71,6 @@ li {
 .questions-container {
     width: 100%;
     padding: auto;
-    // border-color: #3f51b5;
-    // border-style: solid;
 }
 
 .btn-group {
@@ -83,7 +82,6 @@ li {
     .btn {
         padding: 10px 20px 10px 20px;
         font-size: 110%;
-        background-color: green;
         border-radius: 20px;
     }
 }
@@ -101,10 +99,7 @@ li {
     .container {
         width: 95%;
     }
-
-
     .question-item {
-        background-color: $ifam-color;
         border-radius: 30px;
         margin-bottom: 20px;
         align-items: center;
