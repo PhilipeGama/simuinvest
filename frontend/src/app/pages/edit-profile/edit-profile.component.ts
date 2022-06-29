@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
@@ -32,8 +32,8 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.formEdit = new FormGroup({
-      'name': new FormControl(null),
-      'phone': new FormControl(null),
+      'name': new FormControl(null, [Validators.required]),
+      'phone': new FormControl(null, [Validators.required]),
       'password': new FormControl(null),
       'confirmpassword': new FormControl(null)
     })
@@ -63,7 +63,7 @@ export class EditProfileComponent implements OnInit {
         this.user.profile = data[0].profile;
         this.user.phone = data[0].phone;
         this.user.createdAt = data[0].createdAt;
-        this.user.updatedAt = data[0].updatedAt;
+        // this.user.updatedAt = data[0].updatedAt;
 
         this.formEdit.patchValue({
           'name': data[0].name,
@@ -77,12 +77,13 @@ export class EditProfileComponent implements OnInit {
   onSubmit() {
     this.user.name = this.formEdit.value.name;
     this.user.phone = this.formEdit.value.phone;
-
+    
     this.userService.update(this.user._id, this.user)
 
+
     this._snackBar.open("Dados alterados com sucesso!", "Fechar", {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
+      horizontalPosition: 'left',
+      verticalPosition: 'bottom',
       duration: 3 * 1000,
     });
   }
