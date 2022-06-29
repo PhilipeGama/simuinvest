@@ -113,8 +113,8 @@ export class InvestorProfileComponent implements OnInit {
 
     } else {
       this._snackBar.open("Escolha uma resposta", "Fechar", {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
+        horizontalPosition: 'left',
+        verticalPosition: 'bottom',
         duration: 3 * 1000,
       });
     }

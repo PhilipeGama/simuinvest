@@ -1,5 +1,5 @@
 
-<form class="container example-form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
+<form class="form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
     <h1>Meu perfil</h1>
     <!-- <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" type="button" (click)="showData()">Editar</button> -->
     <mat-form-field class="example-full-width" appearance="fill">
@@ -15,15 +15,24 @@
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nome</mat-label>
         <input formControlName="name" name="name" matInput>
+        <mat-error *ngIf="formEdit.get('name').hasError('required')">
+            Nome é <b>obrigatório!</b>
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Telefone</mat-label>
         <input  mask="(00) 00000-0000" formControlName="phone" name="phone" matInput>
+        <mat-error *ngIf="formEdit.get('phone').hasError('required')">
+            Telefone é <b>obrigatório!</b>
+        </mat-error>
+        <mat-error *ngIf="formEdit.get('phone').hasError('mask')">
+            Telefone <b>inválido!</b>
+        </mat-error>
     </mat-form-field>
 
     <div class="btn-group">
-        <button mat-raised-button color="primary" style="margin-right: 10px" type="submit" (click)="onSubmit()" [disabled]="!(formEdit.get('name').dirty || formEdit.get('phone').dirty)">Atualizar Dados</button>
+        <button mat-raised-button color="primary" style="margin-right: 10px" type="submit" [disabled]="!(formEdit.get('name').dirty || formEdit.get('phone').dirty) || formEdit.invalid">Atualizar Dados</button>
         <!-- <button mat-raised-button color="primary" style="margin-bottom: 20px;" (click)="showData()">Alterar senha</button>   -->
     </div>
 
