@@ -10,7 +10,7 @@
         <h2>Efetuer seu login</h2>
 
         <mat-form-field appearance="fill">
-            <mat-label>Enter your email</mat-label>
+            <mat-label>Email</mat-label>
             <input matInput formControlName="email" placeholder="joao@teste.com">
             <mat-error *ngIf="!formLogin.get('email').valid">
                 <mat-error *ngIf="formLogin.controls.email.errors['required']">

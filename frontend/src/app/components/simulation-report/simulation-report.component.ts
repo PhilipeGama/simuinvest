@@ -13,7 +13,7 @@ import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.compone
   styleUrls: ['./simulation-report.component.scss']
 })
 export class SimulationReportComponent implements OnInit {
-  displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totalInvest','fixedIncomeAmount', 'savingsAmount', 'actions'];
+  displayedColumns: string[] = ['fixedIncomeName', 'totalMonthsInvest', 'totalInvest', 'savingsAmount', 'fixedIncomeAmount', 'actions'];
   
   dataSource: MatTableDataSource<IInvestReport>;
 

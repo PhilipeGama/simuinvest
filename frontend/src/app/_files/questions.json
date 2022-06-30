@@ -7,9 +7,9 @@
     },
     {
         "question": "Por quanto tempo pretende deixar seus recursos investidos?",
-        "answer01": "Até 1 ano.",
+        "answer03": "Até 1 ano.",
         "answer02": "1 a 5 anos",
-        "answer03": "3 Mais de 5 anos."
+        "answer01": "Mais de 5 anos."
     },
     {
         "question": "Em relação aos seus investimentos qual é a necessidade futura dos recursos aplicados?",
