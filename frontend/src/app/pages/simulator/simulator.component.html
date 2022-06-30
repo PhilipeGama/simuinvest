@@ -50,6 +50,11 @@
                 <div class="amounts">
                     <mat-form-field appearance="fill">
                         <mat-label>Valor total poupança</mat-label>
+                        <input currencyMask formControlName="amount"
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Valor total poupança</mat-label>
                         <input currencyMask formControlName="savingsAmount"
                             [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput />
                     </mat-form-field>

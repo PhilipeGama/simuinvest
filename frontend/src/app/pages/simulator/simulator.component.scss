@@ -20,6 +20,10 @@
     }
 }
 
+.mat-input-element:disabled {
+    color: rgba(0, 0, 0) !important;
+}
+
 .simulator-container {
     display: flex;
     flex-direction: row;

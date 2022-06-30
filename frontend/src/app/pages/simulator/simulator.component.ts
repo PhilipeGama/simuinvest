@@ -47,6 +47,7 @@ export class SimulatorComponent implements OnInit {
       initialDeposit: ['', Validators.required],
       monthlyDeposit: ['', Validators.required],
       months: ['', Validators.required],
+      amount: [{value:'', disabled: true}],
       fixedIncomeAmount: [{value:'', disabled: true}],
       savingsAmount: [{value:'', disabled: true}],
     })
@@ -110,7 +111,8 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeRate: this.investForm.value.fixedIncome.rate,
     }
     this.investData = this.fixedIncomeService.calculateInvestmentIncome(this.investData)
-    this.investForm.patchValue({fixedIncomeAmount: this.investData.fixedIncomeAmount, savingsAmount: this.investData.savingsAmount});
+    console.log(this.investData)
+    this.investForm.patchValue({amount: this.investData.amount, fixedIncomeAmount: this.investData.fixedIncomeAmount, savingsAmount: this.investData.savingsAmount});
     this.canSave = true;
     this.loadChart()
   }
