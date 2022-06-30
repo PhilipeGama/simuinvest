@@ -28,7 +28,7 @@ export class UserService {
     }
   
     create(id: string, user: IUser): any {
-      this.db.object('users/' + id).update(user);
+      return this.db.object('users/' + id).update(user);
     }
 
     update(id: string, user: IUser): Promise<void> {

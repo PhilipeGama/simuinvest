@@ -75,7 +75,7 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeAmount: this.investData.fixedIncomeAmount,
       createdAt: today,
       savingsAmount: this.investData.savingsAmount,
-      totalInvest: this.investData.fixedIncomeAmount,
+      totalInvest: this.investData.amount,
       months: this.investData.months,
       userId: userId
     };

@@ -41,7 +41,9 @@ export class SimulationReportComponent implements OnInit {
       if (data.length === 0) {
         this.hasData = false;
       } else {
+      
         for(let d of data){
+          console.log(d)
           let investReport: IInvestReport = {
             _id : d.key,
             fixedIncomeName : d.fixedIncomeName,
