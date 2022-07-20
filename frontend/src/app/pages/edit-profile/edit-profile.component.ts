@@ -41,7 +41,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   getInvestor() {
-    const userId = this.auth.user.value.userId;
+    const userId = this.auth.user.value.id;
 
     if (!userId) {
       return;

@@ -13,7 +13,7 @@ export class InvestReportService {
   investReportRef: AngularFireList<IInvestReport>;
 
   constructor(private auth: AuthService,private db: AngularFireDatabase) {
-    const userId = this.auth.user.value.userId;
+    const userId = this.auth.user.value.id;
 
     this.investReportRef = this.db.list(this.dbPath, ref => ref.orderByChild('userId').equalTo(userId));
   }

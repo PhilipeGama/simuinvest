@@ -67,7 +67,7 @@ export class SimulatorComponent implements OnInit {
   }
 
   onSaveInvestReport(){
-    const userId = this.auth.user.value.userId;
+    const userId = this.auth.user.value.id;
 
     const today = new Date().toLocaleDateString();
     let investReport: IInvestReport = {
@@ -111,7 +111,6 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeRate: this.investForm.value.fixedIncome.rate,
     }
     this.investData = this.fixedIncomeService.calculateInvestmentIncome(this.investData)
-    console.log(this.investData)
     this.investForm.patchValue({amount: this.investData.amount, fixedIncomeAmount: this.investData.fixedIncomeAmount, savingsAmount: this.investData.savingsAmount});
     this.canSave = true;
     this.loadChart()

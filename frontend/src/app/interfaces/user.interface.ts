@@ -1,9 +1,10 @@
 export class IUser {
     _id?: string;
-    name: string;
+    name?: string;
     email: string;
     profile?: string;
-    phone: string;
-    createdAt: string;
+    phone?: string;
+    emailVerified?: string;
+    createdAt?: string;
     updatedAt?: string;
 }

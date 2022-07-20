@@ -30,7 +30,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
-
+import { TesteComponent } from 'src/app/pages/teste/teste.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +48,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
     RegisterComponent,
     DialogMaterialComponent,
     DialogConfirmComponent,
+    TesteComponent,
   ],
   imports: [
     BrowserModule,

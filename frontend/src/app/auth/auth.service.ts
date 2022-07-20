@@ -1,22 +1,14 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core";
+import { HttpErrorResponse } from "@angular/common/http"
+import { Injectable, NgZone } from "@angular/core";
 import { Router } from "@angular/router";
 import { throwError, BehaviorSubject } from "rxjs";
-import { catchError, tap } from 'rxjs/operators'
+
 import { User } from "src/app/models/user.model";
-import { environment } from "src/environments/environment";
 import { AngularFireAuth } from '@angular/fire/auth';
+import { IUser } from "../interfaces/user.interface";
+import { UserService } from "../services/user.service";
 
 
-export interface AuthResponseData {
-    kind: string;
-    idToken: string;
-    email: string;
-    refreshToken: string;
-    expiresIn: string;
-    localId: string;
-    registered?: boolean;
-}
 
 @Injectable({
     providedIn: 'root'
@@ -28,43 +20,47 @@ export class AuthService {
     private tokenExpirationTimer: any; 
 
     constructor(
-        private http: HttpClient, 
+        public afAuth: AngularFireAuth,
         private router: Router,
-        ){}
+        private ngZone: NgZone,
+        private userService: UserService
+    ){}
 
-    signUp(email: string, password: string) {
-        return this.http.post<AuthResponseData>(environment.firebase.registerURL, {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }).pipe
-            (catchError(errorRes => {
-                let errorMessage = 'An unknown error ocurred!'
-                if (!errorRes.error || !errorRes.error.error) {
-                    return throwError(errorMessage);
-                }
-                switch (errorRes.error.error.message) {
-                    case 'EMAIL_EXISTS':
-                        errorMessage = 'This email exist already'
-                }
-                return throwError(errorMessage);
-            })
-            );
+    async getCurrentUser(){
+        return await this.afAuth.currentUser;
     }
-
     login(email: string, password: string) {
-        return this.http.post<AuthResponseData>(environment.firebase.loginURL, {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        }).pipe(catchError(this.handlerError), tap(resData => {
-            localStorage.setItem('userData', JSON.stringify(resData));
-            this.handleAuthenticaton(resData.idToken, resData.email, resData.idToken, +resData.expiresIn, resData.localId)
-        }))
+        return this.afAuth
+            .signInWithEmailAndPassword(email, password)
+            .then((result) => {
+            this.handleAuthenticaton(result.user);
+            this.ngZone.run(() => {
+                this.router.navigate(['/']);
+            });
+            })
+            .catch((error) => {
+            window.alert(error.message);
+        });
     }
 
-    autoLogin() {    
-      
+
+    signUp(email, password){
+        return this.afAuth.createUserWithEmailAndPassword(email, password);
+    }
+
+    setUserData(user: IUser){
+       this.userService.create(user._id, user)
+    }
+
+    autoLogin() {  
+        this.afAuth.onAuthStateChanged((user) => {
+            if(user != null){
+                this.afAuth.updateCurrentUser(user)
+            } else {
+                console.log("user lost")
+            }
+        })
+
         const userData: {
             email: string;
             id: string;
@@ -79,8 +75,8 @@ export class AuthService {
         const loadedUser = new User(userData.id, 
             userData.email, 
             userData._token,
-            new Date(userData._tokenExpirationDate),
-            userData.userId)
+            new Date(userData._tokenExpirationDate)
+        )
         
         if(loadedUser.token){
             this.user.next(loadedUser)
@@ -92,7 +88,6 @@ export class AuthService {
     
     logout(){
         this.user.next(null);
-        this.router.navigate(['/login'])
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer){
             clearTimeout(this.tokenExpirationTimer)
@@ -107,13 +102,18 @@ export class AuthService {
         }, expirationDuration)
     }
 
-    private handleAuthenticaton(id: string, email: string, token: string, expiresIn: number, userId) {
+    private handleAuthenticaton(userAuth: any) {
+        const expiresIn = 3600;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-        const user = new User(id, email, token, expirationDate, userId);
-
+       
+        const user = new User(userAuth.uid, userAuth.email, userAuth.refreshToken, expirationDate);
+       
         this.user.next(user);
-        this.autoLogout(expiresIn * 1000);
+        this.afAuth.updateCurrentUser(userAuth);
+        localStorage.setItem('userAuth', JSON.stringify(userAuth))
         localStorage.setItem('userData', JSON.stringify(user))
+      
+        this.autoLogout(expiresIn * 1000);
     }
 
     private handlerError(errorRes: HttpErrorResponse) {
