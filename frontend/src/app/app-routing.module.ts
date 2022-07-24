@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 import { LoggedComponent } from './pages/logged/logged.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
 import { TesteComponent } from './pages/teste/teste.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'recovery-password',
+    component: RecoveryPasswordComponent
   },
   {
     path: '',

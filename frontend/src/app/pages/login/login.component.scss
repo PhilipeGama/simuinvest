@@ -14,6 +14,13 @@
     margin-top: 10vh;
 }
 
+.password-recovery {
+    align-self: flex-end;
+    color: #0645AD;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 @media (max-width: 600px) {
     .container-form {
         display: flex;
@@ -24,3 +31,8 @@
         margin-top: 10vh;
     }
   }
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+}

@@ -17,44 +17,45 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
 
-    private tokenExpirationTimer: any; 
+    private tokenExpirationTimer: any;
 
     constructor(
         public afAuth: AngularFireAuth,
         private router: Router,
         private ngZone: NgZone,
         private userService: UserService
-    ){}
+    ) { }
 
-    async getCurrentUser(){
+    async getCurrentUser() {
         return await this.afAuth.currentUser;
     }
+
     login(email: string, password: string) {
         return this.afAuth
             .signInWithEmailAndPassword(email, password)
             .then((result) => {
-            this.handleAuthenticaton(result.user);
-            this.ngZone.run(() => {
-                this.router.navigate(['/']);
-            });
+                this.handleAuthenticaton(result.user);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/']);
+                });
             })
             .catch((error) => {
-            window.alert(error.message);
-        });
+                this.router.navigate(['/login']);
+            });
     }
 
 
-    signUp(email, password){
+    signUp(email, password) {
         return this.afAuth.createUserWithEmailAndPassword(email, password);
     }
 
-    setUserData(user: IUser){
-       this.userService.create(user._id, user)
+    setUserData(user: IUser) {
+        this.userService.create(user._id, user)
     }
 
-    autoLogin() {  
+    autoLogin() {
         this.afAuth.onAuthStateChanged((user) => {
-            if(user != null){
+            if (user != null) {
                 this.afAuth.updateCurrentUser(user)
             } else {
                 console.log("user lost")
@@ -72,31 +73,31 @@ export class AuthService {
             return;
         }
 
-        const loadedUser = new User(userData.id, 
-            userData.email, 
+        const loadedUser = new User(userData.id,
+            userData.email,
             userData._token,
             new Date(userData._tokenExpirationDate)
         )
-        
-        if(loadedUser.token){
+
+        if (loadedUser.token) {
             this.user.next(loadedUser)
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration)
         }
     }
 
-    
-    logout(){
+
+    logout() {
         this.user.next(null);
         localStorage.removeItem('userData');
-        if(this.tokenExpirationTimer){
+        if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer)
-        } 
+        }
         this.tokenExpirationTimer = null;
         this.router.navigate(['/login'])
     }
 
-    autoLogout(expirationDuration: number){
+    autoLogout(expirationDuration: number) {
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout()
         }, expirationDuration)
@@ -105,15 +106,26 @@ export class AuthService {
     private handleAuthenticaton(userAuth: any) {
         const expiresIn = 3600;
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-       
+
         const user = new User(userAuth.uid, userAuth.email, userAuth.refreshToken, expirationDate);
-       
+
         this.user.next(user);
         this.afAuth.updateCurrentUser(userAuth);
         localStorage.setItem('userAuth', JSON.stringify(userAuth))
         localStorage.setItem('userData', JSON.stringify(user))
-      
+
         this.autoLogout(expiresIn * 1000);
+    }
+
+    forgotPassword(passwordResetEmail: string) {
+        return this.afAuth
+            .sendPasswordResetEmail(passwordResetEmail)
+            .then(() => {
+                window.alert('Password reset email sent, check your inbox.');
+            })
+            .catch((error) => {
+                window.alert(error);
+            });
     }
 
     private handlerError(errorRes: HttpErrorResponse) {

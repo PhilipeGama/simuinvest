@@ -1,8 +1,7 @@
 import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { InvestReportService } from 'src/app/services/invert-report.service';
-import { TesteService } from 'src/app/services/teste.service';
+import { TesteService } from 'src/app/pages/teste/teste.service';
 
 @Component({
   selector: 'app-teste',
@@ -11,28 +10,31 @@ import { TesteService } from 'src/app/services/teste.service';
 })
 export class TesteComponent implements OnInit, AfterContentInit {
 
-  constructor(private auth: AuthService, private teste: TesteService, private investReportService: InvestReportService) {
+  constructor(private teste: TesteService) {
 
   }
-  ngAfterContentInit(): void {
 
+  ngAfterContentInit(): void {
   }
 
   ngOnInit(): void {
-    this.function_3();
-
   }
 
   userLog: any;
 
-  function_1() {
+  function1() {
+    this.teste.getCurrentUser().then((data) => {
+      data.valueChanges().subscribe(data => {
+        console.log(data)
+      })
+    });
   }
 
-  function_2() {
+  function2() {
   }
 
 
-  function_3() {
+  function3() {
   }
 
 }
