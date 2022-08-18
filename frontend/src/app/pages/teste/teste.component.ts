@@ -2,6 +2,7 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { InvestReportService } from 'src/app/services/invert-report.service';
 import { TesteService } from 'src/app/pages/teste/teste.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-teste',
@@ -10,7 +11,12 @@ import { TesteService } from 'src/app/pages/teste/teste.service';
 })
 export class TesteComponent implements OnInit, AfterContentInit {
 
-  constructor(private teste: TesteService) {
+  userData: {
+    email: string;
+    id: string;
+  } = JSON.parse(localStorage.getItem('userData'));
+
+  constructor(private teste: TesteService, private userService: UserService) {
 
   }
 
@@ -31,6 +37,7 @@ export class TesteComponent implements OnInit, AfterContentInit {
   }
 
   function2() {
+    this.userService.updateProfile(this.userData.id, 'Perfil 1').then(data => console.log(data))
   }
 
 

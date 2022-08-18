@@ -35,6 +35,10 @@ export class UserService {
       return this.usersRef.update(id, user);
     }
   
+    updateProfile(id: string, profile: string): Promise<void> {
+      return this.usersRef.update(id, {profile: profile});
+    }
+  
     delete(key: string): Promise<void> {
       return this.usersRef.remove(key);
     }
