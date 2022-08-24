@@ -5,8 +5,7 @@ import { throwError, BehaviorSubject } from "rxjs";
 
 import { User } from "src/app/models/user.model";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { IUser } from "../interfaces/user.interface";
-import { UserService } from "../services/user.service";
+import { AngularFireDatabase } from "@angular/fire/database";
 
 
 
@@ -23,7 +22,7 @@ export class AuthService {
         public afAuth: AngularFireAuth,
         private router: Router,
         private ngZone: NgZone,
-        private userService: UserService
+        private db: AngularFireDatabase
     ) { }
 
     async getCurrentUser() {
@@ -49,9 +48,7 @@ export class AuthService {
         return this.afAuth.createUserWithEmailAndPassword(email, password);
     }
 
-    setUserData(user: IUser) {
-        this.userService.create(user._id, user)
-    }
+
 
     autoLogin() {
         this.afAuth.onAuthStateChanged((user) => {

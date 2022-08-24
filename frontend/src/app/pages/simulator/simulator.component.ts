@@ -117,32 +117,35 @@ export class SimulatorComponent implements OnInit {
   }
 
   getFixedIncomens(){
-    this.fixedIncomeService.getFixedIncomes().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
+    this.fixedIncomeService.getFixedIncomes().then(data => {
+      data.snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
         )
-      )
-    ).subscribe(data => {
-      this.fixedIncomes = []
-      if (data.length === 0) {
-      } else {
-
-        for(let d of data){
-          if(d.name == 'Poupança'){
-            continue;
+      ).subscribe(data => {
+        this.fixedIncomes = []
+        if (data.length === 0) {
+        } else {
+  
+          for(let d of data){
+            if(d.name == 'Poupança'){
+              continue;
+            }
+            let fixedIncome: IFixedIncome = {
+              _id: d.key,
+              name: d.name,
+              rate: d.rate,
+              createdAt: d.createdAt,
+              updatedAt: d.updatedAt
+            }
+            this.fixedIncomes.push(fixedIncome)
           }
-          let fixedIncome: IFixedIncome = {
-            _id: d.key,
-            name: d.name,
-            rate: d.rate,
-            createdAt: d.createdAt,
-            updatedAt: d.updatedAt
-          }
-          this.fixedIncomes.push(fixedIncome)
         }
-      }
-    });
+      });
+    })
+   
   }
 
 

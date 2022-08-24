@@ -9,7 +9,7 @@
 
                 <mat-label>Opções de Renda Fixa</mat-label>
 
-                <mat-select formControlName="fixedIncome">
+                <mat-select formControlName="fixedIncome" disableOptionCentering>
                     <ng-container *ngFor="let fixedIncome of fixedIncomes">
                         <mat-option [value]="fixedIncome">{{fixedIncome.name}}</mat-option>
                     </ng-container>
@@ -68,12 +68,8 @@
                         [disabled]="!canSave">Salvar</button>
                 </div>
             </div>
-
         </div>
     </form>
-
-
-
 
     <div class="container-report">
         <app-simulation-report></app-simulation-report>

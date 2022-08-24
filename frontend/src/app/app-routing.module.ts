@@ -9,13 +9,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
-import { TesteComponent } from './pages/teste/teste.component';
 
 const routes: Routes = [
-  {
-    path: 'teste',
-    component: TesteComponent
-  },
   {
     path: 'login',
     component: LoginComponent

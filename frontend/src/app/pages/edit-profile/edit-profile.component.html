@@ -4,7 +4,7 @@
     <!-- <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" type="button" (click)="showData()">Editar</button> -->
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Perfil do Investidor</mat-label>
-        <input value="{{user.profile}}" name="type" disabled matInput>
+        <input value="{{user.profile || 'Sem perfil do investor'}}" name="type" disabled matInput>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">

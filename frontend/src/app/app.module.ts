@@ -30,7 +30,6 @@ import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
-import { TesteComponent } from 'src/app/pages/teste/teste.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
 @NgModule({
@@ -50,7 +49,6 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
     DialogMaterialComponent,
     DialogConfirmComponent,
     RecoveryPasswordComponent,
-    TesteComponent,
   ],
   imports: [
     BrowserModule,

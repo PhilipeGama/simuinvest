@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from "@angular/fire/database";
+import { AuthService } from "../auth/auth.service";
 import { IUser } from "../interfaces/user.interface";
 
 @Injectable({
@@ -10,33 +11,43 @@ export class UserService {
     private dbPath = 'users';
 
     usersRef: AngularFireList<IUser>;
+
+    userRef: AngularFireObject<IUser>;
  
-    constructor(private db: AngularFireDatabase) {
-      this.usersRef = db.list(this.dbPath);
+    constructor(private auth: AuthService, private db: AngularFireDatabase) {
+      if(this.auth.user.value) {
+        this.usersRef = db.list(`users/${this.auth.user.value.id}`);
+      }
     }
   
-    getUserByEmail(email: string): AngularFireList<IUser> {
+    async getUserByEmail(email: string): Promise<AngularFireList<IUser>> {
       return this.db.list(this.dbPath, ref => ref.orderByChild('email').equalTo(email));
     }
 
-    getUserById(id: string): AngularFireList<IUser> {
-      return this.db.list(this.dbPath, ref => ref.orderByKey().equalTo(id));
+    async getUserById(id: string): Promise<AngularFireList<IUser>> {
+      return this.db.list(`users/${this.auth.user.value.id}`);;
     }
 
-    getAll(): AngularFireList<IUser> {
-        return this.usersRef;
-    }
-  
-    create(id: string, user: IUser): any {
-      return this.db.object('users/' + id).update(user);
+    async getUser(): Promise<AngularFireObject<IUser>>{
+      this.userRef = this.db.object(`users/${this.auth.user.value.id}`);
+      return this.userRef;
     }
 
-    update(id: string, user: IUser): Promise<void> {
-      return this.usersRef.update(id, user);
+
+    async getAll(): Promise<AngularFireList<IUser>> {
+      return  this.usersRef = this.db.list(`users/${this.auth.user.value.id}`);    
     }
   
-    updateProfile(id: string, profile: string): Promise<void> {
-      return this.usersRef.update(id, {profile: profile});
+    create(uid: string, user: IUser): any {
+      return this.db.object('users/' + uid).update(user);
+    }
+
+    update(user: IUser): Promise<void> {
+      return this.userRef.update(user);
+    }
+  
+    updateProfile(profile: string): Promise<void> {
+      return this.userRef.update({profile: profile});
     }
   
     delete(key: string): Promise<void> {

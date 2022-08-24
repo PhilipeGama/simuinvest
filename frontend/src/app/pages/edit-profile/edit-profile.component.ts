@@ -47,39 +47,36 @@ export class EditProfileComponent implements OnInit {
       return;
     }
 
-    this.userService.getUserById(userId).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      if (data.length === 0) {
+    this.userService.getUser().then((user) => {
+      user.snapshotChanges()
+      .pipe(
+        map(c => ({...c.payload.val() }))
+      ).subscribe(user => {
+        const today = new Date().toISOString();
+        this.user.email = user.email;
+        this.user.name = user.name;
+        //this.user._id = user.key;
+        if(user.profile)
+          this.user.profile = user.profile;
 
-      } else {
-        this.user._id = data[0].key;
-        this.user.email = data[0].email;
-        this.user.name = data[0].name;
-        this.user.profile = data[0].profile;
-        this.user.phone = data[0].phone;
-        this.user.createdAt = data[0].createdAt;
-        // this.user.updatedAt = data[0].updatedAt;
+        this.user.phone = user.phone;
+        this.user.createdAt = user.createdAt;
+        this.user.updatedAt = today;
 
         this.formEdit.patchValue({
-          'name': data[0].name,
-          'phone': data[0].phone
+          'name': user.name,
+          'phone': user.phone
         })
       }
-    });
+      )}
+    ) 
   }
 
 
   onSubmit() {
     this.user.name = this.formEdit.value.name;
     this.user.phone = this.formEdit.value.phone;
-    
-    this.userService.update(this.user._id, this.user)
-
+    this.userService.update(this.user)
 
     this._snackBar.open("Dados alterados com sucesso!", "Fechar", {
       horizontalPosition: 'left',

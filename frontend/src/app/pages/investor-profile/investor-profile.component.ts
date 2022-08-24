@@ -81,7 +81,7 @@ export class InvestorProfileComponent {
     if (profileType == 3) investorProfile = {title: 'Agressivo', text: 2};
 
     this.openDialog(investorProfile.title, this.userText[investorProfile.text])
-    this.userService.updateProfile(id, investorProfile.title)
+    this.userService.updateProfile(investorProfile.title)
   }
 
   onSelectAswner1(answerNumber: number) {
