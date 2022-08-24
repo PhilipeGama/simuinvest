@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import IFixedIncome from 'src/app/interfaces/fixed-income.interface';
@@ -8,6 +8,8 @@ import { IInvestData } from 'src/app/interfaces/invest-data.inteface';
 import { FixedIncomeService } from 'src/app/services/fixed-income.service';
 import { InvestReportService } from '../../services/invert-report.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatSlider, MatSliderChange } from '@angular/material/slider';
+
 
 @Component({
   selector: 'app-simulator',
@@ -35,7 +37,7 @@ export class SimulatorComponent implements OnInit {
 
   investForm: FormGroup;
 
-  mounth = [0, 3 ,6, 12, 24, 48]
+  
 
   chartData: any[];
 
@@ -46,11 +48,19 @@ export class SimulatorComponent implements OnInit {
       fixedIncome: ['', Validators.required],
       initialDeposit: ['', Validators.required],
       monthlyDeposit: ['', Validators.required],
-      months: ['', Validators.required],
+      //months: [this.slideMonth, Validators.required],
       amount: [{value:'', disabled: true}],
       fixedIncomeAmount: [{value:'', disabled: true}],
       savingsAmount: [{value:'', disabled: true}],
     })
+  }
+
+
+  monthsInvested: number = 0;
+  monthSteps: number[]  = [3 ,6, 12, 24, 48];
+
+  onMatSlideChange($event: any){
+    console.log($event)
   }
 
   constructor(
@@ -107,7 +117,7 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeName: this.investForm.value.fixedIncome.name,
       initialDeposit: this.investForm.value.initialDeposit,
       monthlyDeposit: this.investForm.value.monthlyDeposit,
-      months: this.investForm.value.months,
+      months: this.monthsInvested,
       fixedIncomeRate: this.investForm.value.fixedIncome.rate,
     }
     this.investData = this.fixedIncomeService.calculateInvestmentIncome(this.investData)

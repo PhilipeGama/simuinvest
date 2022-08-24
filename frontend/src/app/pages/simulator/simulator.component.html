@@ -32,11 +32,11 @@
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput />
             </mat-form-field>
 
-            <!-- <mat-slider  thumbLabel type="number" aria-label="unit(s)"></mat-slider> -->
+            <mat-slider [(ngModel)]="monthsInvested"  [ngModelOptions]="{standalone: true}" type="number" step="12" max="360" (change)="onMatSlideChange($event)"></mat-slider>
 
             <mat-form-field appearance="fill">
                 <mat-label>Total de meses</mat-label>
-                <input type="number" formControlName="months" matInput>
+                <input type="number" [(ngModel)]="monthsInvested"  [ngModelOptions]="{standalone: true}" matInput>
                 <mat-error>Por favor selecione uma renda fixa</mat-error>
                 <mat-hint></mat-hint>
             </mat-form-field>
