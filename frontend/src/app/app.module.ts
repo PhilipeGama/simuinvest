@@ -31,6 +31,7 @@ import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { InputRefDirective } from './directives/input-ref.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
     DialogMaterialComponent,
     DialogConfirmComponent,
     RecoveryPasswordComponent,
+    InputRefDirective,
   ],
   imports: [
     BrowserModule,

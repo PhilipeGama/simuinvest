@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
 import IFixedIncome from 'src/app/interfaces/fixed-income.interface';
@@ -8,7 +8,6 @@ import { IInvestData } from 'src/app/interfaces/invest-data.inteface';
 import { FixedIncomeService } from 'src/app/services/fixed-income.service';
 import { InvestReportService } from '../../services/invert-report.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { MatSlider, MatSliderChange } from '@angular/material/slider';
 
 
 @Component({
@@ -36,11 +35,7 @@ export class SimulatorComponent implements OnInit {
   };
 
   investForm: FormGroup;
-
-  
-
   chartData: any[];
-
   canSave = false;
 
   createInvestForm(){
@@ -48,15 +43,13 @@ export class SimulatorComponent implements OnInit {
       fixedIncome: ['', Validators.required],
       initialDeposit: ['', Validators.required],
       monthlyDeposit: ['', Validators.required],
-      //months: [this.slideMonth, Validators.required],
+      months: [0, Validators.required],
       amount: [{value:'', disabled: true}],
       fixedIncomeAmount: [{value:'', disabled: true}],
       savingsAmount: [{value:'', disabled: true}],
     })
   }
 
-
-  monthsInvested: number = 0;
   monthSteps: number[]  = [3 ,6, 12, 24, 48];
 
   onMatSlideChange($event: any){
@@ -94,7 +87,6 @@ export class SimulatorComponent implements OnInit {
   
   }
 
-  // TODO improving function
   loadChart() {
     this.chartData = [{
       fixedIncome: 'Poupança',
@@ -117,7 +109,7 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeName: this.investForm.value.fixedIncome.name,
       initialDeposit: this.investForm.value.initialDeposit,
       monthlyDeposit: this.investForm.value.monthlyDeposit,
-      months: this.monthsInvested,
+      months: this.investForm.value.months,
       fixedIncomeRate: this.investForm.value.fixedIncome.rate,
     }
     this.investData = this.fixedIncomeService.calculateInvestmentIncome(this.investData)
@@ -157,6 +149,4 @@ export class SimulatorComponent implements OnInit {
     })
    
   }
-
-
 }
