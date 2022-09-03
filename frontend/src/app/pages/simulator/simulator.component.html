@@ -41,6 +41,13 @@
                 <mat-hint></mat-hint>
             </mat-form-field>
 
+            <mat-form-field appearance="fill">
+                <mat-label>Total de anos</mat-label>
+                <input  [value]="years" matInput>
+                <mat-error>Por favor selecione uma renda fixa</mat-error>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+
             <button mat-raised-button color="primary" [disabled]="investForm.invalid" (click)="onSubmit()">Calcular</button>
             </div>
 

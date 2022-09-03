@@ -37,6 +37,7 @@ export class SimulatorComponent implements OnInit {
   investForm: FormGroup;
   chartData: any[];
   canSave = false;
+  years: string = '0';
 
   createInvestForm(){
     this.investForm = this.fb.group({
@@ -48,7 +49,51 @@ export class SimulatorComponent implements OnInit {
       fixedIncomeAmount: [{value:'', disabled: true}],
       savingsAmount: [{value:'', disabled: true}],
     })
+
+    this.investForm.get('months').valueChanges.subscribe(value => {
+     this.yearsCalculation(value)
+    })
   }
+
+  yearsCalculation(months: number){
+    const monthR = months % 12;
+    let yearsR;
+
+    if(monthR !== 0) {
+      yearsR = Math.trunc((months / 12));
+    } else {
+      yearsR = (months / 12);
+    }
+
+    let monthS = '', yearsS = '', andS = '';
+
+    if(yearsR > 0 && monthR > 0){
+      andS = ' e ';
+    }
+
+    if(yearsR == 1){
+      yearsS = yearsR + ' ano'
+    }
+
+    if(yearsR > 1){
+      yearsS = yearsR + ' anos'
+    }
+
+    if(monthR == 0) {
+      monthS = '';
+    }
+
+    if(monthR == 1) {
+      monthS = monthR + ' mês';
+    }
+
+    if(monthR > 1) {
+      monthS = monthR + ' meses';
+    }
+
+    this.years = yearsS + andS + monthS;
+  }
+
 
   constructor(
     private auth: AuthService,
