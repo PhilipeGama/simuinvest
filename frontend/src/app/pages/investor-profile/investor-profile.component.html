@@ -24,8 +24,8 @@
                 </div>
             </li>
 
-            <li>
-                <div class="question-container">
+            <li >
+                <div class="question-container" style="margin-bottom: 0;">
                     <input type="radio" name="answer" [value]="3" [(ngModel)]="questions[questionNumber].answer">
                     <div (click)="onSelectAswner3(questionNumber)" class="question-item">
                         <p>{{questions[questionNumber].answer03}}</p>
@@ -34,7 +34,6 @@
             </li>
 
         </ul>
-
     </div>
 
     <div class="btn-group">
