@@ -2,11 +2,8 @@
     <app-progress-spinner [diameter]="400"></app-progress-spinner>
 </div>
 <div class="container">
-
-
     <form class="container-form" #authForm="ngForm" [formGroup]="formLogin" (ngSubmit)="onLogin()" *ngIf="!isLoading">
-
-
+        
         <h1>Login</h1>
         <h2>Efetuer seu login</h2>
 
@@ -41,7 +38,6 @@
         <span class="password-recovery" routerLink="/recovery-password">Recuperar senha</span>
         <button mat-stroked-button type="submit">Fazer Login</button>
         <button mat-raised-button color="primary" type="button" routerLink="/register">Registrar-se</button>
-
 
     </form>
 </div>
