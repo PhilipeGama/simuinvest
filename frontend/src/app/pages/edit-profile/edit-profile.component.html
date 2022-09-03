@@ -1,5 +1,8 @@
+<div *ngIf="isLoading">
+    <app-progress-spinner class="spinner-container"></app-progress-spinner>
+</div>
 
-<form class="form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
+<form *ngIf="!isLoading" class="form" [formGroup]="formEdit" (ngSubmit)="onSubmit()"> 
     <h1>Meu perfil</h1>
     <!-- <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 20px;" type="button" (click)="showData()">Editar</button> -->
     <mat-form-field class="example-full-width" appearance="fill">

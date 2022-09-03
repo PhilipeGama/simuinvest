@@ -1,7 +1,8 @@
+<div *ngIf="isLoading" class="spinner-container">
+    <app-progress-spinner [diameter]="400"></app-progress-spinner>
+</div>
 <div class="container">
-    <div *ngIf="isLoading" style="text-align: center;">
-        <app-loading-spinner></app-loading-spinner>
-    </div>
+
 
     <form class="container-form" #authForm="ngForm" [formGroup]="formLogin" (ngSubmit)="onLogin()" *ngIf="!isLoading">
 

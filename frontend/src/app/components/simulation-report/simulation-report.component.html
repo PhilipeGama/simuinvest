@@ -1,8 +1,8 @@
+<mat-card-title>Relatório</mat-card-title>
+<div *ngIf="!hasData">
+    <app-progress-spinner class="spinner-container"></app-progress-spinner>
+</div>
 <div class="container-report" *ngIf="hasData">
-
-
-  <h1>Relatório</h1>
-
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
 
     <ng-container matColumnDef="fixedIncomeName">

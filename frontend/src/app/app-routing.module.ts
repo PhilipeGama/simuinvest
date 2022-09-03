@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
@@ -11,6 +12,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { SimulatorComponent } from './pages/simulator/simulator.component';
 
 const routes: Routes = [
+  {
+    path: 'load',
+    component: ProgressSpinnerComponent
+  },
   {
     path: 'login',
     component: LoginComponent

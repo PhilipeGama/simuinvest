@@ -25,13 +25,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoggedComponent } from './pages/logged/logged.component';
 import { InvestorProfileComponent } from './pages/investor-profile/investor-profile.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoadingSpinner } from './components/loading-spinner/loading-spinner';
 import { RegisterComponent } from './pages/register/register.component';
 import { environment } from 'src/environments/environment';
 import { DialogMaterialComponent } from './components/dialog-investor-profile/dialog-investor-profile.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { InputRefDirective } from './directives/input-ref.directive';
+import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +44,13 @@ import { InputRefDirective } from './directives/input-ref.directive';
     LoggedComponent,
     InvestorProfileComponent,
     HomeComponent,
-    LoadingSpinner,
     EditProfileComponent,
     RegisterComponent,
     DialogMaterialComponent,
     DialogConfirmComponent,
     RecoveryPasswordComponent,
     InputRefDirective,
+    ProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,6 @@ import { InputRefDirective } from './directives/input-ref.directive';
     FlexLayoutModule,
     NgApexchartsModule,
     BrowserAnimationsModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

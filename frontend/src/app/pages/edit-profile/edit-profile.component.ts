@@ -14,6 +14,7 @@ import { UserService } from "src/app/services/user.service";
 })
 export class EditProfileComponent implements OnInit {
 
+  isLoading = true;
   // TODO improving 
   user: IUser = {
     name: '',
@@ -55,7 +56,6 @@ export class EditProfileComponent implements OnInit {
         const today = new Date().toISOString();
         this.user.email = user.email;
         this.user.name = user.name;
-        //this.user._id = user.key;
         if(user.profile)
           this.user.profile = user.profile;
 
@@ -67,6 +67,8 @@ export class EditProfileComponent implements OnInit {
           'name': user.name,
           'phone': user.phone
         })
+
+        this.isLoading = false;
       }
       )}
     ) 

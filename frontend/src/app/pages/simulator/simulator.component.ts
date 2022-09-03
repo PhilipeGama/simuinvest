@@ -50,12 +50,6 @@ export class SimulatorComponent implements OnInit {
     })
   }
 
-  monthSteps: number[]  = [3 ,6, 12, 24, 48];
-
-  onMatSlideChange($event: any){
-    console.log($event)
-  }
-
   constructor(
     private auth: AuthService,
     private fixedIncomeService: FixedIncomeService,
