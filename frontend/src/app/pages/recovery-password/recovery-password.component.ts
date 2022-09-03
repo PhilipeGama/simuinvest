@@ -15,6 +15,6 @@ export class RecoveryPasswordComponent implements OnInit {
   email: string = '';
 
   onRecoveryPassword(){
-    this.auth.forgotPassword('teste1@uorak.com')
+    this.auth.forgotPassword(this.email)
   }
 }

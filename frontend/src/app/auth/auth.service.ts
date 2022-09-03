@@ -118,7 +118,7 @@ export class AuthService {
         return this.afAuth
             .sendPasswordResetEmail(passwordResetEmail)
             .then(() => {
-                window.alert('Password reset email sent, check your inbox.');
+                window.alert('Email de redefinição de senha enviado, verifique sua caixa de entrada');
             })
             .catch((error) => {
                 window.alert(error);
