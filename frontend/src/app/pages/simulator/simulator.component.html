@@ -4,7 +4,6 @@
         <div class="simulator-container">
             <div class="form">
 
-            
             <mat-form-field appearance="fill">
 
                 <mat-label>Opções de Renda Fixa</mat-label>
@@ -78,7 +77,7 @@
         </div>
     </form>
 
-    <div class="container-report">
+    <div *ngIf="isAuthenticated"  class="container-report">
         <app-simulation-report></app-simulation-report>
     </div>
 

@@ -12,38 +12,38 @@
     <div fxShow="true" fxHide.lt-md="true">
         <a class="font-color" mat-button routerLink="/">Home</a>
 
-        <button class="font-color" mat-button [matMenuTriggerFor]="menuO">Simuladores</button>
-        <mat-menu #menuO="matMenu">
+        <button class="font-color" mat-button [matMenuTriggerFor]="menuSimulator">Simuladores</button>
+        <mat-menu #menuSimulator="matMenu">
             <button  mat-menu-item routerLink="/simulator">Renda Fixa</button>
             <button  mat-menu-item disabled>Criptomoedas</button>
             <button  mat-menu-item disabled>Ações</button>
         </mat-menu>
-        
-        <button class="font-color" mat-button [matMenuTriggerFor]="menu">Meu Perfil</button>
-        <mat-menu #menu="matMenu">
+  
+        <button *ngIf="isAuthenticated" class="font-color" mat-button [matMenuTriggerFor]="menuMyProfile">Meu Perfil</button>
+        <mat-menu #menuMyProfile="matMenu">
             <button mat-menu-item routerLink="/edit-profile">Editar Perfil</button>
             <button mat-menu-item routerLink="/investor-profile">Perfil de Investidor</button>
             <button mat-menu-item (click)="onLogout()">Sair</button>
         </mat-menu>
+
+        <button *ngIf="!isAuthenticated" class="font-color" mat-button routerLink="/login">Login</button>
     </div>
     
 </mat-toolbar >
 
-<mat-sidenav-container fxFlexFill class="example-container">
-
+<mat-sidenav-container fxFlexFill>
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
         <div fxLayout="column">
             <a mat-button routerLink="/">Home</a>
             <a mat-button routerLink="/simulator">Simuladores</a>
-            <a mat-button routerLink="/edit-profile">Editar Perfil</a>
-            <a mat-button routerLink="/investor-profile">Perfil de Investidor</a>
-            <a mat-button routerLink="/login">Sair</a>
+            <a mat-button *ngIf="isAuthenticated"  routerLink="/edit-profile">Editar Perfil</a>
+            <a mat-button *ngIf="isAuthenticated"  routerLink="/investor-profile">Perfil de Investidor</a>
+            <a mat-button *ngIf="isAuthenticated"  (click)="onLogout()">Sair</a>
+            <a mat-button *ngIf="!isAuthenticated"  routerLink="/login">Login</a>
         </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
-        <ng-content>
-            
-        </ng-content>
+        <ng-content></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

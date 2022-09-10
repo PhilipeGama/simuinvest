@@ -1,11 +1,9 @@
-import { HttpErrorResponse } from "@angular/common/http"
 import { Injectable, NgZone } from "@angular/core";
 import { Router } from "@angular/router";
-import { throwError, BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
-import { User } from "src/app/models/user.model";
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from "@angular/fire/database";
+import { User } from "src/app/models/user.model";
 
 
 
@@ -15,6 +13,8 @@ import { AngularFireDatabase } from "@angular/fire/database";
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    isAuthetication = new BehaviorSubject<boolean>(false) ;
+
 
     private tokenExpirationTimer: any;
 
@@ -22,7 +22,6 @@ export class AuthService {
         public afAuth: AngularFireAuth,
         private router: Router,
         private ngZone: NgZone,
-        private db: AngularFireDatabase
     ) { }
 
     async getCurrentUser() {
@@ -33,22 +32,20 @@ export class AuthService {
         return this.afAuth
             .signInWithEmailAndPassword(email, password)
             .then((result) => {
+                this.isAuthetication.next(true);
                 this.handleAuthenticaton(result.user);
                 this.ngZone.run(() => {
                     this.router.navigate(['/']);
                 });
             })
-            .catch((error) => {
+            .catch(() => {
                 this.router.navigate(['/login']);
             });
     }
 
-
     signUp(email, password) {
         return this.afAuth.createUserWithEmailAndPassword(email, password);
     }
-
-
 
     autoLogin() {
         this.afAuth.onAuthStateChanged((user) => {
@@ -66,6 +63,8 @@ export class AuthService {
             _token: string;
             _tokenExpirationDate: string;
         } = JSON.parse(localStorage.getItem('userData'));
+
+        
         if (!userData) {
             return;
         }
@@ -83,9 +82,10 @@ export class AuthService {
         }
     }
 
-
     logout() {
+        this.isAuthetication.next(false);
         this.user.next(null);
+        localStorage.removeItem('userAuth');
         localStorage.removeItem('userData');
         if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer)
@@ -105,7 +105,7 @@ export class AuthService {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
 
         const user = new User(userAuth.uid, userAuth.email, userAuth.refreshToken, expirationDate);
-
+        
         this.user.next(user);
         this.afAuth.updateCurrentUser(userAuth);
         localStorage.setItem('userAuth', JSON.stringify(userAuth))
@@ -123,23 +123,5 @@ export class AuthService {
             .catch((error) => {
                 window.alert(error);
             });
-    }
-
-    private handlerError(errorRes: HttpErrorResponse) {
-        let errorMessage = 'An unknown error ocurred!'
-        if (!errorRes.error || !errorRes.error.error) {
-            return throwError(errorMessage);
-        }
-        switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-                errorMessage = 'This email exist already';
-                break;
-            case 'EMAIL_NOT_FOUND':
-                errorMessage = 'This email not found'
-                break;
-            case 'INVALID_PASSWORD':
-                errorMessage = 'This password is not correct'
-        }
-        return throwError(errorMessage);
     }
 }

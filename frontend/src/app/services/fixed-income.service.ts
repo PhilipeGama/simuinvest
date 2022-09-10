@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { AuthService } from '../auth/auth.service';
 import IFixedIncome from '../interfaces/fixed-income.interface';
 import { IInvestData } from '../interfaces/invest-data.inteface';
 
@@ -14,7 +13,7 @@ export class FixedIncomeService {
   fixedIncomeRef: AngularFireList<IFixedIncome>;
   savingsRate = 0.5141666666666667;
   
-  constructor(private auth: AuthService, private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase) {
     this.fixedIncomeRef = db.list(this.dbPath); 
   }
 

@@ -101,7 +101,12 @@ export class SimulatorComponent implements OnInit {
     private investReportService: InvestReportService,
     private fb: FormBuilder) { }
 
+  isAuthenticated = false;
+
   ngOnInit(): void {
+    this.auth.isAuthetication.subscribe(value => {
+      this.isAuthenticated = value;
+    })
     this.createInvestForm()
     this.getFixedIncomens()
     this.childChart = new ChartBarComponent();

@@ -13,10 +13,6 @@ import { SimulatorComponent } from './pages/simulator/simulator.component';
 
 const routes: Routes = [
   {
-    path: 'load',
-    component: ProgressSpinnerComponent
-  },
-  {
     path: 'login',
     component: LoginComponent
   },
@@ -31,7 +27,6 @@ const routes: Routes = [
   {
     path: '',
     component: LoggedComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -41,6 +36,15 @@ const routes: Routes = [
         path: 'simulator',
         component: SimulatorComponent
       },
+    ]
+  },
+
+  {
+    path: '',
+    component: LoggedComponent,
+    canActivate: [AuthGuard],
+    children: [
+
       {
         path: 'edit-profile',
         component: EditProfileComponent
@@ -53,7 +57,7 @@ const routes: Routes = [
   }, 
   {
     path: '**', 
-    redirectTo: 'login', 
+    redirectTo: '', 
   }
 ];
 

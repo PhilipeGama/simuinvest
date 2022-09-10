@@ -1,5 +1,5 @@
 <div *ngIf="isLoading" class="spinner-container">
-    <app-progress-spinner [diameter]="400"></app-progress-spinner>
+    <app-progress-spinner></app-progress-spinner>
 </div>
 <div class="container">
     <form class="container-form" #authForm="ngForm" [formGroup]="formLogin" (ngSubmit)="onLogin()" *ngIf="!isLoading">
