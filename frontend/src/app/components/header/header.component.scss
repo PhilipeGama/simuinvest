@@ -1,12 +1,8 @@
 
-.companyName {
-  font-size: 150%;
-}
 
 .mat-toolbar {
   height: 7vh;
 }
-
 
 div {
   overflow: inherit;
@@ -47,3 +43,17 @@ md-sidenav.md-closed.md-locked-open-add-active {
     width: 85vw !important;
     max-width: 400px !important;
 } 
+
+@media (max-height: 838px) {
+  .mat-toolbar {
+    height: 10vh;
+  }
+}
+
+
+@media (max-width: 959px) {
+  .mat-toolbar {
+
+  }
+}
+

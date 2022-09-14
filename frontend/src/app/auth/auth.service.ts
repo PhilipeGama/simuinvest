@@ -13,8 +13,6 @@ import { User } from "src/app/models/user.model";
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
-    isAuthetication = new BehaviorSubject<boolean>(false) ;
-
 
     private tokenExpirationTimer: any;
 
@@ -32,7 +30,6 @@ export class AuthService {
         return this.afAuth
             .signInWithEmailAndPassword(email, password)
             .then((result) => {
-                this.isAuthetication.next(true);
                 this.handleAuthenticaton(result.user);
                 this.ngZone.run(() => {
                     this.router.navigate(['/']);
@@ -83,7 +80,6 @@ export class AuthService {
     }
 
     logout() {
-        this.isAuthetication.next(false);
         this.user.next(null);
         localStorage.removeItem('userAuth');
         localStorage.removeItem('userData');

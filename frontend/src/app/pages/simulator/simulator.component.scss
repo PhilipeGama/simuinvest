@@ -14,6 +14,7 @@
         width: 50%;
     }
     .amounts {
+        margin-top: 23px;
         padding-left: 30px;
         mat-form-field {
             padding-right: 20px;
@@ -37,9 +38,7 @@
     width: 90%;
 }
 
-h2 {
-    
-}
+
 
 @media only screen and (max-width: 750px) {
     .container {

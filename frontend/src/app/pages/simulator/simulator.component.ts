@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ChartBarComponent } from 'src/app/components/chart-bar/chart-bar.component';
@@ -8,6 +8,7 @@ import { IInvestData } from 'src/app/interfaces/invest-data.inteface';
 import { FixedIncomeService } from 'src/app/services/fixed-income.service';
 import { InvestReportService } from '../../services/invert-report.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,10 +17,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./simulator.component.scss'],
 })
 
-export class SimulatorComponent implements OnInit {
+export class SimulatorComponent implements OnInit, OnDestroy {
 
   @ViewChild(ChartBarComponent)
   childChart: ChartBarComponent;
+  
+  private authSub: Subscription;
 
   fixedIncomes: IFixedIncome[];
 
@@ -104,8 +107,11 @@ export class SimulatorComponent implements OnInit {
   isAuthenticated = false;
 
   ngOnInit(): void {
-    this.auth.isAuthetication.subscribe(value => {
-      this.isAuthenticated = value;
+    this.authSub = this.auth.user.subscribe(user => {
+      if(user){
+        console.log('user')
+        this.isAuthenticated = true;
+      }
     })
     this.createInvestForm()
     this.getFixedIncomens()
@@ -113,8 +119,13 @@ export class SimulatorComponent implements OnInit {
     this.loadChart()
   }
 
+  ngOnDestroy(): void {
+    this.authSub.unsubscribe();
+  }
+
   onSaveInvestReport(){
     const userId = this.auth.user.value.id;
+    console.log(userId)
 
     const today = new Date().toLocaleDateString();
     let investReport: IInvestReport = {

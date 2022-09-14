@@ -14,8 +14,10 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authSub = this.authService.isAuthetication.subscribe(value => {
-        this.isAuthenticated = value;
+    this.authSub = this.authService.user.subscribe(value => {
+      if(value) {
+        this.isAuthenticated = true;
+      }
     });
   }
 

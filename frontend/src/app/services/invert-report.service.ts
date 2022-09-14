@@ -10,20 +10,21 @@ export class InvestReportService {
 
   private dbPath = 'investment-reports';
 
-
   investReportRef: AngularFireList<IInvestReport>;
 
-  constructor(private auth: AuthService, private db: AngularFireDatabase) {
-    if(this.auth.user.value.id) {
-      this.investReportRef = this.db.list(`${this.dbPath}/${this.auth.user.value.id}`);
-    }
-  }
+  constructor(
+    private auth: AuthService,
+    private db: AngularFireDatabase
+  ) {}
 
   create(investReport: IInvestReport) {
     return this.db.list(`${this.dbPath}/${this.auth.user.value.id}`).push(investReport);
   }
 
   getInvestReportByUserId(): AngularFireList<IInvestReport> {
+    if(this.auth.user) {
+      this.investReportRef = this.db.list(`${this.dbPath}/${this.auth.user.value.id}`);
+    }
     return this.investReportRef;
   }
 
