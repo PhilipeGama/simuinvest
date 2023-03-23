@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from "src/app/models/user.model";
@@ -59,7 +59,7 @@ export class AuthService {
             userId: string;
             _token: string;
             _tokenExpirationDate: string;
-        } = JSON.parse(localStorage.getItem('userData'));
+        } = JSON.parse(localStorage.getItem('userLogged'));
 
         
         if (!userData) {
@@ -81,8 +81,7 @@ export class AuthService {
 
     logout() {
         this.user.next(null);
-        localStorage.removeItem('userAuth');
-        localStorage.removeItem('userData');
+        localStorage.removeItem('userLogged');
         if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer)
         }
@@ -104,8 +103,7 @@ export class AuthService {
         
         this.user.next(user);
         this.afAuth.updateCurrentUser(userAuth);
-        localStorage.setItem('userAuth', JSON.stringify(userAuth))
-        localStorage.setItem('userData', JSON.stringify(user))
+        localStorage.setItem('userLogged', JSON.stringify(user))
 
         this.autoLogout(expiresIn * 1000);
     }
