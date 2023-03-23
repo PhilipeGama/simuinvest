@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "config": "ts-node ./src/assets/scripts/setEnv.ts",
+    "config": "ts-node ./src/assets/scripts/set-env.ts",
     "start": "npm run config -- --environment=dev && ng serve",
     "build": "npm run config -- --environment=prod && ng build --prod",
     "watch": "ng build --watch --configuration development"
@@ -28,6 +28,7 @@
     "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.4",
     "rxjs": "~6.6.0",
+    "ts-node": "^10.9.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -35,6 +36,8 @@
     "@angular-devkit/build-angular": "~12.2.10",
     "@angular/cli": "~12.2.10",
     "@angular/compiler-cli": "~12.2.0",
-    "typescript": "~4.3.5"
+    "dotenv": "^16.0.3",
+    "typescript": "~4.3.5",
+    "yargs": "^17.7.1"
   }
 }
