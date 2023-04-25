@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/auth/auth.service";
 import { IUser } from "src/app/interfaces/user.interface";
+import { SnackMessageService } from "src/app/services/snack-message.service";
 import { UserService } from "src/app/services/user.service";
 
 
@@ -28,7 +28,7 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private _snackBar: MatSnackBar,
+    private snackMessage: SnackMessageService,
     private userService: UserService) { }
 
   ngOnInit(): void {
@@ -78,12 +78,8 @@ export class EditProfileComponent implements OnInit {
   onSubmit() {
     this.user.name = this.formEdit.value.name;
     this.user.phone = this.formEdit.value.phone;
-    this.userService.update(this.user)
-
-    this._snackBar.open("Dados alterados com sucesso!", "Fechar", {
-      horizontalPosition: 'left',
-      verticalPosition: 'bottom',
-      duration: 3 * 1000,
-    });
+    this.userService.update(this.user).then(() => {
+      this.snackMessage.handle("Dados alterados com sucesso!", "Fechar")
+    })
   }
 }

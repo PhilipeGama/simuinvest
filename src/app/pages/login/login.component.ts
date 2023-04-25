@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../models/user.model';
@@ -24,9 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   error?: string;
 
-  constructor(private authService: AuthService,
-              private router: Router,
-              private _snackBar: MatSnackBar) {}
+  constructor(private authService: AuthService) {}
   
   
   ngOnInit(): void {}

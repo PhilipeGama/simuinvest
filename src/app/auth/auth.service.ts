@@ -4,6 +4,7 @@ import { BehaviorSubject } from "rxjs";
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from "src/app/models/user.model";
+import { SnackMessageService } from "../services/snack-message.service";
 
 
 
@@ -20,6 +21,7 @@ export class AuthService {
         public afAuth: AngularFireAuth,
         private router: Router,
         private ngZone: NgZone,
+        private snackMessage: SnackMessageService,
     ) { }
 
     async getCurrentUser() {
@@ -36,6 +38,7 @@ export class AuthService {
                 });
             })
             .catch(() => {
+                this.snackMessage.handle('Login inválido')
                 this.router.navigate(['/login']);
             });
     }

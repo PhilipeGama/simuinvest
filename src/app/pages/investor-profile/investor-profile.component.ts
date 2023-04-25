@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogMaterialComponent } from 'src/app/components/dialog-investor-profile/dialog-investor-profile.component';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 import { UserService } from 'src/app/services/user.service';
 import questionsJSON from '../../_files/questions.json';
 
@@ -26,9 +26,9 @@ export class InvestorProfileComponent {
   questionNumber: number = 0;
   
   constructor (
-    private _snackBar: MatSnackBar,
     private userService: UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackMessage: SnackMessageService,
   ) {}
 
   openDialog(title: string, content: string) {
@@ -49,11 +49,7 @@ export class InvestorProfileComponent {
         this.questionNumber++;
       }
     } else {
-      this._snackBar.open("Escolha uma resposta", "Fechar", {
-        horizontalPosition: 'left',
-        verticalPosition: 'bottom',
-        duration: 3 * 1000,
-      });
+      this.snackMessage.handle("Escolha uma resposta", "Fechar")
     }
   }
 
@@ -65,7 +61,6 @@ export class InvestorProfileComponent {
 
   userProfileCalculation() {
     let answersSum = 0;
-    const id = JSON.parse(localStorage.getItem('userData')).id;
 
     let investorProfile : {
       title: string,
