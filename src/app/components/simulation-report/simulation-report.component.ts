@@ -1,4 +1,4 @@
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,7 +22,8 @@ export class SimulationReportComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   investReports: IInvestReport[] = [];
-  hasData = false;
+  isLoading: boolean = true;
+  hasData: boolean = false;
 
   constructor(private investReportService: InvestReportService, public dialog: MatDialog) { }
   ngOnInit(): void {
@@ -37,9 +38,10 @@ export class SimulationReportComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      this.investReports = []
+      this.investReports = [];
       if (data.length === 0) {
         this.hasData = false;
+        this.isLoading = false;
       } else {
         for(let d of data){
           let investReport: IInvestReport = {
@@ -57,8 +59,10 @@ export class SimulationReportComponent implements OnInit {
         setTimeout(() => {
           this.dataSource = new MatTableDataSource(this.investReports);
           this.dataSource.paginator = this.paginator;
+          this.isLoading = false;
+          this.hasData = true;
         })
-        this.hasData = true;
+
       }
 
     });
